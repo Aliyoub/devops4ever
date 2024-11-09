@@ -11,7 +11,7 @@ import { colors } from "@mui/material";
 import AccordionTemplate from "./AccordionTemplate";
 import ClusterManagementQuiz from "../revisions/cka/troubleshooting/quiz/page";
 
-const kubernetes = () => {
+const Kubernetes = () => {
   return (
       <Accordion>
         <AccordionSummary
@@ -49,4 +49,4 @@ const kubernetes = () => {
   );
 };
 
-export default kubernetes;
+export default Kubernetes;
