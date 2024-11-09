@@ -1,0 +1,16 @@
+/app/contenus/page.tsx
+/app/edit/page.tsx
+/app/contents/
+/app/tts/
+/app/users/
+/app/infos/
+/app/search/
+/app/gg-cloud-storage/
+/app/gg-text-to-speech/
+/app/ggcloudvision/
+/app/tesseract/page.tsx
+/app/tts/TextToSpeech.tsx
+/components/PlusButton.tsx
+/components/chart/_chart.js
+/components/chart/chart.js
+/components/settings/tts-settings.tsx
