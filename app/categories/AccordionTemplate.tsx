@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { Component, ComponentProps, ReactNode, useState } from "react";
 import Accordion from "@mui/material/Accordion";
@@ -45,7 +45,10 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
 
       <AccordionDetails style={{ padding: 0 }}>
         {/* <AccordionDetails style={{padding:0,margin:0,  backgroundColor: 'green', borderBottom: "0.7px solid #FCA4F0", }}> */}
-        <Accordion expanded={expanded === 'quizPanel'} onChange={handleChange('quizPanel')}>
+        <Accordion
+          expanded={expanded === "quizPanel"}
+          onChange={handleChange("quizPanel")}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
             aria-controls="quizPanel-content"
@@ -56,7 +59,10 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
           <AccordionDetails>{quiz}</AccordionDetails>
         </Accordion>
 
-        <Accordion expanded={expanded === 'questionAnswerPanel'} onChange={handleChange('questionAnswerPanel')}>
+        <Accordion
+          expanded={expanded === "questionAnswerPanel"}
+          onChange={handleChange("questionAnswerPanel")}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
             aria-controls="questionAnswerPanel-content"
@@ -67,7 +73,10 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
           <AccordionDetails>Question / Réponse Détails</AccordionDetails>
         </Accordion>
 
-        <Accordion expanded={expanded === 'readingPanel'} onChange={handleChange('readingPanel')}>
+        <Accordion
+          expanded={expanded === "readingPanel"}
+          onChange={handleChange("readingPanel")}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
             aria-controls="readingPanel-content"

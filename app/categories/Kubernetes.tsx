@@ -21,6 +21,7 @@ const Kubernetes = () => {
           style={{
             backgroundColor: "#264BC0",
             borderBottom: "0.7px solid #FCA4F0",
+            color: "#FCA4F0"
           }}
         >
           <h2>KUBERNETES</h2>
