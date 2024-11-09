@@ -1,7 +1,7 @@
 {
-    "name": "StudyFast",
-    "short_name": "StudyFast",
-    "description": "Study Fast",
+    "name": "Devops4Ever",
+    "short_name": "Devops4Ever",
+    "description": "Devops4Ever",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",

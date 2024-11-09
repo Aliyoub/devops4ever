@@ -1,4 +1,4 @@
-import React, { Component, ComponentProps, ReactNode } from "react";
+import React, { Component, ComponentProps, ReactNode, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -10,19 +10,19 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 //   quiz: ReactNode
 // }
 
-type Props ={
-    accordionSummary: string;
-    quiz: any
-  }
+type Props = {
+  accordionSummary: string;
+  quiz: any;
+};
 
-const AccordionTemplate = ({
-  accordionSummary,
-  quiz
-}: Props) => {
+const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
+  const [expanded, setExpanded] = useState(null);
 
-// const AccordionTemplate = ({
-//   accordionSummary, quiz
-// }) => {
+  // Fonction de gestion du clic
+  const handleChange = (panel: any) => (event: any, isExpanded: any) => {
+    // Si le panneau est déjà ouvert, on le ferme, sinon on l'ouvre
+    setExpanded(isExpanded ? panel : null);
+  };
   return (
     <Accordion>
       {/* <Accordion style={{width: '100%',marginBottom: "0.7px solid #FCA4F0", }}> */}
@@ -43,33 +43,33 @@ const AccordionTemplate = ({
 
       <AccordionDetails style={{ padding: 0 }}>
         {/* <AccordionDetails style={{padding:0,margin:0,  backgroundColor: 'green', borderBottom: "0.7px solid #FCA4F0", }}> */}
-        <Accordion>
+        <Accordion expanded={expanded === 'quizPanel'} onChange={handleChange('quizPanel')}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
-            aria-controls="panel2-content"
-            id="panel2-header"
+            aria-controls="quizPanel-content"
+            id="quizPanel-header"
           >
             Quiz
           </AccordionSummary>
           <AccordionDetails>{quiz}</AccordionDetails>
         </Accordion>
 
-        <Accordion>
+        <Accordion expanded={expanded === 'questionAnswerPanel'} onChange={handleChange('questionAnswerPanel')}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
-            aria-controls="panel2-content"
-            id="panel2-header"
+            aria-controls="questionAnswerPanel-content"
+            id="questionAnswerPanel-header"
           >
             Question / Réponse
           </AccordionSummary>
           <AccordionDetails>Question / Réponse Détails</AccordionDetails>
         </Accordion>
 
-        <Accordion>
+        <Accordion expanded={expanded === 'readingPanel'} onChange={handleChange('readingPanel')}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
-            aria-controls="panel2-content"
-            id="panel2-header"
+            aria-controls="readingPanel-content"
+            id="readingPanel-header"
           >
             Lecture
           </AccordionSummary>
