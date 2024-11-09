@@ -1,3 +1,5 @@
+'use client'
+
 import React, { Component, ComponentProps, ReactNode, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";
