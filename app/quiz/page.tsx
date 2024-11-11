@@ -103,8 +103,6 @@ export default function MinimalistQuizPage() {
         {currentQuestion < questions.length ? (
           <>
             <QuestionText variant="h6">{questions[currentQuestion].question}</QuestionText>
-            {/* <QuestionText style={{width: '100%', paddingLeft: 10}} variant="h6">{questions[currentQuestion].question}</QuestionText> */}
-            {/* <FormControl component="fieldset"> */}
             <FormControl style={{width: '100%',}} component="fieldset">
               <RadioGroup value={selectedOptions[currentQuestion]} onChange={handleOptionChange}>
                 {questions[currentQuestion].options.map((option, index) => (
