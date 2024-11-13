@@ -4,6 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import SettingsIcon from '@mui/icons-material/Settings';
+import InfoIcon from '@mui/icons-material/Info';
+import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
+
+
 import QuizIcon from "@mui/icons-material/Quiz";
 import HeadsetIcon from "@mui/icons-material/Headset";
 import HomeIcon from "@mui/icons-material/Home";
@@ -48,17 +53,17 @@ const BottomNavigation = () => {
         }}
         className="nav-item"
       >
-        <HeadsetIcon style={{ width: 15 }} />
+        <InfoIcon style={{ width: 15 }} />
         <span
           style={{
             color: `${pathname === "/contenus" ? "#8B01F6" : "#fff"}`,
             fontSize: 11,
           }}
           onClick={() => {
-            dispatch(controlState("contenus"));
+            // dispatch(controlState("contenus"));
           }}
         >
-          Ecouter
+          Infos
         </span>
       </div>
 
@@ -69,7 +74,8 @@ const BottomNavigation = () => {
         }}
         className="nav-item"
       >
-        <SupervisorAccountIcon style={{ fontSize: 15 }} />
+        <QuizIcon style={{ fontSize: 15 }} />
+        {/* <SupervisorAccountIcon style={{ fontSize: 15 }} /> */}
 
         <span
           style={{
@@ -78,7 +84,25 @@ const BottomNavigation = () => {
           }}
           onClick={() => router.push("/categories")}
         >
-          Matières
+          Quiz
+        </span>
+      </div>
+      <div
+        style={{
+          color: `${pathname === "/categories" ? "#8B01F6" : "#fff"}`,
+          fontSize: 11,
+        }}
+        className="nav-item"
+      >
+        <SettingsIcon style={{ fontSize: 15 }} />
+        <span
+          style={{
+            color: `${pathname === "/categories" ? "#8B01F6" : "#fff"}`,
+            fontSize: 11,
+          }}
+          onClick={() => router.push("/categories")}
+        >
+          Paramètres
         </span>
       </div>
     </div>
