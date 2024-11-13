@@ -57,6 +57,8 @@
     "react-router-dom": "^6.26.1",
     "react-select": "^5.8.0",
     "react-use": "^17.5.1",
+    "recharts": "^2.13.3",
+    "styled-components": "^6.1.13",
     "tesseract.js": "^5.1.1",
     "util": "^0.12.5"
   },

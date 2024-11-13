@@ -12,11 +12,12 @@ import {
   Container,
 } from "@mui/material";
 import { styled } from "@mui/system";
+import { questions } from "./questions";
 
 // Arrière-plan avec dégradé léger et uniforme
 const GradientBackground = styled(Box)({
-  minHeight: "100vh",
-  background: "linear-gradient(135deg, #3B8FEF, #FCA4F0)",
+  //   minHeight: "100vh",
+  //   background: "linear-gradient(135deg, #3B8FEF, #FCA4F0)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -31,9 +32,35 @@ const QuizContainer = styled(Box)({
   backgroundColor: "#ffffff",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   textAlign: "center",
+  margin: "27px",
 });
 
 const QuestionText = styled(Typography)({
+  fontSize: "1.1rem",
+  fontWeight: 500,
+  color: "#FCA4F0",
+  border: "0.5px solid #FCA4F0",
+  backgroundColor: "#3B8FEF",
+  padding: 3,
+});
+const GivenAnswers = styled(Typography)({
+  fontSize: "1.1rem",
+  fontWeight: 500,
+  color: "#FFFFFF",
+  border: "0.5px solid #FCA4F0",
+  backgroundColor: "#3B8FEF",
+  padding: 3,
+});
+const CorrectAnswers = styled(Typography)({
+  fontSize: "1.1rem",
+  fontWeight: 500,
+  color: "#FFFFFF",
+  border: "0.5px solid #FCA4F0",
+  backgroundColor: "#3B8FEF",
+  padding: 3,
+});
+
+const CorrectAnswersTitle  = styled(Typography)({
   fontSize: "1.1rem",
   fontWeight: 500,
   color: "#FCA4F0",
@@ -42,160 +69,31 @@ const QuestionText = styled(Typography)({
   padding: 3,
 });
 
-// const QuizSubContainer = styled(Typography)({
-//   width: '100%',
-//   backgroundColor: 'red',
-//   color: '#FFFFFF'
-// });
+const IncorrectAnswersTitle  = styled(Typography)({
+  fontSize: "1.1rem",
+  fontWeight: 500,
+  color: "#FCA4F0",
+  border: "0.5px solid #FCA4F0",
+  backgroundColor: "#264BC0",
+  padding: 3,
+});
+
+const UnansweredQuestionsTitle  = styled(Typography)({
+  fontSize: "1.1rem",
+  fontWeight: 500,
+  color: "#FCA4F0",
+  border: "0.5px solid #FCA4F0",
+  backgroundColor: "#264BC0",
+  padding: 3,
+});
 
 export default function MinimalistQuizPage() {
-  const questions = useMemo(
-    () => [
-      {
-        question: "Qu'est-ce que le DevOps ?",
-        options: [
-          "Un langage de programmation",
-          "Un processus de développement et d’exploitation",
-          "Un outil de gestion de versions",
-          "Une base de données",
-        ],
-        answer: 1,
-      },
-      {
-        question: "Quel est l’objectif principal de CI/CD ?",
-        options: [
-          "Créer des applications mobiles",
-          "Automatiser le déploiement",
-          "Développer en local",
-          "Gestion de base de données",
-        ],
-        answer: 1,
-      },
-      {
-        question: 'Que signifie "Infrastructure as Code" (IaC) ?',
-        options: [
-          "Configurer le matériel manuellement",
-          "Gérer l’infrastructure via du code",
-          "Coder des applications infrastructurelles",
-          "Une méthode de déploiement CI/CD",
-        ],
-        answer: 1,
-      },
-      {
-        question:
-          "Quel outil est couramment utilisé pour l'automatisation de l'infrastructure dans DevOps ?",
-        options: ["Jenkins", "Ansible", "Docker", "Kubernetes"],
-        answer: 1,
-      },
-      {
-        question: "Docker est utilisé pour...",
-        options: [
-          "Automatiser les tests",
-          "Orchestrer des containers",
-          "Créer des containers",
-          "Déployer des applications sur le cloud",
-        ],
-        answer: 2,
-      },
-      {
-        question: "Quel est le rôle de Kubernetes ?",
-        options: [
-          "Automatiser le déploiement de logiciels",
-          "Gérer et orchestrer des containers",
-          "Surveiller le code",
-          "Créer des bases de données",
-        ],
-        answer: 1,
-      },
-      // {
-      //   question: "Quelle est une pratique clé de DevOps ?",
-      //   options: [
-      //     "Déploiement en continu",
-      //     "Codage en continu",
-      //     "Mise à jour en continu",
-      //     "Analyse en continu",
-      //   ],
-      //   answer: 0,
-      // },
-      // {
-      //   question: "Quel est le principal avantage du déploiement en continu ?",
-      //   options: [
-      //     "Réduire les erreurs humaines",
-      //     "Déployer des applications plus rapidement",
-      //     "Faciliter le développement en local",
-      //     "Améliorer la gestion de bases de données",
-      //   ],
-      //   answer: 1,
-      // },
-      // {
-      //   question: "Git est principalement utilisé pour...",
-      //   options: [
-      //     "Suivre les modifications du code",
-      //     "Orchestrer des conteneurs",
-      //     "Déployer des applications",
-      //     "Automatiser l’infrastructure",
-      //   ],
-      //   answer: 0,
-      // },
-      // {
-      //   question: 'Que signifie "rollback" dans un pipeline de déploiement ?',
-      //   options: [
-      //     "Mettre à jour une application",
-      //     "Revenir à une version précédente",
-      //     "Archiver une version",
-      //     "Déployer une application sur un autre serveur",
-      //   ],
-      //   answer: 1,
-      // },
-      // {
-      //   question:
-      //     "Quel service cloud est le plus populaire pour les applications DevOps ?",
-      //   options: ["Google Cloud", "AWS", "Azure", "DigitalOcean"],
-      //   answer: 1,
-      // },
-      // {
-      //   question: 'Quel est l\'objectif du "monitoring" dans DevOps ?',
-      //   options: [
-      //     "Déployer plus rapidement",
-      //     "Surveiller la santé et les performances du système",
-      //     "Gérer les versions de code",
-      //     "Automatiser les tâches de développement",
-      //   ],
-      //   answer: 1,
-      // },
-      // {
-      //   question: "Terraform est utilisé pour...",
-      //   options: [
-      //     "La gestion de versions",
-      //     "Le suivi de performance",
-      //     "La gestion d’infrastructure en tant que code",
-      //     "La création d’images de conteneurs",
-      //   ],
-      //   answer: 2,
-      // },
-      // {
-      //   question: "Quel est le rôle de Jenkins dans DevOps ?",
-      //   options: [
-      //     "Automatiser les tests unitaires",
-      //     "Surveiller l'infrastructure",
-      //     "Orchestrer des conteneurs",
-      //     "Automatiser le pipeline de CI/CD",
-      //   ],
-      //   answer: 3,
-      // },
-      // {
-      //   question:
-      //     "Quelle commande Git est utilisée pour fusionner des branches ?",
-      //   options: ["git commit", "git clone", "git merge", "git pull"],
-      //   answer: 2,
-      // },
-    ],
-    []
-  );
+  const sizeOfarrayDesired = 5;
+  const myQuestions = useMemo(() => questions.slice(1, sizeOfarrayDesired + 1), []);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState(
-    Array(questions.length).fill(null)
+    Array(myQuestions.length).fill(null)
   );
   const [score, setScore] = useState(0);
 
@@ -210,7 +108,7 @@ export default function MinimalistQuizPage() {
   // if the answer is correct
   const handleNextQuestion = () => {
     if (
-      selectedOptions[currentQuestion] === questions[currentQuestion].answer
+      selectedOptions[currentQuestion] === myQuestions[currentQuestion].answer
     ) {
       setScore(score + 1);
     }
@@ -230,12 +128,12 @@ export default function MinimalistQuizPage() {
     selectedOptions.forEach((selected, index) => {
       if (selected === null) {
         unansweredQuestions += 1;
-      } else if (selected === questions[index].answer) {
+      } else if (selected === myQuestions[index].answer) {
         correctAnswers += 1;
-        console.log("questions[index].answer", questions[index].answer);
-        console.log("questions[index].answer", questions[index]);
+        console.log("myQuestions[index].answer", myQuestions[index].answer);
+        console.log("myQuestions[index].answer", myQuestions[index]);
       } else {
-        incorrectAnswers.push(questions[index]);
+        incorrectAnswers.push(myQuestions[index]);
       }
     });
     setIncorrectAnswersList(incorrectAnswers);
@@ -243,24 +141,24 @@ export default function MinimalistQuizPage() {
     // setScore(correctAnswers)
     // return { correctAnswers, incorrectAnswers, unansweredQuestions };
     //   }
-  }, [selectedOptions, questions]);
+  }, [selectedOptions, myQuestions]);
 
   //   const _score =  useMemo(() => calculateScore(),[]);
   //   const _score = calculateScore();
   return (
     <GradientBackground>
       <QuizContainer>
-        {currentQuestion < questions.length ? (
+        {currentQuestion < myQuestions.length ? (
           <>
             <QuestionText variant="h6">
-              {questions[currentQuestion].question}
+              {myQuestions[currentQuestion].question}
             </QuestionText>
             <FormControl style={{ width: "100%" }} component="fieldset">
               <RadioGroup
                 value={selectedOptions[currentQuestion]}
                 onChange={handleOptionChange}
               >
-                {questions[currentQuestion].options.map((option, index) => (
+                {myQuestions[currentQuestion].options.map((option, index) => (
                   <FormControlLabel
                     key={index}
                     value={index}
@@ -316,7 +214,7 @@ export default function MinimalistQuizPage() {
                   "&:hover": { backgroundColor: "#3B8FEF" },
                 }}
               >
-                {currentQuestion < questions.length - 1
+                {currentQuestion < myQuestions.length - 1
                   ? "Suivant"
                   : "Voir le score"}
               </Button>
@@ -330,35 +228,35 @@ export default function MinimalistQuizPage() {
             >
               Quiz Terminé !
             </Typography>
-            <Typography variant="h6" sx={{ color: "#333", mt: 2 }}>
-              Réponses correctes : {score} / {questions.length}
-              {/* Réponses correctes : {_score.correctAnswers} / {questions.length} */}
-            </Typography>
-              <Typography variant="h6" sx={{ color: "#333", mt: 2 }}>
-                Réponses incorrectes : {incorrectAnswersList.length} /{" "}
-                {questions.length}
-              </Typography>
+            <CorrectAnswersTitle>
+              Réponses correctes : {score} / {myQuestions.length}
+              {/* Réponses correctes : {_score.correctAnswers} / {myQuestions.length} */}
+            </CorrectAnswersTitle>
+            <IncorrectAnswersTitle>
+              Réponses incorrectes : {incorrectAnswersList.length} /{" "}
+              {myQuestions.length}
+            </IncorrectAnswersTitle>
             <Typography
               variant="h6"
               sx={{ color: "#333", textAlign: "justify", mt: 1 }}
             >
               {incorrectAnswersList.map((element: any, index: number) => (
-                <>
-                  <Typography key={index}>
+                <Typography key={index}>
+                  <QuestionText>
                     Question : {element.question}
-                  </Typography>
-                  <Typography key={index}>
+                  </QuestionText>
+                  <GivenAnswers>
                     Réponse donnée : {element.options[index]}
-                  </Typography>
-                  <Typography key={index}>
+                  </GivenAnswers>
+                  <CorrectAnswers>
                     Bonne Réponse : {element.options[element.answer]}
-                  </Typography>
-                </>
+                  </CorrectAnswers>
+                </Typography>
               ))}
             </Typography>
-            <Typography variant="h6" sx={{ color: "#333", mt: 1 }}>
+            <UnansweredQuestionsTitle>
               Questions non répondues : {unansweredQuestionsList}
-            </Typography>
+            </UnansweredQuestionsTitle>
           </Box>
         )}
       </QuizContainer>
