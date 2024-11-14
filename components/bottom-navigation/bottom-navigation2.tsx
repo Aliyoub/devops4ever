@@ -69,7 +69,7 @@ const BottomNavigation = () => {
 
       <div
         style={{
-          color: `${pathname === "/categories" ? "#8B01F6" : "#fff"}`,
+          color: `${pathname === "/quiz" ? "#8B01F6" : "#fff"}`,
           fontSize: 11,
         }}
         className="nav-item"
@@ -79,10 +79,10 @@ const BottomNavigation = () => {
 
         <span
           style={{
-            color: `${pathname === "/categories" ? "#8B01F6" : "#fff"}`,
+            color: `${pathname === "/quiz" ? "#8B01F6" : "#fff"}`,
             fontSize: 11,
           }}
-          onClick={() => router.push("/categories")}
+          onClick={() => router.push("/quiz")}
         >
           Quiz
         </span>
