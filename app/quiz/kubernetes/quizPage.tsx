@@ -56,6 +56,8 @@ const QuizContainer = styled(Box)({
   marginBottom: "10px",
   lineHeight: 1.2,
   letterSpacing: 0.4,
+  wordSpacing: "0.005em",
+  textAlignLast: "left",
   textAlign: "justify",
   fontWeight: "510",
 });
@@ -68,6 +70,8 @@ const QuestionText = styled(Typography)({
   padding: 7,
   lineHeight: 1.2,
   letterSpacing: 0.4,
+  wordSpacing: "0.005em",
+  textAlignLast: "left",
   textAlign: "justify",
   fontWeight: "510",
 });
@@ -80,6 +84,8 @@ const GivenAnswers = styled(Typography)({
   padding: 7,
   lineHeight: 1.2,
   letterSpacing: 0.4,
+  wordSpacing: "0.005em",
+  textAlignLast: "left",
   textAlign: "justify",
   fontWeight: "510",
 });
@@ -92,7 +98,9 @@ const CorrectAnswers = styled(Typography)({
   padding: 7,
   lineHeight: 1.4,
   letterSpacing: 0.4,
-  wordSpacing: 1,
+  wordSpacing: "0.005em",
+  textAlignLast: "left",
+  // wordSpacing: 1,
   textAlign: "justify",
   fontWeight: "510",
 });
@@ -106,6 +114,8 @@ const CorrectAnswersTitle = styled(Typography)({
   padding: 3,
   lineHeight: 1.2,
   letterSpacing: 0.4,
+  wordSpacing: "0.005em",
+  textAlignLast: "left",
   textAlign: "justify",
   fontWeight: "510",
 });
@@ -119,6 +129,8 @@ const IncorrectAnswersTitle = styled(Typography)({
   padding: 3,
   lineHeight: 1.2,
   letterSpacing: 0.4,
+  wordSpacing: "0.005em",
+  textAlignLast: "left",
   textAlign: "justify",
   fontWeight: "510",
 });
@@ -132,6 +144,8 @@ const UnansweredQuestionsTitle = styled(Typography)({
   padding: 7,
   lineHeight: 1.2,
   letterSpacing: 0.4,
+  wordSpacing: "0.005em",
+  textAlignLast: "left",
   textAlign: "justify",
   fontWeight: "510",
 });
@@ -150,7 +164,9 @@ export default function QuizPage() {
   const [incorrectAnswersList, setIncorrectAnswersList] = useState<object[]>(
     []
   );
-  const [unansweredQuestionsList, setUnansweredQuestionsList] = useState<object[]>([]);
+  const [unansweredQuestionsList, setUnansweredQuestionsList] = useState<
+    object[]
+  >([]);
   // const [incorrectAnswersList, setIncorrectAnswersList] = useState([]);
   // const [unansweredQuestionsList, setUnansweredQuestionsList] = useState([]);
 
@@ -313,7 +329,6 @@ export default function QuizPage() {
                   </GivenAnswers>
                   <CorrectAnswers>
                     Bonne Réponse : {element.options[element.answer]}
-                    Explication : {element.explanation}
                   </CorrectAnswers>
                   <CorrectAnswers>
                     Explication : {element.explanation}
