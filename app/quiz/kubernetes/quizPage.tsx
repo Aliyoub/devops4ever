@@ -27,7 +27,7 @@ const roboto = Roboto({
 });
 
 const CustomRadio = styled(Radio)(({ theme }) => ({
-  '& .MuiSvgIcon-root': {
+  "& .MuiSvgIcon-root": {
     fontSize: 20, // Taille personnalisée
   },
 
@@ -138,26 +138,28 @@ const UnansweredQuestionsTitle = styled(Typography)({
 
 export default function QuizPage() {
   const sizeOfarrayDesired = 1;
-  const myQuestions = useMemo(
-    () => questions.slice(0, sizeOfarrayDesired),
-    []
-  );
+  const myQuestions = useMemo(() => questions.slice(0, sizeOfarrayDesired), []);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  // const [selectedOptions, setSelectedOptions] = useState<any[]>(myQuestions);
-  const [selectedOptions, setSelectedOptions] = useState(
-    Array(myQuestions.length).fill(null)
-  );
+  const [selectedOptions, setSelectedOptions] = useState<any[]>(myQuestions);
+  // const [selectedOptions, setSelectedOptions] = useState(
+  //   Array(myQuestions.length).fill(null)
+  // );
   const [score, setScore] = useState(0);
 
-  const [incorrectAnswersList, setIncorrectAnswersList] = useState<string[]>([]);
-  const [unansweredQuestionsList, setUnansweredQuestionsList] = useState<string[]>([]);
+  const [incorrectAnswersList, setIncorrectAnswersList] = useState<object[]>(
+    []
+  );
+  const [unansweredQuestionsList, setUnansweredQuestionsList] = useState<object[]>([]);
   // const [incorrectAnswersList, setIncorrectAnswersList] = useState([]);
   // const [unansweredQuestionsList, setUnansweredQuestionsList] = useState([]);
 
   const handleOptionChange = (event: any) => {
     const updatedOptions = [...selectedOptions];
+    // currentQuestion est l'index de la question en cours
+    //parseInt(event.target.value, 10) est l'index de la dernière réponse
     updatedOptions[currentQuestion] = parseInt(event.target.value, 10);
+    // selectedOptions est le tableau contenant les index de toutes les réponses
     setSelectedOptions(updatedOptions);
   };
   // if the answer is correct
@@ -189,8 +191,6 @@ export default function QuizPage() {
         ...prev,
         myQuestions[currentQuestion],
       ]);
-      // const unansweredQuestions = [...unansweredQuestionsList];
-      // setUnansweredQuestionsList(unansweredQuestions);
     }
 
     setCurrentQuestion(currentQuestion + 1);
@@ -200,32 +200,6 @@ export default function QuizPage() {
     setCurrentQuestion(currentQuestion - 1);
   };
 
-  // useEffect(() => {
-  //   //   const calculateScore = () => {
-  //   let correctAnswers = 0;
-  //   let incorrectAnswers: any = [];
-  //   let unansweredQuestions = 0;
-
-  //   selectedOptions.forEach((selected, index) => {
-  //     console.log("selected", selected);
-  //     if (selected === null) {
-  //       unansweredQuestions += 1;
-  //     } else if (selected === myQuestions[currentQuestion].answer) {
-  //       // } else if (selected === myQuestions[index].answer) {
-  //       correctAnswers += 1;
-  //       console.log("myQuestions[index].answer", myQuestions[index].answer);
-  //       console.log("myQuestions[index].answer", myQuestions[index]);
-  //     } else {
-  //       incorrectAnswers.push(myQuestions[index]);
-  //     }
-  //   });
-  //   setIncorrectAnswersList(incorrectAnswers);
-  //   setUnansweredQuestionsList(unansweredQuestions);
-
-  // }, [selectedOptions, myQuestions]);
-
-  //   const _score =  useMemo(() => calculateScore(),[]);
-  //   const _score = calculateScore();
   return (
     <GradientBackground>
       <QuizContainer>
@@ -311,7 +285,7 @@ export default function QuizPage() {
           <Box>
             <Typography
               variant="h4"
-              sx={{ color: "#3B8FEF", fontWeight: "bold", }}
+              sx={{ color: "#3B8FEF", fontWeight: "bold" }}
             >
               Quiz Terminé !
             </Typography>
@@ -333,8 +307,10 @@ export default function QuizPage() {
                   <GivenAnswers>
                     {console.log("element.selectedOptions", selectedOptions)}
                     {/* question_id : {element.question_id }{"\n"} */}
-                    Réponse donnée: {Object.keys(element.options)[selectedOptions]}{") "}
-                    {Object.values(element.options)[selectedOptions] }
+                    Réponse donnée:{" "}
+                    {Object.keys(element.options)[selectedOptions]}
+                    {") "}
+                    {Object.values(element.options)[selectedOptions]}
                     {/* {"\nokok :"} {element.options[Object.keys(element.options)[selectedOptions]] } */}
                     {/* Réponse donnée : {element.options[selectedOptions[element.question_id]] } */}
                     {/* Réponse donnée : {selectedOptions[element.question_id]} */}
