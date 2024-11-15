@@ -305,17 +305,11 @@ export default function QuizPage() {
                 <Typography key={index}>
                   <QuestionText>Question : {element.question}</QuestionText>
                   <GivenAnswers>
-                    {console.log("element.selectedOptions", selectedOptions)}
                     {/* question_id : {element.question_id }{"\n"} */}
                     Réponse donnée:{" "}
-                    {Object.keys(element.options)[selectedOptions]}
+                    {Object.keys(element.options)[Number(selectedOptions)]}
                     {") "}
-                    {Object.values(element.options)[selectedOptions]}
-                    {/* {"\nokok :"} {element.options[Object.keys(element.options)[selectedOptions]] } */}
-                    {/* Réponse donnée : {element.options[selectedOptions[element.question_id]] } */}
-                    {/* Réponse donnée : {selectedOptions[element.question_id]} */}
-                    {/* Réponse donnée : {element.options[selectedOptions[index]]} */}
-                    {/* Réponse donnée : {element.options[index]} */}
+                    {Object.values(element.options)[Number(selectedOptions)]}
                   </GivenAnswers>
                   <CorrectAnswers>
                     Bonne Réponse : {element.options[element.answer]}
