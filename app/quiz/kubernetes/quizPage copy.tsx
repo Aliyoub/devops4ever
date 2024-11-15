@@ -12,7 +12,7 @@ import {
   Container,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import { questions } from "./questions";
+import { questions } from "./questionServices";
 
 // Arrière-plan avec dégradé léger et uniforme
 const GradientBackground = styled(Box)({
@@ -27,12 +27,12 @@ const GradientBackground = styled(Box)({
 const QuizContainer = styled(Box)({
   //   maxWidth: '480px',
   width: "100%",
-  padding: "24px",
-  borderRadius: "12px",
+  padding: "10px",
+  borderRadius: "10px",
   backgroundColor: "#ffffff",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   textAlign: "center",
-  margin: "27px",
+  marginBottom: "10px",
 });
 
 const QuestionText = styled(Typography)({
@@ -60,7 +60,7 @@ const CorrectAnswers = styled(Typography)({
   padding: 3,
 });
 
-const CorrectAnswersTitle  = styled(Typography)({
+const CorrectAnswersTitle = styled(Typography)({
   fontSize: "1.1rem",
   fontWeight: 500,
   color: "#FCA4F0",
@@ -69,7 +69,7 @@ const CorrectAnswersTitle  = styled(Typography)({
   padding: 3,
 });
 
-const IncorrectAnswersTitle  = styled(Typography)({
+const IncorrectAnswersTitle = styled(Typography)({
   fontSize: "1.1rem",
   fontWeight: 500,
   color: "#FCA4F0",
@@ -78,7 +78,7 @@ const IncorrectAnswersTitle  = styled(Typography)({
   padding: 3,
 });
 
-const UnansweredQuestionsTitle  = styled(Typography)({
+const UnansweredQuestionsTitle = styled(Typography)({
   fontSize: "1.1rem",
   fontWeight: 500,
   color: "#FCA4F0",
@@ -87,9 +87,14 @@ const UnansweredQuestionsTitle  = styled(Typography)({
   padding: 3,
 });
 
-export default function MinimalistQuizPage() {
-  const sizeOfarrayDesired = 5;
-  const myQuestions = useMemo(() => questions.slice(1, sizeOfarrayDesired + 1), []);
+export default function QuizPage() {
+  // Pour paramétrer la taille du questionnaire à traiter
+  const sizeOfarrayDesired = 1;
+  // useMemo => pour ne pas que le tableau soit chargé à chaque fois
+  const myQuestions = useMemo(
+    () => questions.slice(1, sizeOfarrayDesired + 1),
+    []
+  );
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState(
@@ -100,15 +105,27 @@ export default function MinimalistQuizPage() {
   const [incorrectAnswersList, setIncorrectAnswersList] = useState([]);
   const [unansweredQuestionsList, setUnansweredQuestionsList] = useState(0);
 
+  const aaa = Object.values(myQuestions[currentQuestion].options);
+
   const handleOptionChange = (event: any) => {
     const updatedOptions = [...selectedOptions];
+    // currentQuestion est l'index de la question en cours
+    //parseInt(event.target.value, 10) est l'index de la dernière réponse
     updatedOptions[currentQuestion] = parseInt(event.target.value, 10);
+    // selectedOptions est le tableau contenant les index de toutes les réponses
     setSelectedOptions(updatedOptions);
   };
   // if the answer is correct
   const handleNextQuestion = () => {
+    console.log(
+      "myQuestions[currentQuestion].options",
+      Object.keys(myQuestions[currentQuestion].options)
+    );
     if (
-      selectedOptions[currentQuestion] === myQuestions[currentQuestion].answer
+      Object.keys(myQuestions[currentQuestion].options)[
+        selectedOptions[currentQuestion]
+      ] === myQuestions[currentQuestion].answer
+      // selectedOptions[currentQuestion] === myQuestions[currentQuestion].answer
     ) {
       setScore(score + 1);
     }
@@ -145,6 +162,7 @@ export default function MinimalistQuizPage() {
 
   //   const _score =  useMemo(() => calculateScore(),[]);
   //   const _score = calculateScore();
+
   return (
     <GradientBackground>
       <QuizContainer>
@@ -158,7 +176,8 @@ export default function MinimalistQuizPage() {
                 value={selectedOptions[currentQuestion]}
                 onChange={handleOptionChange}
               >
-                {myQuestions[currentQuestion].options.map((option, index) => (
+                {aaa.map((option: any, index: number) => (
+                  // {myQuestions[currentQuestion].options.map((option, index) => (
                   <FormControlLabel
                     key={index}
                     value={index}
@@ -242,9 +261,7 @@ export default function MinimalistQuizPage() {
             >
               {incorrectAnswersList.map((element: any, index: number) => (
                 <Typography key={index}>
-                  <QuestionText>
-                    Question : {element.question}
-                  </QuestionText>
+                  <QuestionText>Question : {element.question}</QuestionText>
                   <GivenAnswers>
                     Réponse donnée : {element.options[index]}
                   </GivenAnswers>

@@ -12,7 +12,7 @@ import AccordionTemplate from "./AccordionTemplate";
 // import ClusterManagementQuiz from "./cka/troubleshooting/ClusterManagementQuiz";
 // import ClusterManagementQuiz from "../../../cka/troubleshooting/quiz/page";
 import ClusterManagementQuiz from "../../revisions/cka/troubleshooting/quiz/page";
-import MinimalistQuizPage from "./page";
+import QuizPage from "./quizPage";
 
 
 const Kubernetes = () => {
@@ -34,7 +34,7 @@ const Kubernetes = () => {
 
         <AccordionTemplate
           accordionSummary="DEPANNAGE"
-          quiz={<MinimalistQuizPage />}
+          quiz={<QuizPage />}
         />
 
 

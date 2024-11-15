@@ -12,7 +12,7 @@ import {
   Container,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import { questions } from "./questions";
+import { questions } from "./questionServices";
 
 // Arrière-plan avec dégradé léger et uniforme
 const GradientBackground = styled(Box)({
@@ -27,12 +27,12 @@ const GradientBackground = styled(Box)({
 const QuizContainer = styled(Box)({
   //   maxWidth: '480px',
   width: "100%",
-  padding: "24px",
-  borderRadius: "12px",
+  padding: "10px",
+  borderRadius: "10px",
   backgroundColor: "#ffffff",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   textAlign: "center",
-  margin: "27px",
+  marginBottom: "10px",
 });
 
 const QuestionText = styled(Typography)({
@@ -60,7 +60,7 @@ const CorrectAnswers = styled(Typography)({
   padding: 3,
 });
 
-const CorrectAnswersTitle  = styled(Typography)({
+const CorrectAnswersTitle = styled(Typography)({
   fontSize: "1.1rem",
   fontWeight: 500,
   color: "#FCA4F0",
@@ -69,7 +69,7 @@ const CorrectAnswersTitle  = styled(Typography)({
   padding: 3,
 });
 
-const IncorrectAnswersTitle  = styled(Typography)({
+const IncorrectAnswersTitle = styled(Typography)({
   fontSize: "1.1rem",
   fontWeight: 500,
   color: "#FCA4F0",
@@ -78,7 +78,7 @@ const IncorrectAnswersTitle  = styled(Typography)({
   padding: 3,
 });
 
-const UnansweredQuestionsTitle  = styled(Typography)({
+const UnansweredQuestionsTitle = styled(Typography)({
   fontSize: "1.1rem",
   fontWeight: 500,
   color: "#FCA4F0",
@@ -87,9 +87,12 @@ const UnansweredQuestionsTitle  = styled(Typography)({
   padding: 3,
 });
 
-export default function MinimalistQuizPage() {
+export default function QuizPage() {
   const sizeOfarrayDesired = 5;
-  const myQuestions = useMemo(() => questions.slice(1, sizeOfarrayDesired + 1), []);
+  const myQuestions = useMemo(
+    () => questions.slice(1, sizeOfarrayDesired + 1),
+    []
+  );
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState(
@@ -108,7 +111,11 @@ export default function MinimalistQuizPage() {
   // if the answer is correct
   const handleNextQuestion = () => {
     if (
-      selectedOptions[currentQuestion] === myQuestions[currentQuestion].answer
+      // selectedOptions[currentQuestion] === myQuestions[currentQuestion].answer
+      Object.keys(myQuestions[currentQuestion]["options"])[
+        selectedOptions[currentQuestion]
+      ] === myQuestions[currentQuestion].answer
+      // selectedOptions[currentQuestion] === myQuestions[currentQuestion].answer
     ) {
       setScore(score + 1);
     }
@@ -126,9 +133,11 @@ export default function MinimalistQuizPage() {
     let unansweredQuestions = 0;
 
     selectedOptions.forEach((selected, index) => {
+      console.log("selected", selected);
       if (selected === null) {
         unansweredQuestions += 1;
-      } else if (selected === myQuestions[index].answer) {
+      } else if (selected === myQuestions[currentQuestion].answer) {
+        // } else if (selected === myQuestions[index].answer) {
         correctAnswers += 1;
         console.log("myQuestions[index].answer", myQuestions[index].answer);
         console.log("myQuestions[index].answer", myQuestions[index]);
@@ -158,32 +167,35 @@ export default function MinimalistQuizPage() {
                 value={selectedOptions[currentQuestion]}
                 onChange={handleOptionChange}
               >
-                {myQuestions[currentQuestion].options.map((option, index) => (
-                  <FormControlLabel
-                    key={index}
-                    value={index}
-                    control={
-                      <Radio
-                        sx={{
-                          color: "#3B8FEF",
-                          "&.Mui-checked": { color: "#FCA4F0" },
-                        }}
-                      />
-                    }
-                    label={
-                      <Typography sx={{ color: "#FFFFFF", fontSize: "1rem" }}>
-                        {option}
-                      </Typography>
-                    }
-                    style={{
-                      backgroundColor: "#264BC0",
-                      borderBottom: "0.5px solid #FCA4F0",
-                      padding: 0,
-                      margin: 0,
-                      width: "100%",
-                    }}
-                  />
-                ))}
+                {Object.values(myQuestions[currentQuestion]["options"]).map(
+                  (option, index) => (
+                    // {myQuestions[currentQuestion].options.map((option, index) => (
+                    <FormControlLabel
+                      key={index}
+                      value={index}
+                      control={
+                        <Radio
+                          sx={{
+                            color: "#3B8FEF",
+                            "&.Mui-checked": { color: "#FCA4F0" },
+                          }}
+                        />
+                      }
+                      label={
+                        <Typography sx={{ color: "#FFFFFF", fontSize: "1rem" }}>
+                          {option}
+                        </Typography>
+                      }
+                      style={{
+                        backgroundColor: "#264BC0",
+                        borderBottom: "0.5px solid #FCA4F0",
+                        padding: 0,
+                        margin: 0,
+                        width: "100%",
+                      }}
+                    />
+                  )
+                )}
               </RadioGroup>
             </FormControl>
             <Box display="flex" justifyContent="space-between" mt={3}>
@@ -242,9 +254,7 @@ export default function MinimalistQuizPage() {
             >
               {incorrectAnswersList.map((element: any, index: number) => (
                 <Typography key={index}>
-                  <QuestionText>
-                    Question : {element.question}
-                  </QuestionText>
+                  <QuestionText>Question : {element.question}</QuestionText>
                   <GivenAnswers>
                     Réponse donnée : {element.options[index]}
                   </GivenAnswers>

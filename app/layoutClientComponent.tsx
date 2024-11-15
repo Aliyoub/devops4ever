@@ -16,31 +16,12 @@ import BottomControl from "../components/bottom-navigation/bottom-control";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Bottom from "@/components/bottom-navigation/bottom";
 
-// import { AcUnit } from '@mui/icons-material';
-const inter = Inter({ subsets: ["latin"] });
-
-const montserrat = Montserrat({
-  weight: "400",
-  subsets: ["latin"],
+const roboto = Roboto({
+  subsets: ['latin'], // Charge le sous-ensemble latin uniquement
+  weight: ['400', '700'], // Charge les poids 400 et 700
+  style: ['normal', 'italic'], // Charge les styles normal et italique
+  display: 'swap', // Paramètre pour l'optimisation du chargement
 });
-
-const montserrat_bold = Montserrat({
-  weight: "700",
-  subsets: ["latin"],
-});
-
-// export const metadata: Metadata = {
-// title: "Study Fast",
-// description: "Study Fast",
-// metadataBase: new URL('https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css'),
-// alternates: {
-//   canonical: '/',
-// },
-// };
-
-// export const metadata = {
-//   manifest: '/manifest.json'
-// }
 
 interface LayoutProps {
   children: ReactNode;
@@ -49,8 +30,7 @@ interface LayoutProps {
 const LayoutClientComponent = ({ children }: LayoutProps) => {
   return (
     <html lang="fr">
-      <body className={montserrat.className}>
-        {/* <body className={inter.className}> */}
+      <body className={roboto.className}>
         {/* <Header /> */}
         <main>
           <Provider store={store}>
