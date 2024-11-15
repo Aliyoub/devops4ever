@@ -150,8 +150,10 @@ export default function QuizPage() {
   );
   const [score, setScore] = useState(0);
 
-  const [incorrectAnswersList, setIncorrectAnswersList] = useState([]);
-  const [unansweredQuestionsList, setUnansweredQuestionsList] = useState([]);
+  const [incorrectAnswersList, setIncorrectAnswersList] = useState<string[]>([]);
+  const [unansweredQuestionsList, setUnansweredQuestionsList] = useState<string[]>([]);
+  // const [incorrectAnswersList, setIncorrectAnswersList] = useState([]);
+  // const [unansweredQuestionsList, setUnansweredQuestionsList] = useState([]);
 
   const handleOptionChange = (event: any) => {
     const updatedOptions = [...selectedOptions];
