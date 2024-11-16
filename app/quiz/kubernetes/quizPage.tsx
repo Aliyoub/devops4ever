@@ -321,11 +321,10 @@ export default function QuizPage() {
                 <Typography key={index}>
                   <QuestionText>Question : {element.question}</QuestionText>
                   <GivenAnswers>
-                    {/* question_id : {element.question_id }{"\n"} */}
                     Réponse donnée:{" "}
                     {Object.keys(element.options)[Number(selectedOptions)]}
-                    {") "}
-                    {Object.values(element.options)[Number(selectedOptions)]}
+                    {`) ${ Object.values(element.options)[Number(selectedOptions)]}`}
+                    {/* {Object.values(element.options)[Number(selectedOptions)]} */}
                   </GivenAnswers>
                   <CorrectAnswers>
                     Bonne Réponse : {element.options[element.answer]}
@@ -337,7 +336,7 @@ export default function QuizPage() {
               ))}
             </Typography>
             <UnansweredQuestionsTitle>
-              Questions non répondues : {unansweredQuestionsList}
+              Questions non répondues : {"unansweredQuestionsList"}
             </UnansweredQuestionsTitle>
           </Box>
         )}
