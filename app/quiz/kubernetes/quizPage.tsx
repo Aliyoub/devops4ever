@@ -1,5 +1,7 @@
 "use client";
 
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../store/store";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
@@ -151,7 +153,8 @@ const UnansweredQuestionsTitle = styled(Typography)({
 });
 
 export default function QuizPage() {
-  const sizeOfarrayDesired = 1;
+  const quizSize = useSelector((state: RootState) => state.quizSize.value);
+  const sizeOfarrayDesired = quizSize;
   const myQuestions = useMemo(() => questions.slice(0, sizeOfarrayDesired), []);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);

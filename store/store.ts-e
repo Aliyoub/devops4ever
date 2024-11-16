@@ -1,16 +1,17 @@
 // store/store.ts
-import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
 
-import counterReducer from './slices/counterSlice';
-import ttsVolumeReducer from './slices/tts/ttsVolumeSlice';
-import ttsPitchReducer from './slices/tts/ttsPitchSlice';
-import ttsRateReducer from './slices/tts/ttsRateSlice';
-import contentReducer from './slices/content/contentSlice';
-import selectedItemReducer from './slices/selectedItem/selectedItemSlice';
-import controlStateReducer from './slices/controlState/controlStateSlice';
-import ggListVoicesReducer from './slices/ggListVoices/ggListVoicesSlice';
+import counterReducer from "./slices/counterSlice";
+import ttsVolumeReducer from "./slices/tts/ttsVolumeSlice";
+import ttsPitchReducer from "./slices/tts/ttsPitchSlice";
+import ttsRateReducer from "./slices/tts/ttsRateSlice";
+import contentReducer from "./slices/content/contentSlice";
+import selectedItemReducer from "./slices/selectedItem/selectedItemSlice";
+import controlStateReducer from "./slices/controlState/controlStateSlice";
+import ggListVoicesReducer from "./slices/ggListVoices/ggListVoicesSlice";
+import ggTtsSelectedVoiceReducer from "./slices/ggTtsSelectedVoice/ggTtsSelectedVoiceSlice";
 // import slices => Ne pas supprimer !!!
 
 export const store = configureStore({
@@ -19,11 +20,12 @@ export const store = configureStore({
     ttsVolume: ttsVolumeReducer,
     ttsPitch: ttsPitchReducer,
     ttsRate: ttsRateReducer,
-	content: contentReducer,
-	selectedItem: selectedItemReducer,
-	controlState: controlStateReducer,
-	ggListVoices: ggListVoicesReducer,
-// configureStore => Ne pas supprimer !!!
+    content: contentReducer,
+    selectedItem: selectedItemReducer,
+    controlState: controlStateReducer,
+    ggListVoices: ggListVoicesReducer,
+    ggTtsSelectedVoice: ggTtsSelectedVoiceReducer,
+    // configureStore => Ne pas supprimer !!!
   },
 });
 

@@ -100,7 +100,7 @@ const BottomNavigation = () => {
             color: `${pathname === "/categories" ? "#8B01F6" : "#fff"}`,
             fontSize: 11,
           }}
-          onClick={() => router.push("/categories")}
+          onClick={() => router.push("/settings")}
         >
           Paramètres
         </span>
