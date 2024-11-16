@@ -5,7 +5,7 @@ import { RootState, AppDispatch } from "../../store/store";
 import { setQuizSize } from "../../store/slices/quizSize/quizSizeSlice";
 
 
-const page = () => {
+const Page = () => {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const dispatch = useDispatch();
 
@@ -28,4 +28,4 @@ const page = () => {
   );
 }
 
-export default page
+export default Page
