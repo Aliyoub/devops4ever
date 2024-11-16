@@ -8,10 +8,11 @@ import { setQuizSize } from "../../store/slices/quizSize/quizSizeSlice";
 const page = () => {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const dispatch = useDispatch();
-//   const inputValue = useSelector((state: RootState) => state.input.value);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setQuizSize(event.target.value));
+    const numericValue: number = Number(event.target.value);
+
+    dispatch(setQuizSize(numericValue));
   };
 
   return (
