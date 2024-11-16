@@ -4,12 +4,20 @@ import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { scoresData } from '../../app/dashboard/scoresData';
 
-interface ProgressChartProps {
-  theme: string;
-}
+// interface ProgressChartProps {
+//   theme: string;
+// }
 
-const ProgressChart: React.FC<ProgressChartProps> = ({ theme }) => {
-  const data = scoresData[theme];
+
+interface ProgressChartProps {
+    theme: string;
+  }
+  
+  const ProgressChart = ({ theme }: ProgressChartProps) => {
+
+// const ProgressChart: React.FC<ProgressChartProps> = ({ theme }) => {
+//   const data = scoresData[theme];
+  const data: any = scoresData[Number(theme)];
 
   return (
     <ResponsiveContainer width="100%" height={200}>
