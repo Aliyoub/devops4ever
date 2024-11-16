@@ -16,3 +16,4 @@
 /components/chart/chart.js
 /components/settings/tts-settings.tsx
 /components/ProgressChart/ProgressChart.tsx
+/components/SkillBreakdown/SkillBreakdown.tsx
