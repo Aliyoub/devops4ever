@@ -27,7 +27,7 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
     setExpanded(isExpanded ? panel : null);
   };
   return (
-    <Accordion>
+    <Accordion sx={{ width: '100%' }}>
       {/* <Accordion style={{width: '100%',marginBottom: "0.7px solid #FCA4F0", }}> */}
       <AccordionSummary
         expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
@@ -39,12 +39,13 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
           color: "#FCA4F0",
           fontSize: 12,
           fontWeight: "bolder",
+          width: '100%'
         }}
       >
         {accordionSummary}
       </AccordionSummary>
 
-      <AccordionDetails style={{ padding: 0 }}>
+      <AccordionDetails sx={{ width: '100%', padding: 0, }}>
         {/* <AccordionDetails style={{padding:0,margin:0,  backgroundColor: 'green', borderBottom: "0.7px solid #FCA4F0", }}> */}
         <Accordion
           expanded={expanded === "quizPanel"}
@@ -57,7 +58,7 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
           >
             Quiz
           </AccordionSummary>
-          <AccordionDetails>{quiz}</AccordionDetails>
+          <AccordionDetails sx={{ width: '100%', padding: 0, }}>{quiz}</AccordionDetails>
         </Accordion>
 
         <Accordion

@@ -8,7 +8,7 @@ import "./style.css"
 
 const Kubernetes = () => {
   return (
-      <Accordion>
+      <Accordion sx={{ width: '100%' }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
           aria-controls="panel1-content"

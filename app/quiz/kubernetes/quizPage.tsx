@@ -45,7 +45,6 @@ const GradientBackground = styled(Box)({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  //   padding: '20px',
 });
 
 const QuizContainer = styled(Box)({
