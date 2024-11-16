@@ -20,6 +20,7 @@ import { styled } from "@mui/material/styles";
 import { questions } from "./questionServices";
 
 import { Roboto } from "next/font/google";
+import "../style.css"
 
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement
@@ -50,11 +51,10 @@ const GradientBackground = styled(Box)({
 const QuizContainer = styled(Box)({
   //   maxWidth: '480px',
   width: "100%",
-  padding: "10px",
-  borderRadius: "10px",
-  backgroundColor: "#ffffff",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  // textAlign: "center",
+  // padding: "10px",
+  // borderRadius: "10px",
+  // backgroundColor: "#ffffff",
+  // boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   marginBottom: "10px",
   lineHeight: 1.2,
   letterSpacing: 0.4,
