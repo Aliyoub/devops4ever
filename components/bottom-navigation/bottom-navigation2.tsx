@@ -28,14 +28,19 @@ const BottomNavigation = () => {
     const enterFullscreen = () =>{
       const element = document.documentElement; // Ou un autre élément spécifique
       if (element.requestFullscreen) {
-        element.requestFullscreen();
-      } else if (element.mozRequestFullScreen) { // Firefox
-        element.mozRequestFullScreen();
-      } else if (element.webkitRequestFullscreen) { // Chrome, Safari, etc.
-        element.webkitRequestFullscreen();
-      } else if (element.msRequestFullscreen) { // IE/Edge
-        element.msRequestFullscreen();
-      }
+        element.requestFullscreen(); // Navigateur moderne
+    } else if ((element as any).webkitRequestFullscreen) {
+        // Safari ou anciens navigateurs basés sur WebKit
+        (element as any).webkitRequestFullscreen();
+    } else if ((element as any).msRequestFullscreen) {
+        // Anciennes versions d'Internet Explorer/Edge
+        (element as any).msRequestFullscreen();
+    } else if ((element as any).mozRequestFullScreen) {
+        // Ancienne implémentation de Firefox
+        (element as any).mozRequestFullScreen();
+    } else {
+        console.warn("Le mode plein écran n'est pas pris en charge par ce navigateur.");
+    }
     }
 
     const exitFullscreen = () => {
