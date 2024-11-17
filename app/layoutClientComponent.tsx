@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import type { Metadata } from "next";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
@@ -28,6 +28,7 @@ interface LayoutProps {
 }
 
 const LayoutClientComponent = ({ children }: LayoutProps) => {
+
   return (
     <html lang="fr">
       <body className={roboto.className}>

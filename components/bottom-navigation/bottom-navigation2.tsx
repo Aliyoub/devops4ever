@@ -24,6 +24,32 @@ const BottomNavigation = () => {
   const pathname: any = usePathname();
   const router: any = useRouter();
 
+  // Pour une ouverture en plein écran de l'application
+    const enterFullscreen = () =>{
+      const element = document.documentElement; // Ou un autre élément spécifique
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) { // Firefox
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) { // Chrome, Safari, etc.
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) { // IE/Edge
+        element.msRequestFullscreen();
+      }
+    }
+
+    const exitFullscreen = () => {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) { // Firefox
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) { // Chrome, Safari
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { // IE/Edge
+        document.msExitFullscreen();
+      }
+    }  
+
   return (
     <div className="bottom-navigation">
       <div
@@ -82,14 +108,14 @@ const BottomNavigation = () => {
             color: `${pathname === "/quiz" ? "#8B01F6" : "#fff"}`,
             fontSize: 11,
           }}
-          onClick={() => router.push("/quiz")}
+          onClick={() => {router.push("/quiz"); enterFullscreen()}}
         >
           Quiz
         </span>
       </div>
       <div
         style={{
-          color: `${pathname === "/categories" ? "#8B01F6" : "#fff"}`,
+          color: `${pathname === "/settings" ? "#8B01F6" : "#fff"}`,
           fontSize: 11,
         }}
         className="nav-item"
@@ -97,10 +123,10 @@ const BottomNavigation = () => {
         <SettingsIcon style={{ fontSize: 15 }} />
         <span
           style={{
-            color: `${pathname === "/categories" ? "#8B01F6" : "#fff"}`,
+            color: `${pathname === "/settings" ? "#8B01F6" : "#fff"}`,
             fontSize: 11,
           }}
-          onClick={() => router.push("/settings")}
+          onClick={() => {router.push("/settings"); exitFullscreen()}}
         >
           Paramètres
         </span>
