@@ -28,21 +28,38 @@ interface LayoutProps {
 }
 
 const LayoutClientComponent = ({ children }: LayoutProps) => {
+  // Pour empêcher le clic droit sur mon appli
+  useEffect(() => {
+    const disableRightClick = (event: MouseEvent) => {
+      event.preventDefault();
+    };
+
+    // Ajouter un écouteur global
+    document.addEventListener("contextmenu", disableRightClick);
+
+    // Nettoyage à la suppression du composant
+    return () => {
+      document.removeEventListener("contextmenu", disableRightClick);
+    };
+  }, []);
+
   return (
     <html lang="fr">
+      <head>
+        {/* Balises spécifiques pour la PWA */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#ffffff" />
+        {/* Cela indique au navigateur que votre PWA doit se comporter comme une application native. */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta
+          name="viewport"
+          // Évite que le zoom ou d'autres comportements interfèrent avec l'application.
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className={roboto.className}>
         {/* <Header /> */}
-        <head>
-          {/* Balises spécifiques pour la PWA */}
-          <link rel="manifest" href="/manifest.json" />
-          <meta name="theme-color" content="#ffffff" />
-          <meta name="mobile-web-app-capable" content="yes" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-          />
-          <link rel="icon" href="/favicon.ico" />
-        </head>
         <main>
           <Provider store={store}>
             {children}
