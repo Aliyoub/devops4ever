@@ -17,10 +17,10 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Bottom from "@/components/bottom-navigation/bottom";
 
 const roboto = Roboto({
-  subsets: ['latin'], // Charge le sous-ensemble latin uniquement
-  weight: ['400', '700'], // Charge les poids 400 et 700
-  style: ['normal', 'italic'], // Charge les styles normal et italique
-  display: 'swap', // Paramètre pour l'optimisation du chargement
+  subsets: ["latin"], // Charge le sous-ensemble latin uniquement
+  weight: ["400", "700"], // Charge les poids 400 et 700
+  style: ["normal", "italic"], // Charge les styles normal et italique
+  display: "swap", // Paramètre pour l'optimisation du chargement
 });
 
 interface LayoutProps {
@@ -28,11 +28,21 @@ interface LayoutProps {
 }
 
 const LayoutClientComponent = ({ children }: LayoutProps) => {
-
   return (
     <html lang="fr">
       <body className={roboto.className}>
         {/* <Header /> */}
+        <head>
+          {/* Balises spécifiques pour la PWA */}
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#ffffff" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </head>
         <main>
           <Provider store={store}>
             {children}
