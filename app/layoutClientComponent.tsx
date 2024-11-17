@@ -28,18 +28,68 @@ interface LayoutProps {
 }
 
 const LayoutClientComponent = ({ children }: LayoutProps) => {
-  // Pour empêcher le clic droit sur mon appli
+  // Next.js ne charge pas automatiquement le fichier /public/sw.js.
+  //  Pour cela, il doit être enregistré dans l'>application, et cela se fait ainsi:
   useEffect(() => {
-    const disableRightClick = (event: MouseEvent) => {
-      event.preventDefault();
+    if ('serviceWorker' in navigator) {
+        // window.addEventListener('load', () => {
+            navigator.serviceWorker.register("/sw.js").then(
+                (registration) => {
+                    console.log('Service Worker enregistré avec succès:', registration);
+                },
+                (error) => {
+                    console.error('L\'enregistrement du Service Worker a échoué:!!', error);
+                }
+            );
+        // });
+    }
+}, []);
+
+
+  // Pour empêcher le clic droit sur mon appli
+  // useEffect(() => {
+  //   const disableRightClick = (event: MouseEvent) => {
+  //     event.preventDefault();
+  //   };
+
+  //   // Ajouter un écouteur global
+  //   document.addEventListener("contextmenu", disableRightClick);
+
+  //   // Nettoyage à la suppression du composant
+  //   return () => {
+  //     document.removeEventListener("contextmenu", disableRightClick);
+  //   };
+  // }, []);
+
+  // Désactiver le clic droit
+  // useEffect(() => {
+  //   const disableContextMenu = (e: MouseEvent) => {
+  //     e.preventDefault();
+  //   };
+
+  //   document.addEventListener("contextmenu", disableContextMenu);
+
+  //   return () => {
+  //     document.removeEventListener("contextmenu", disableContextMenu);
+  //   };
+  // }, []);
+
+  // Masquer ou désactiver les DevTools
+  useEffect(() => {
+    const disableKeyShortcuts = (e: KeyboardEvent) => {
+      if (
+        e.key === "F12" || // DevTools
+        (e.ctrlKey && e.shiftKey && e.key === "I") || // Inspecter
+        (e.ctrlKey && e.key === "U") // Voir le code source
+      ) {
+        e.preventDefault();
+      }
     };
 
-    // Ajouter un écouteur global
-    document.addEventListener("contextmenu", disableRightClick);
+    document.addEventListener("keydown", disableKeyShortcuts);
 
-    // Nettoyage à la suppression du composant
     return () => {
-      document.removeEventListener("contextmenu", disableRightClick);
+      document.removeEventListener("keydown", disableKeyShortcuts);
     };
   }, []);
 

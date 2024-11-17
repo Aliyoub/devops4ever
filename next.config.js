@@ -1,22 +1,3 @@
-//** @type {import('next').NextConfig} */
-// module.exports = {
-//   async rewrites() {
-//     return [
-//       {
-//         source: '/question-answer',
-//         destination: '/revisions/history/question-answer',
-//       },
-//     ];
-//   },
-// };
-
-//** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   serverExternalPackages: ['@acme/ui'],
-// }
-// module.exports = nextConfig
-
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -28,8 +9,11 @@ module.exports = nextConfig
 
 // next.config.js
 const withPWA = require('next-pwa')({
-  dest: 'public',
-  // disable: process.env.NODE_ENV === 'development',
+  dest: 'public', // Où seront générés les fichiers PWA, y compris le Service Worker
+  register: true, // Enregistrer automatiquement le Service Worker
+  skipWaiting: true, // Permet au Service Worker d'être actif immédiatement
+  // disable: process.env.NODE_ENV === 'development', // Désactiver le PWA en mode développement
+
   // runtimeCaching: [
   //   {
   //     urlPattern: /^https:\/\/your-api-url\/api\/ocr/,
@@ -37,17 +21,9 @@ const withPWA = require('next-pwa')({
   //   },
   //   // D'autres règles de mise en cache...
   // ],
-  register: true,
-  skipWaiting: true,
+  
 });
 
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   reactStrictMode: true,
-//   experimental: {
-//     appDir: true, // Assurez-vous que cette option est activée si vous utilisez le modèle `app/`
-//   },
-// }
 
 module.exports = withPWA({
   // Autres configurations Next.js
@@ -83,4 +59,3 @@ module.exports = {
     return config;
   },
 };
-
