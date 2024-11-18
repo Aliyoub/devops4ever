@@ -30,6 +30,7 @@ const urlsToCache = [
   "/", // Page d'accueil
   "app/home",
   "/quiz",
+  "https://devops4ever.vercel.app/quiz",
   "app/quiz/page",
   "app/settings/page",
   "/favicon.ico",
