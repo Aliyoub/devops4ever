@@ -28,8 +28,8 @@ const CACHE_NAME = "nextjs-cache-v1";
 // Ces fichiers garantissent que l'application dispose de ses ressources de base même hors ligne.
 const urlsToCache = [
   "/", // Page d'accueil
-  "app/home",
-  "/quiz",
+  "/home/",
+  "/quiz/",
   "https://devops4ever.vercel.app/quiz",
   "app/quiz/page",
   "app/settings/page",
