@@ -1,0 +1,34 @@
+/* Style du bouton Next */
+.button-next {
+    background-color: #4CAF50; /* Couleur de fond verte */
+    color: white; /* Couleur du texte */
+    font-size: 18px; /* Taille du texte */
+    font-family: 'Arial', sans-serif; /* Police moderne */
+    padding: 5px 30px; /* Espacement interne */
+    border: solid 3px #70a471; /* Pas de bordure */
+    border-radius: 7px; /* Coins arrondis */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    cursor: pointer; /* Curseur pointeur pour indiquer l'interaction */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Animation fluide */
+  }
+  
+  /* Effet hover */
+  .button-next:hover {
+    background-color: #45a049; /* Légèrement plus sombre au survol */
+    transform: scale(1.05); /* Effet de zoom */
+  }
+  
+  /* Effet focus */
+  .button-next:focus {
+    outline: none; /* Retirer la bordure par défaut */
+    box-shadow: 0 0 10px rgba(72, 239, 144, 0.6); /* Ombre brillante */
+  }
+  
+  /* Bouton désactivé */
+  .button-next:disabled {
+    background-color: #cccccc; /* Couleur grisée */
+    cursor: not-allowed; /* Curseur interdit */
+    box-shadow: none; /* Pas d'ombre */
+  }
+  

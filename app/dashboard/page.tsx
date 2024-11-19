@@ -54,7 +54,8 @@ const Dashboard: React.FC = () => {
             >
               {theme}
             </h3>
-            <ProgressChart theme={`${theme}`} />
+            if (process.env.NEXT_PUBLIC_INCLUDE_FEATURE === 'true'){" "}
+            {<ProgressChart theme={`${theme}`} />}
           </div>
         ))}
       </Section>

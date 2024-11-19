@@ -4,7 +4,6 @@
 // const { url } = require("inspector");
 // const { keys, map } = require("next-pwa/cache");
 
-
 // ===========================================================================================
 // Que fait cette ligne ?
 // Elle définit un nom pour le cache. Le Service Worker utilise ce nom pour identifier le cache associé à cette version de votre application.
