@@ -10,7 +10,7 @@
 // Elle définit un nom pour le cache. Le Service Worker utilise ce nom pour identifier le cache associé à cette version de votre application.
 // Pourquoi est-ce important ?
 // Lorsque vous mettez à jour votre application, vous pouvez modifier ce nom pour invalider les anciennes ressources et forcer le rechargement des nouvelles.
-const CACHE_NAME = "nextjs-cache-v1";
+const CACHE_NAME = "nextjs-cache-v2";
 // ===========================================================================================
 // Cache des fichiers critiques générés par Next.js
 
