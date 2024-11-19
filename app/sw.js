@@ -19,7 +19,7 @@ const CACHE_NAME = "nextjs-cache-v1";
 // Ces fichiers garantissent que l'application dispose de ses ressources de base même hors ligne.
 const urlsToCache = [
   "/", // Page d'accueil
-  "/home/",
+  "/home",
   "/quiz/",
   "/favicon.ico",
   "/manifest.json",
