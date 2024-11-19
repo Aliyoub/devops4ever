@@ -41,21 +41,21 @@ module.exports = withPWA({
 
 const { GenerateSW } = require('workbox-webpack-plugin');
 
-module.exports = {
-  // Other Next.js configurations...
+// module.exports = {
+//   // Other Next.js configurations...
   
-  webpack: (config, { dev, isServer }) => {
-    // Only add GenerateSW in production on the client-side
-    if (!dev && !isServer) {
-      config.plugins.push(
-        new GenerateSW({
-          clientsClaim: true,
-          skipWaiting: true,
-          // Additional Workbox configuration here...
-        })
-      );
-    }
+//   webpack: (config, { dev, isServer }) => {
+//     // Only add GenerateSW in production on the client-side
+//     if (!dev && !isServer) {
+//       config.plugins.push(
+//         new GenerateSW({
+//           clientsClaim: true,
+//           skipWaiting: true,
+//           // Additional Workbox configuration here...
+//         })
+//       );
+//     }
 
-    return config;
-  },
-};
+//     return config;
+//   },
+// };
