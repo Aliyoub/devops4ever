@@ -152,6 +152,13 @@ const UnansweredQuestionsTitle = styled(Typography)({
 });
 
 export default function QuizPage() {
+
+  useEffect(() => {
+    document.documentElement.style.height =
+      "calc(100vh - env(safe-area-inset-top))";
+    document.documentElement.style.overflow = "hidden";
+  },[]);
+
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
     (state: RootState) => state.quizStartIndex.value
