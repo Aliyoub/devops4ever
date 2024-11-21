@@ -43,6 +43,9 @@ const LayoutClientComponent = ({ children }: LayoutProps) => {
             );
         // });
     }
+    if(navigator.onLine){
+      console.log('not on line')
+    }
 }, []);
 
 

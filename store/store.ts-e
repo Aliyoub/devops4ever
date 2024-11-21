@@ -12,6 +12,7 @@ import selectedItemReducer from "./slices/selectedItem/selectedItemSlice";
 import controlStateReducer from "./slices/controlState/controlStateSlice";
 import ggListVoicesReducer from "./slices/ggListVoices/ggListVoicesSlice";
 import ggTtsSelectedVoiceReducer from "./slices/ggTtsSelectedVoice/ggTtsSelectedVoiceSlice";
+import quizSizeReducer from './slices/quizSize/quizSizeSlice';
 // import slices => Ne pas supprimer !!!
 
 export const store = configureStore({
@@ -25,7 +26,8 @@ export const store = configureStore({
     controlState: controlStateReducer,
     ggListVoices: ggListVoicesReducer,
     ggTtsSelectedVoice: ggTtsSelectedVoiceReducer,
-    // configureStore => Ne pas supprimer !!!
+    	quizSize: quizSizeReducer,
+// configureStore => Ne pas supprimer !!!
   },
 });
 

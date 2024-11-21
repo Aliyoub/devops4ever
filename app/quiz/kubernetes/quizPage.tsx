@@ -20,7 +20,7 @@ import { styled } from "@mui/material/styles";
 import { questions } from "./questionServices";
 
 import { Roboto } from "next/font/google";
-import "../style.css"
+import "../style.css";
 
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement
@@ -153,8 +153,19 @@ const UnansweredQuestionsTitle = styled(Typography)({
 
 export default function QuizPage() {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
+  const quizStartIndex = useSelector(
+    (state: RootState) => state.quizStartIndex.value
+  );
+  // Pour choisir le nombre de questions traiter
   const sizeOfarrayDesired = quizSize;
-  const myQuestions = useMemo(() => questions.slice(0, sizeOfarrayDesired), []);
+  // Pour choisir le début des questions, et donc avoir la possibilité de traiter les questions par tranche
+  // const quizStartIndex = quizSize;
+  // useMemo pour ne pas avoir à recharger le tableau des questions à chaque fois
+  const myQuestions = useMemo(
+    () => questions.slice(quizStartIndex, quizStartIndex + sizeOfarrayDesired),
+    []
+  );
+  // const myQuestions = useMemo(() => questions.slice(26, sizeOfarrayDesired+26), []);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<any[]>(myQuestions);
@@ -325,7 +336,7 @@ export default function QuizPage() {
                   <GivenAnswers>
                     Réponse donnée:{" "}
                     {Object.keys(element.options)[Number(selectedOptions)]}
-                    {`) ${ Object.values(element.options)[Number(selectedOptions)]}`}
+                    {`) ${Object.values(element.options)[Number(selectedOptions)]}`}
                     {/* {Object.values(element.options)[Number(selectedOptions)]} */}
                   </GivenAnswers>
                   <CorrectAnswers>
