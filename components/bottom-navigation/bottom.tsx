@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 import BottomNavigation from "./bottom-navigation";
 import BottomControl from "./bottom-control";
-import BottomNavigation2 from "./bottom-navigation2";
 
 const Bottom = () => {
   const controlStateFromStore = useSelector(
@@ -11,7 +10,7 @@ const Bottom = () => {
   return (
     <div>
       {controlStateFromStore === "" || controlStateFromStore === "back" ? 
-        <BottomNavigation2 /> : <BottomControl />
+        <BottomNavigation /> : <BottomControl />
       }
     </div>
   );

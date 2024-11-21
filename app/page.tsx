@@ -21,7 +21,6 @@ function Home() {
     <main className={montserrat.className}>
       {/* <ViewWithBorderRadius /> */}
       <BottomNavigation />
-
     </main>
   );
 }
