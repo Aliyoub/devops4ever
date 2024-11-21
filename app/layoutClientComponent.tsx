@@ -28,26 +28,34 @@ interface LayoutProps {
 }
 
 const LayoutClientComponent = ({ children }: LayoutProps) => {
-  // Next.js ne charge pas automatiquement le fichier /public/sw.js.
-  //  Pour cela, il doit être enregistré dans l'>application, et cela se fait ainsi:
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
-        // window.addEventListener('load', () => {
-            navigator.serviceWorker.register("/sw.js").then(
-                (registration) => {
-                    console.log('Service Worker enregistré avec succès:', registration);
-                },
-                (error) => {
-                    console.error('L\'enregistrement du Service Worker a échoué:!!', error);
-                }
-            );
-        // });
-    }
-    if(navigator.onLine){
-      console.log('not on line')
-    }
-}, []);
+    document.documentElement.style.height =
+      "calc(100vh - env(safe-area-inset-top))";
+    document.documentElement.style.overflow = "hidden";
+  });
 
+  // Next.js ne charge pas automatiquement le fichier /public/sw.js.
+  //  Pour cela, il doit être enregistré dans l'application, et cela se fait ainsi:
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      // window.addEventListener('load', () => {
+      navigator.serviceWorker.register("/sw.js").then(
+        (registration) => {
+          console.log("Service Worker enregistré avec succès:", registration);
+        },
+        (error) => {
+          console.error(
+            "L'enregistrement du Service Worker a échoué:!!",
+            error
+          );
+        }
+      );
+      // });
+    }
+    if (navigator.onLine) {
+      console.log("not on line");
+    }
+  }, []);
 
   // Pour empêcher le clic droit sur mon appli
   // useEffect(() => {
