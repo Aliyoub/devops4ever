@@ -35,9 +35,6 @@ const BottomNavigation = () => {
     // } else if (element.msRequestFullscreen) { // IE/Edge
     //   element.msRequestFullscreen();
     // }
-    document.documentElement.style.height =
-      "calc(100vh - env(safe-area-inset-top))";
-    document.documentElement.style.overflow = "hidden";
 
     const element = document.documentElement; // Ou un autre élément spécifique
     if (element.requestFullscreen) {
@@ -149,7 +146,7 @@ const BottomNavigation = () => {
           }}
           onClick={() => {
             router.push("/quiz");
-            enterFullscreen();
+            // enterFullscreen();
           }}
         >
           Quiz
