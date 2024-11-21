@@ -4,8 +4,8 @@
     "description": "Devops4Ever",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
+    "background_color": "#663E94",
+    "theme_color": "#FFFFFF",
     "icons": [
       {
         "src": "/icons/icon-192x192.png",
