@@ -32,7 +32,7 @@ const LayoutClientComponent = ({ children }: LayoutProps) => {
     document.documentElement.style.height =
       "calc(100vh - env(safe-area-inset-top))";
     document.documentElement.style.overflow = "hidden";
-  });
+  },[]);
 
   // Next.js ne charge pas automatiquement le fichier /public/sw.js.
   //  Pour cela, il doit être enregistré dans l'application, et cela se fait ainsi:
