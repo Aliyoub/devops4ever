@@ -104,7 +104,7 @@ const LayoutClientComponent = ({ children }: LayoutProps) => {
       <head>
         {/* Balises spécifiques pour la PWA */}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#007bff" />
         {/* Cela indique au navigateur que votre PWA doit se comporter comme une application native. */}
         <meta name="mobile-web-app-capable" content="yes" />
         <meta
