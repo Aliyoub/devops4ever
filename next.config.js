@@ -13,14 +13,6 @@ const withPWA = require('next-pwa')({
   register: true, // Enregistrer automatiquement le Service Worker
   skipWaiting: true, // Permet au Service Worker d'être actif immédiatement
   // disable: process.env.NODE_ENV === 'development', // Désactiver le PWA en mode développement
-
-  // runtimeCaching: [
-  //   {
-  //     urlPattern: /^https:\/\/your-api-url\/api\/ocr/,
-  //     handler: 'NetworkOnly',
-  //   },
-  //   // D'autres règles de mise en cache...
-  // ],
   
 });
 
