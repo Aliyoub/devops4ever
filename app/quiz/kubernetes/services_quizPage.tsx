@@ -12,9 +12,10 @@ import {
   FormControlLabel,
   FormControl,
   Container,
+  styled
 } from "@mui/material";
 
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 
 // import { styled } from "@mui/system";
 import { questions } from "./questionServices";
@@ -151,7 +152,7 @@ const UnansweredQuestionsTitle = styled(Typography)({
   fontWeight: "510",
 });
 
-export default function QuizPage() {
+export default function Services_quizPage() {
 
   // useEffect(() => {
   //   document.documentElement.style.height =
