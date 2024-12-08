@@ -1,9 +1,9 @@
 import React from 'react'
-import Kubernetes from './kubernetes/Kubernetes'
+import Accordions from './Accordions'
 
 const Page = () => {
   return (
-    <Kubernetes />
+    <Accordions />
   )
 }
 

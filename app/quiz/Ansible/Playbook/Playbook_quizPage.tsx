@@ -1,7 +1,7 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../../store/store";
+import { RootState, AppDispatch } from "../../../../store/store";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
@@ -12,16 +12,16 @@ import {
   FormControlLabel,
   FormControl,
   Container,
-  styled
+  styled,
 } from "@mui/material";
 
 // import { styled } from "@mui/material/styles";
 
 // import { styled } from "@mui/system";
-import { questions } from "./questionServices";
+import { questions } from "../../kubernetes/Services/questionServices";
 
 import { Roboto } from "next/font/google";
-import "../style.css";
+import "../../style.css";
 
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement
@@ -32,7 +32,7 @@ const roboto = Roboto({
 
 const CustomRadio = styled(Radio)(({ theme }) => ({
   "& .MuiSvgIcon-root": {
-    fontSize: 20, // Taille personnalisée
+    fontSize: 15, // Taille personnalisée
   },
 
   color: "#3B8FEF",
@@ -57,7 +57,7 @@ const QuizContainer = styled(Box)({
   // boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   marginBottom: "10px",
   lineHeight: 1.2,
-  letterSpacing: 0.4,
+  letterSpacing: 0.3,
   wordSpacing: "0.005em",
   textAlignLast: "left",
   textAlign: "justify",
@@ -65,41 +65,40 @@ const QuizContainer = styled(Box)({
 });
 
 const QuestionText = styled(Typography)({
-  fontSize: "1rem",
+  fontSize: "0.85rem",
   color: "#FCA4F0",
   border: "0.5px solid #FCA4F0",
   backgroundColor: "#3B8FEF",
   padding: 7,
   lineHeight: 1.2,
-  letterSpacing: 0.4,
+  letterSpacing: 0.3,
   wordSpacing: "0.005em",
   textAlignLast: "left",
   textAlign: "justify",
   fontWeight: "510",
 });
 const GivenAnswers = styled(Typography)({
-  fontSize: "1rem",
-  // fontWeight: 500,
+  fontSize: "0.85rem",
   color: "#FFFFFF",
   border: "0.5px solid #FCA4F0",
   backgroundColor: "#3B8FEF",
   padding: 7,
   lineHeight: 1.2,
-  letterSpacing: 0.4,
+  letterSpacing: 0.3,
   wordSpacing: "0.005em",
   textAlignLast: "left",
   textAlign: "justify",
   fontWeight: "510",
 });
 const CorrectAnswers = styled(Typography)({
-  fontSize: "1rem",
+  fontSize: "0.85rem",
   // fontWeight: 500,
   color: "#FFFFFF",
   border: "0.5px solid #FCA4F0",
   backgroundColor: "#3B8FEF",
   padding: 7,
   lineHeight: 1.4,
-  letterSpacing: 0.4,
+  letterSpacing: 0.3,
   wordSpacing: "0.005em",
   textAlignLast: "left",
   // wordSpacing: 1,
@@ -107,35 +106,35 @@ const CorrectAnswers = styled(Typography)({
   fontWeight: "510",
 });
 
-const CorrectAnswersTitle = styled(Typography)({
-  fontSize: "1.2rem",
-  // fontWeight: 500,
-  color: "#FCA4F0",
-  border: "0.5px solid #FCA4F0",
-  backgroundColor: "#264BC0",
-  padding: 3,
-  lineHeight: 1.2,
-  letterSpacing: 0.4,
-  wordSpacing: "0.005em",
-  textAlignLast: "left",
-  textAlign: "justify",
-  fontWeight: "510",
-});
+// const CorrectAnswersTitle = styled(Typography)({
+//   fontSize: "1rem",
+//   // fontWeight: 500,
+//   color: "#FCA4F0",
+//   border: "0.5px solid #FCA4F0",
+//   backgroundColor: "#264BC0",
+//   padding: 3,
+//   lineHeight: 1.2,
+//   letterSpacing: 0.4,
+//   wordSpacing: "0.005em",
+//   // textAlignLast: "left",
+//   // textAlign: "justify",
+//   fontWeight: "510",
+//   // width: "100%",
+//   // alignSelf: "center",
+//   marginBottom: 10
+// });
 
-const IncorrectAnswersTitle = styled(Typography)({
-  fontSize: "1.2rem",
-  // fontWeight: 500,
-  color: "#FCA4F0",
-  border: "0.5px solid #FCA4F0",
-  backgroundColor: "#264BC0",
-  padding: 3,
-  lineHeight: 1.2,
-  letterSpacing: 0.4,
-  wordSpacing: "0.005em",
-  textAlignLast: "left",
-  textAlign: "justify",
-  fontWeight: "510",
-});
+// const IncorrectAnswersTitle = styled(Typography)({
+//   fontSize: "1rem",
+//   color: "#FCA4F0",
+//   border: "0.5px solid #FCA4F0",
+//   backgroundColor: "#264BC0",
+//   padding: 3,
+//   lineHeight: 1.2,
+//   letterSpacing: 0.4,
+//   wordSpacing: "0.005em",
+//   fontWeight: "510",
+// });
 
 const UnansweredQuestionsTitle = styled(Typography)({
   fontSize: "1.2rem",
@@ -152,8 +151,7 @@ const UnansweredQuestionsTitle = styled(Typography)({
   fontWeight: "510",
 });
 
-export default function Services_quizPage() {
-
+export default function Playbook_quizPage() {
   // useEffect(() => {
   //   document.documentElement.style.height =
   //     "calc(100vh - env(safe-area-inset-top))";
@@ -319,28 +317,53 @@ export default function Services_quizPage() {
             </Box>
           </>
         ) : (
-          <Box>
+          <Box
+            sx={{
+              marginTop: 0,
+            }}
+          >
             <Typography
-              variant="h4"
-              sx={{ color: "#3B8FEF", fontWeight: "bold" }}
+              // sx={{
+              //   display: "flex",
+              //   justifyContent: "center",
+              //   alignItems: "center",
+              //   flexDirection: "column",
+              //   width: "100%"
+              // }}
             >
-              Quiz Terminé !
+              <Typography
+                variant="h6"
+                sx={{
+                  mb: 2,
+                  mt: 2,
+                  color: "#3B8FEF",
+                  // textAlign: "center",
+                  fontWeight: "bold",
+                  // width: "100%"
+                }}
+              >
+                Quiz Terminé !
+              </Typography>
+              <Typography 
+              className="correctAnswersTitle"
+              >
+                Réponses correctes : {score} / {myQuestions.length}
+                {/* Réponses correctes : {_score.correctAnswers} / {myQuestions.length} */}
+              </Typography>
+              <Typography className="inCorrectAnswersTitle" >
+                Réponses incorrectes : {incorrectAnswersList.length} /{" "}
+                {myQuestions.length}
+              </Typography>
             </Typography>
-            <CorrectAnswersTitle>
-              Réponses correctes : {score} / {myQuestions.length}
-              {/* Réponses correctes : {_score.correctAnswers} / {myQuestions.length} */}
-            </CorrectAnswersTitle>
-            <IncorrectAnswersTitle>
-              Réponses incorrectes : {incorrectAnswersList.length} /{" "}
-              {myQuestions.length}
-            </IncorrectAnswersTitle>
             <Typography
               variant="h6"
-              sx={{ color: "#333", textAlign: "justify", mt: 1 }}
+              sx={{ color: "#333", textAlign: "justify", mt: 0 }}
             >
               {incorrectAnswersList.map((element: any, index: number) => (
                 <Typography key={index}>
-                  <QuestionText>Question : {element.question}</QuestionText>
+                  <QuestionText className={"questionText"}>
+                    Question : {element.question}
+                  </QuestionText>
                   <GivenAnswers>
                     Réponse donnée:{" "}
                     {Object.keys(element.options)[Number(selectedOptions)]}

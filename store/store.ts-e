@@ -15,6 +15,9 @@ import ggTtsSelectedVoiceReducer from "./slices/ggTtsSelectedVoice/ggTtsSelected
 import quizSizeReducer from './slices/quizSize/quizSizeSlice';
 import quizStartIndexReducer from './slices/quizStartIndex/quizStartIndexSlice';
 import quizSubjectNameReducer from './slices/quizSubjectName/quizSubjectNameSlice';
+import quizSubSubjectNameReducer from './slices/quizSubSubjectName/quizSubSubjectNameSlice';
+import parentReducer from './slices/parent/parentSlice';
+import childReducer from './slices/child/childSlice';
 // import slices => Ne pas supprimer !!!
 
 export const store = configureStore({
@@ -31,6 +34,9 @@ export const store = configureStore({
     	quizSize: quizSizeReducer,
 	quizStartIndex: quizStartIndexReducer,
 	quizSubjectName: quizSubjectNameReducer,
+	quizSubSubjectName: quizSubSubjectNameReducer,
+	parent: parentReducer,
+	child: childReducer,
 // configureStore => Ne pas supprimer !!!
   },
 });

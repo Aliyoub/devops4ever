@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -42,12 +42,6 @@ function ControlledAccordion() {
     expanded !== null && childExpanded !== null
   );
 
-//   useEffect(() => {
-//     document.querySelectorAll('[cz-shortcut-listen]').forEach(el => {
-//         el.removeAttribute('cz-shortcut-listen');
-//     });
-// }, []);
-
   return (
     <div>
       {/* Parent Accordion 1 */}
@@ -57,25 +51,9 @@ function ControlledAccordion() {
         sx={{ display: isOtherAccordionVisible || expanded === "panel1" ? "block" : "none" }}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content">
-          QUIZ
+          Accordion 1
         </AccordionSummary>
         <AccordionDetails>
-        <div style={{marginTop:30}}>
-        <input
-          type="range"
-          // value={quizStartIndex}
-          // onChange={quizStartIndexInputChange}
-          placeholder="ex: 5, pour commencer à la question 5..."
-        />
-      </div>
-      <div style={{marginTop:30}}>
-        <input
-          type="text"
-          // value={quizSize}
-          // onChange={quizSizeInputChange}
-          placeholder="ex: 10, pour traiter 10 questions..."
-        />
-        </div>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </AccordionDetails>
       </Accordion>
@@ -87,7 +65,7 @@ function ControlledAccordion() {
         sx={{ display: isOtherAccordionVisible || expanded === "panel2" ? "block" : "none" }}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2-content">
-          THEME
+          Accordion 2
         </AccordionSummary>
         <AccordionDetails>
           {/* Enfant 1 */}

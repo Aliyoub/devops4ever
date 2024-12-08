@@ -1,0 +1,14 @@
+export const kubernetes_dataForAccordionsStructure = {
+  parent: "Kubernetes",
+  children: [
+    {
+      child: "Troubleshooting",
+      grandChildren: ["Quiz", "Lecture"],
+    },
+    {
+      child: "Services",
+      grandChildren: ["Quiz", "Lecture"],
+    },
+    // DO NOT DELETE !!!
+  ],
+};

@@ -66,6 +66,16 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
       setExpanded(isExpanded ? parentName : false);
     };
 
+    const quizPanelChange =
+    (parentName: string) =>
+    (event: React.SyntheticEvent, isExpanded: boolean) => {
+      console.log(
+        `quizPanel name "${parentName}" is ${isExpanded ? "expanded" : "collapsed"}`
+      );
+      console.log("quizSubjectName", quizSubjectName);
+      setExpanded(isExpanded ? parentName : false);
+    };
+
   const theme = createTheme({
     components: {
       MuiAccordion: {
@@ -75,6 +85,9 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
             "&:before": {
               display: "none", // Optionally remove the default divider line
             },
+            // "&:not(.Mui-expanded)": {
+            //   display: "none", // Hide collapsed accordions
+            // },
           },
         },
       },
@@ -98,7 +111,7 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
     <ThemeProvider sx={{ overflowY: "auto" }} theme={theme}>
       <Accordion
         sx={{ width: "100%", overflowY: "auto" }}
-        onChange={subSubjectHandleChange(accordionSummary)}
+        onChange={subSubjectHandleChange(accordionSummary)} // accordionSummary ex: SERVICES ou STORAGE
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
@@ -120,12 +133,14 @@ const AccordionTemplate = ({ accordionSummary, quiz }: Props) => {
           {/* ========================================================================================= */}
           <Accordion
             expanded={expanded === "quizPanel"}
+            // onChange={quizPanelChange("quizPanel")}
             onChange={handleChange("quizPanel")}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon style={{ color: "#FCA4F0" }} />}
               aria-controls="quizPanel-content"
               id="quizPanel-header"
+              sx={{ color: "#FCA4F0", fontWeight: "bold", borderBottom: "0.1px solid #FCA4F0"  }}
             >
               Quiz
             </AccordionSummary>

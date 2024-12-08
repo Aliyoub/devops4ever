@@ -19,7 +19,9 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <LayoutClientComponent>
+      <ViewWithBorderRadius>
       {children}
+    </ViewWithBorderRadius>
     </LayoutClientComponent>
   );
 }

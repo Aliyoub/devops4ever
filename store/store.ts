@@ -16,6 +16,9 @@ import quizSizeReducer from './slices/quizSize/quizSizeSlice';
 import quizStartIndexReducer from './slices/quizStartIndex/quizStartIndexSlice';
 import quizSubjectNameReducer from './slices/quizSubjectName/quizSubjectNameSlice';
 import quizSubSubjectNameReducer from './slices/quizSubSubjectName/quizSubSubjectNameSlice';
+import parentReducer from './slices/parent/parentSlice';
+import childReducer from './slices/child/childSlice';
+import grandChildReducer from './slices/grandChild/grandChildSlice';
 // import slices => Ne pas supprimer !!!
 
 export const store = configureStore({
@@ -33,6 +36,9 @@ export const store = configureStore({
 	quizStartIndex: quizStartIndexReducer,
 	quizSubjectName: quizSubjectNameReducer,
 	quizSubSubjectName: quizSubSubjectNameReducer,
+	parent: parentReducer,
+	child: childReducer,
+	grandChild: grandChildReducer,
 // configureStore => Ne pas supprimer !!!
   },
 });

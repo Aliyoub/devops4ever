@@ -4,7 +4,7 @@ import ViewWithBorderRadius from "../../components/ViewWithBorderRadius/ViewWith
 import Home from "./Home";
 
 const page = () => {
-  return <ViewWithBorderRadius><Home /></ViewWithBorderRadius>;
+  return <Home />
 };
 
 export default page;
