@@ -13,7 +13,7 @@ function ControlledAccordion() {
   const [childExpanded, setChildExpanded] = useState(null); // Enfant accordéon ouvert
 
   // Gestion du changement d'état pour les parents
-  const handleParentChange = (panel) => (event, isExpanded) => {
+  const handleParentChange = (panel: any) => (event: any, isExpanded: any) => {
     const isChildOpen = childExpanded !== null; // Vérifie si un enfant est ouvert
     if (expanded === panel && isExpanded && isChildOpen) {
       // Si parent + enfant ouverts => tout plier
@@ -26,7 +26,7 @@ function ControlledAccordion() {
   };
 
   // Gestion du changement d'état pour les enfants
-  const handleChildChange = (panel) => (event, isExpanded) => {
+  const handleChildChange = (panel: any) => (event: any, isExpanded: any) => {
     if (expanded && isExpanded) {
       // Si le parent est déjà ouvert, ouvre l'enfant et ferme les autres
       setExpanded(expanded);
