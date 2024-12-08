@@ -20,7 +20,7 @@ import Services_quizPage from "./kubernetes/Services/services_quizPage";
 import { setGrandChild } from "@/store/slices/grandChild/grandChildSlice";
 import { setChild } from "@/store/slices/child/childSlice";
 import { setParent } from "@/store/slices/parent/parentSlice";
-import Ansible from "./Ansible/Playbook/page";
+// import Ansible from "./Ansible/Playbook/page";
 // Données hiérarchiques pour les accordéons
 import { dataForAccordionsStructure } from "./accordionsStructure";
 
@@ -206,7 +206,7 @@ const Accordions: React.FC = () => {
                         {/* component="div" => pour empêcher le message d'erreur: <div> cannot be a descendant of <p>  */}
                         <Typography component="div">
                           <Kubernetes />
-                          <Ansible />
+                          {/* <Ansible /> */}
                           {/* // DO NOT DELETE !!! */}
                         </Typography>
                       </AccordionDetails>
