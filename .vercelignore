@@ -1,3 +1,5 @@
+import { app } from "firebase-admin"
+
 /app/contenus/page.tsx
 /app/edit/page.tsx
 /app/contents/
@@ -21,3 +23,4 @@
 /app/accordion/
 /app/quiz/Ansible/
 /app/quiz/Accordions copy.tsx
+/app/quiz/_page.tsx
