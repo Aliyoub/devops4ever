@@ -105,7 +105,7 @@ const LayoutClientComponent = ({ children }: LayoutProps) => {
         {/* Balises spécifiques pour la PWA */}
         <link rel="manifest" href="/manifest.json" />
         {/* Pour définir la couleur de fond de la barre d'état */}
-        <meta name="theme-color" content="#663E94" />
+        <meta name="theme-color" content="#3b8fef" />
         {/* Cela indique au navigateur que votre PWA doit se comporter comme une application native. */}
         <meta name="mobile-web-app-capable" content="yes" />
         <meta
