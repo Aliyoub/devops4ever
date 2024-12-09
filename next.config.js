@@ -31,6 +31,8 @@ module.exports = withPWA({
 });
 
 
+const { plugins } = require('chart.js');
+const { content } = require('googleapis/build/src/apis/content');
 const { headers } = require('next/headers');
 const { GenerateSW } = require('workbox-webpack-plugin');
 
@@ -64,4 +66,12 @@ module.exports = {
       },
     ];
   },
+  mode: 'jit',
+  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+
 };
+
