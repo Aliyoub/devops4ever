@@ -10,7 +10,8 @@ import {
   styled,
 } from "@mui/material";
 import { Roboto } from "next/font/google";
-import "../../style.css";
+import "../../../../app/styles.css";
+
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement
   weight: ["400", "700"], // Charge les poids 400 et 700

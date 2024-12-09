@@ -1,5 +1,7 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
+import "../../../../app/styles.css";
+
 
 type QuizScoreProps = {
   score: number;

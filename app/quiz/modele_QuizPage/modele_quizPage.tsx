@@ -18,7 +18,7 @@ import {
 //import { questions } from "subSubjectQuestions"; DO NOT DELETE !!!
 
 import { Roboto } from "next/font/google";
-import "../../style.css";
+import "../../styles.css";
 import { questions } from "../kubernetes/Services/questionServices";
 
 const roboto = Roboto({
