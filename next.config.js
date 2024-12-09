@@ -31,6 +31,7 @@ module.exports = withPWA({
 });
 
 
+const { headers } = require('next/headers');
 const { GenerateSW } = require('workbox-webpack-plugin');
 
 module.exports = {
@@ -49,5 +50,18 @@ module.exports = {
     }
 
     return config;
+  },
+};
+
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: "/styles.css", // Match your CSS file
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
   },
 };

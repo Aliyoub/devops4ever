@@ -4,6 +4,7 @@ import "./globals.css";
 import "./styles.css";
 import LayoutClientComponent from "./layoutClientComponent";
 import ViewWithBorderRadius from "@/components/ViewWithBorderRadius/ViewWithBorderRadius";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Devops for ever",
@@ -16,14 +17,16 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-
   return (
-    <LayoutClientComponent>
-      <ViewWithBorderRadius>
-      {children}
-    </ViewWithBorderRadius>
-    </LayoutClientComponent>
+    <>
+      <Head>
+        <link rel="stylesheet" href="/styles.css" />
+      </Head>
+      <LayoutClientComponent>
+        <ViewWithBorderRadius>{children}</ViewWithBorderRadius>
+      </LayoutClientComponent>
+    </>
   );
-}
+};
 
 export default Layout;
