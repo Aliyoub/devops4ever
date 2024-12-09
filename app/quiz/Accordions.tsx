@@ -169,7 +169,7 @@ const Accordions: React.FC = () => {
               margin: "0",
               borderBottom: "0.7px solid #FCA4F0",
               minHeight: "32px",
-              padding: "0 7px",
+              padding: "0 17px",
             }}
           >
             <Typography component="div">{parent.parent}</Typography>
