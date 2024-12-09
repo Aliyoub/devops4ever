@@ -21,7 +21,7 @@ import {
 import { questions } from "../../kubernetes/Services/questionServices";
 
 import { Roboto } from "next/font/google";
-import "../../style.css";
+// import "../../styles.css";
 
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement

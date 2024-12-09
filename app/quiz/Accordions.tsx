@@ -159,7 +159,7 @@ const Accordions: React.FC = () => {
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
-            className="accordionParentsSummaryStyle"
+            className={"accordionParentsSummaryStyle"}
           >
             <Typography component="div">{parent.parent}</Typography>
           </AccordionSummary>
