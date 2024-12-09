@@ -158,8 +158,19 @@ const Accordions: React.FC = () => {
           ]}
         >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon className="expandIconStyle" />} 
-            className={"accordionParentsSummaryStyle"}
+            expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
+            // className={"accordionParentsSummaryStyle"}
+            sx={{
+              backgroundColor: "#264BC0",
+              color: "#FCA4F0",
+              fontSize: "12px",
+              fontWeight: "bolder",
+              width: "100%",
+              margin: "0",
+              borderBottom: "0.7px solid #FCA4F0",
+              minHeight: "32px",
+              padding: "0 7px",
+            }}
           >
             <Typography component="div">{parent.parent}</Typography>
           </AccordionSummary>
