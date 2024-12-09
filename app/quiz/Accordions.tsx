@@ -13,6 +13,8 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import { display, styled } from "@mui/system";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -143,12 +145,47 @@ const Accordions: React.FC = () => {
 
   const accordionStyles = { p: 0, m: 0, width: "100%" };
 
+  const theme = createTheme({
+    components: {
+      MuiAccordion: {
+        styleOverrides: {
+          root: {
+            minHeight: "40px", // Default height for the Accordion
+            margin: "0",
+            "&:before": {
+              display: "none", // Optionally remove the default divider line
+            },
+            // "&:not(.Mui-expanded)": {
+            //   display: "none", // Hide collapsed accordions
+            // },
+          },
+        },
+      },
+      MuiAccordionSummary: {
+        styleOverrides: {
+          root: {
+            minHeight: "40px",
+            "&.Mui-expanded": {
+              minHeight: "40px",
+            },
+          },
+          content: {
+            margin: "8px 0", // Adjust the content margin
+          },
+        },
+      },
+    },
+  });
+
   return (
-    <Box sx={{
-      width: "100%",
-      padding: "0",
-      backgroundColor: "#3b8fef",
-    }}>
+    <ThemeProvider theme={theme}>
+    <Box
+      sx={{
+        width: "100%",
+        padding: "0",
+        backgroundColor: "#3b8fef",
+      }}
+    >
       {dataForAccordionsStructure.map((parent) => (
         <Accordion
           key={parent.parent}
@@ -245,6 +282,7 @@ const Accordions: React.FC = () => {
         </Accordion>
       ))}
     </Box>
+    </ThemeProvider>
   );
 };
 
