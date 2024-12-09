@@ -144,7 +144,11 @@ const Accordions: React.FC = () => {
   const accordionStyles = { p: 0, m: 0, width: "100%" };
 
   return (
-    <Box>
+    <Box sx={{
+      width: "100%",
+      padding: "0",
+      backgroundColor: "#3b8fef",
+    }}>
       {dataForAccordionsStructure.map((parent) => (
         <Accordion
           key={parent.parent}

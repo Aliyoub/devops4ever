@@ -18,11 +18,11 @@ const ViewWithBorderRadius = ({ title, children, topComponent }: Props) => {
   return (
     <div>
       <div className="topView">
-        <div className="topChildView">
-          <div style= {{fontSize: 14, fontWeight: "bold", color: "#FFFFFF"}} >
-            title
+        <div style= {{fontSize: 16, fontWeight: "bold", color: "#FCA4F0"}} className="topChildView">
+          <div style= {{fontSize: 16, fontWeight: "bold", color: "#FCA4F0"}} >
+            DEVOPS4EVER
           </div>
-          topComponent
+          WELCOME
         </div>
       </div>
       <div className="bottomView">
