@@ -168,9 +168,9 @@ const Accordions: React.FC = () => {
               minHeight: "40px",
             },
           },
-          content: {
-            margin: "8px 0", // Adjust the content margin
-          },
+          // content: {
+          //   margin: "8px 0", // Adjust the content margin
+          // },
         },
       },
     },
