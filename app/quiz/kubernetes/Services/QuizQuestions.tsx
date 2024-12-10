@@ -54,11 +54,11 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
       <Box
         sx={{
           width: "100%",
-          maxHeight: "100vh",
+          maxHeight: "70vh",
           overflowY: "auto",
-          paddingRight: "8px",
+        //   paddingRight: "8px",
           marginBottom: "16px",
-          zIndex:"99999999 !important"
+        //   zIndex:"99999999 !important"
         }}
       >
         <Typography  className={(roboto.className, "questionText")} variant="h6">
