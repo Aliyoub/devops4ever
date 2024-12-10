@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Roboto } from "next/font/google";
 import "../../../../app/styles.css";
+import zIndex from "@mui/material/styles/zIndex";
 
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement
@@ -53,10 +54,11 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
       <Box
         sx={{
           width: "100%",
-          maxHeight: "70vh",
+          maxHeight: "100vh",
           overflowY: "auto",
           paddingRight: "8px",
           marginBottom: "16px",
+          zIndex:"99999999 !important"
         }}
       >
         <Typography  className={(roboto.className, "questionText")} variant="h6">
@@ -85,7 +87,6 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
             ))}
           </RadioGroup>
         </FormControl>
-      </Box>
       <Box display="flex" justifyContent="space-between" mt={3}>
         <Button
           variant="outlined"
@@ -102,6 +103,7 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
         >
           {isLastQuestion ? "Voir le score" : "Suivant"}
         </Button>
+      </Box>
       </Box>
     </>
   );
