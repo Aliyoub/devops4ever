@@ -160,7 +160,7 @@ const Accordions: React.FC = () => {
             "&.Mui-expanded": {
               minHeight: "32px",
               margin: "0",
-              padding: "0 7px"
+              // padding: "0 7px"
             },
           },
         },
@@ -172,7 +172,7 @@ const Accordions: React.FC = () => {
             "&.Mui-expanded": {
               minHeight: "32px",
               margin: "0",
-              padding: "0 7px"
+              // padding: "0 7px"
             },
           },
           // content: {
@@ -230,8 +230,8 @@ const Accordions: React.FC = () => {
               width: "100%",
               margin: "0",
               borderBottom: "0.7px solid #FCA4F0",
-              minHeight: "32px",
-              padding: "0 7px",
+              // minHeight: "32px",
+              // padding: "0 7px",
             }}
           >
             <Typography component="div">{parent.parent}</Typography>
@@ -259,8 +259,8 @@ const Accordions: React.FC = () => {
                     width: "100%",
                     margin: "0",
                     borderBottom: "0.7px solid #FCA4F0",
-                    minHeight: "32px",
-                    padding: "0 7px",
+                    // minHeight: "32px",
+                    // padding: "0 7px",
                   }}
                 >
                   <Typography component="div">{child.child}</Typography>
