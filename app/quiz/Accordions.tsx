@@ -150,7 +150,7 @@ const Accordions: React.FC = () => {
       MuiAccordion: {
         styleOverrides: {
           root: {
-            minHeight: "40px", // Default height for the Accordion
+            minHeight: "32px", // Default height for the Accordion
             "&:before": {
               display: "none", // Optionally remove the default divider line
             },
@@ -158,9 +158,9 @@ const Accordions: React.FC = () => {
             //   display: "none", // Hide collapsed accordions
             // },
             "&.Mui-expanded": {
-              minHeight: "40px",
+              minHeight: "32px",
               margin: "0",
-              padding: "0 17px"
+              padding: "0 7px"
             },
           },
         },
@@ -168,11 +168,11 @@ const Accordions: React.FC = () => {
       MuiAccordionSummary: {
         styleOverrides: {
           root: {
-            minHeight: "40px",
+            minHeight: "32px",
             "&.Mui-expanded": {
-              minHeight: "40px",
+              minHeight: "32px",
               margin: "0",
-              padding: "0 17px"
+              padding: "0 7px"
             },
           },
           // content: {
@@ -183,11 +183,11 @@ const Accordions: React.FC = () => {
       // MuiAccordionDetails: {
       //   styleOverrides: {
       //     root: {
-      //       // minHeight: "40px",
+      //       // minHeight: "32px",
       //       "&.Mui-expanded": {
-      //         // minHeight: "40px",
+      //         // minHeight: "32px",
       //         margin: "0",
-      //         padding: "0 17px"
+      //         padding: "0 7px"
       //       },
       //     },
       //     // content: {
@@ -231,7 +231,7 @@ const Accordions: React.FC = () => {
               margin: "0",
               borderBottom: "0.7px solid #FCA4F0",
               minHeight: "32px",
-              padding: "0 17px",
+              padding: "0 7px",
             }}
           >
             <Typography component="div">{parent.parent}</Typography>
@@ -260,7 +260,7 @@ const Accordions: React.FC = () => {
                     margin: "0",
                     borderBottom: "0.7px solid #FCA4F0",
                     minHeight: "32px",
-                    padding: "0 17px",
+                    padding: "0 7px",
                   }}
                 >
                   <Typography component="div">{child.child}</Typography>
