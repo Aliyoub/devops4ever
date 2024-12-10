@@ -165,6 +165,9 @@ const Accordions: React.FC = () => {
         styleOverrides: {
           root: {
             minHeight: "40px",
+            height: "2.5rem",
+            padding: "0 7px",
+            margin: "0",
             "&.Mui-expanded": {
               minHeight: "40px",
             },
@@ -179,109 +182,109 @@ const Accordions: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <Box
-      sx={{
-        width: "100%",
-        padding: "0",
-        backgroundColor: "#3b8fef",
-      }}
-    >
-      {dataForAccordionsStructure.map((parent) => (
-        <Accordion
-          key={parent.parent}
-          expanded={activeState.parent === parent.parent}
-          disabled={!isParentVisible(parent.parent)}
-          onChange={() => handleParentToggle(parent.parent)}
-          sx={[
-            {
-              display: !isParentVisible(parent.parent) ? "none" : "block",
-            },
-          ]}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
-            // className={"accordionParentsSummaryStyle"}
-            sx={{
-              backgroundColor: "#264BC0",
-              color: "#FCA4F0",
-              fontSize: "12px",
-              fontWeight: "bolder",
-              width: "100%",
-              margin: "0",
-              borderBottom: "0.7px solid #FCA4F0",
-              minHeight: "32px",
-              padding: "0 17px",
-            }}
+      <Box
+        sx={{
+          width: "100%",
+          padding: "0",
+          backgroundColor: "#3b8fef",
+        }}
+      >
+        {dataForAccordionsStructure.map((parent) => (
+          <Accordion
+            key={parent.parent}
+            expanded={activeState.parent === parent.parent}
+            disabled={!isParentVisible(parent.parent)}
+            onChange={() => handleParentToggle(parent.parent)}
+            sx={[
+              {
+                display: !isParentVisible(parent.parent) ? "none" : "block",
+              },
+            ]}
           >
-            <Typography component="div">{parent.parent}</Typography>
-          </AccordionSummary>
-          <AccordionDetails sx={accordionStyles}>
-            {parent.children.map((child) => (
-              <Accordion
-                key={child.child}
-                disabled={!isChildVisible(child.child)}
-                onChange={() => handleChildToggle(parent.parent, child.child)}
-                sx={[
-                  {
-                    display: !isChildVisible(child.child) ? "none" : "block",
-                  },
-                ]}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
-                  // className="accordionChildrenSummaryStyle"
-                  sx={{
-                    backgroundColor: "#8057A6",
-                    color: "#E0F7FA",
-                    fontSize: "12px",
-                    fontWeight: "bolder",
-                    width: "100%",
-                    margin: "0",
-                    borderBottom: "0.7px solid #FCA4F0",
-                    minHeight: "32px",
-                    padding: "0 17px",
-                  }}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
+              // className={"accordionParentsSummaryStyle"}
+              sx={{
+                backgroundColor: "#264BC0",
+                color: "#FCA4F0",
+                fontSize: "12px",
+                fontWeight: "bolder",
+                width: "100%",
+                margin: "0",
+                borderBottom: "0.7px solid #FCA4F0",
+                minHeight: "32px",
+                padding: "0 17px",
+              }}
+            >
+              <Typography component="div">{parent.parent}</Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={accordionStyles}>
+              {parent.children.map((child) => (
+                <Accordion
+                  key={child.child}
+                  disabled={!isChildVisible(child.child)}
+                  onChange={() => handleChildToggle(parent.parent, child.child)}
+                  sx={[
+                    {
+                      display: !isChildVisible(child.child) ? "none" : "block",
+                    },
+                  ]}
                 >
-                  <Typography component="div">{child.child}</Typography>
-                </AccordionSummary>
-                <AccordionDetails sx={accordionStyles}>
-                  {child.grandChildren.map((grandChild) => (
-                    <Accordion
-                      key={grandChild}
-                      expanded={isGrandChildExpanded(grandChild)}
-                      onChange={() =>
-                        handleGrandChildToggle(
-                          parent.parent,
-                          child.child,
-                          grandChild
-                        )
-                      }
-                    >
-                      <AccordionSummary
-                        expandIcon={
-                          <ExpandMoreIcon className="expandIconStyle" />
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
+                    // className="accordionChildrenSummaryStyle"
+                    sx={{
+                      backgroundColor: "#8057A6",
+                      color: "#E0F7FA",
+                      fontSize: "12px",
+                      fontWeight: "bolder",
+                      width: "100%",
+                      margin: "0",
+                      borderBottom: "0.7px solid #FCA4F0",
+                      minHeight: "32px",
+                      padding: "0 17px",
+                    }}
+                  >
+                    <Typography component="div">{child.child}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails sx={accordionStyles}>
+                    {child.grandChildren.map((grandChild) => (
+                      <Accordion
+                        key={grandChild}
+                        expanded={isGrandChildExpanded(grandChild)}
+                        onChange={() =>
+                          handleGrandChildToggle(
+                            parent.parent,
+                            child.child,
+                            grandChild
+                          )
                         }
-                        className="accordionGrandChildrenStyle"
                       >
-                        <Typography component="div">{grandChild}</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails sx={accordionStyles}>
-                        {/* component="div" => pour empêcher le message d'erreur: <div> cannot be a descendant of <p>  */}
-                        <Typography component="div">
-                          <Kubernetes />
-                          {/* <Ansible /> */}
-                          {/* // DO NOT DELETE !!! */}
-                        </Typography>
-                      </AccordionDetails>
-                    </Accordion>
-                  ))}
-                </AccordionDetails>
-              </Accordion>
-            ))}
-          </AccordionDetails>
-        </Accordion>
-      ))}
-    </Box>
+                        <AccordionSummary
+                          expandIcon={
+                            <ExpandMoreIcon className="expandIconStyle" />
+                          }
+                          className="accordionGrandChildrenStyle"
+                        >
+                          <Typography component="div">{grandChild}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails sx={accordionStyles}>
+                          {/* component="div" => pour empêcher le message d'erreur: <div> cannot be a descendant of <p>  */}
+                          <Typography component="div">
+                            <Kubernetes />
+                            {/* <Ansible /> */}
+                            {/* // DO NOT DELETE !!! */}
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                    ))}
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Box>
     </ThemeProvider>
   );
 };
