@@ -201,11 +201,11 @@ const Accordions: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
     <Box
-      sx={{
-        width: "100%",
-        padding: "0",
-        backgroundColor: "#3b8fef",
-      }}
+      // sx={{
+      //   width: "100%",
+      //   padding: "0",
+      //   backgroundColor: "#3b8fef",
+      // }}
     >
       {dataForAccordionsStructure.map((parent) => (
         <Accordion
