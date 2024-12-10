@@ -170,6 +170,9 @@ const Accordions: React.FC = () => {
             margin: "0",
             "&.Mui-expanded": {
               minHeight: "40px",
+              height: "2.5rem",
+            padding: "0 7px",
+            margin: "0",
             },
           },
           content: {
