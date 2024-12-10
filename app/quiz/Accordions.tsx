@@ -180,20 +180,20 @@ const Accordions: React.FC = () => {
           // },
         },
       },
-      // MuiAccordionDetails: {
-      //   styleOverrides: {
-      //     root: {
-      //       // minHeight: "40px",
-      //       "&.Mui-expanded": {
-      //         // minHeight: "40px",
-      //         margin: "0",
-      //         padding: "0 17px"
-      //       },
-      //     },
-      //     // content: {
-      //     //   margin: "8px 0", // Adjust the content margin
-      //     // },
-      //   },
+      MuiAccordionDetails: {
+        styleOverrides: {
+          root: {
+            // minHeight: "40px",
+            "&.Mui-expanded": {
+              // minHeight: "40px",
+              margin: "0",
+              padding: "0 17px"
+            },
+          },
+          // content: {
+          //   margin: "8px 0", // Adjust the content margin
+          // },
+        },
       },
     },
   });
