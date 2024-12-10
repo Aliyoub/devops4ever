@@ -152,12 +152,18 @@ const Accordions: React.FC = () => {
           root: {
             minHeight: "40px", // Default height for the Accordion
             margin: "0",
-            "&:before": {
-              display: "none", // Optionally remove the default divider line
-            },
+            // "&:before": {
+            //   display: "none", // Optionally remove the default divider line
+            // },
             // "&:not(.Mui-expanded)": {
             //   display: "none", // Hide collapsed accordions
             // },
+            "&.Mui-expanded": {
+              minHeight: "40px",
+              height: "2.5rem",
+            padding: "0 7px",
+            margin: "0",
+            },
           },
         },
       },
