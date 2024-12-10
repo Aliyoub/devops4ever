@@ -14,7 +14,7 @@ const Home = () => {
       }}
     >
       <h2>Ecouter</h2>
-       <button className="button-next" >ok</button>
+       {/* <button className="button-next" >ok</button> */}
       <ul style={{ textAlign: "justify" }}>
         {/* <ul style={{ margin: 30, textAlign: "justify", listStyleType: "disc" }}> */}
         <li>

@@ -201,11 +201,11 @@ const Accordions: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
     <Box
-      sx={{
-        width: "100%",
-        padding: "0",
-        backgroundColor: "#3b8fef",
-      }}
+      // sx={{
+      //   width: "100%",
+      //   padding: "0",
+      //   backgroundColor: "#3b8fef",
+      // }}
     >
       {dataForAccordionsStructure.map((parent) => (
         <Accordion
@@ -252,7 +252,7 @@ const Accordions: React.FC = () => {
                   expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
                   // className="accordionChildrenSummaryStyle"
                   sx={{
-                    backgroundColor: "#8057A6",
+                    backgroundColor: "#3B8FEF",
                     color: "#E0F7FA",
                     fontSize: "12px",
                     fontWeight: "bolder",

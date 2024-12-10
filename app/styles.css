@@ -97,7 +97,8 @@
   font-size: 0.9rem;
   color: #fca4f0;
   border: 0.5px solid #fca4f0;
-  background-color: #663E94;
+  background-color: #264BC0;
+  /* background-color: #663E94; */
   padding: 0.5rem;
   line-height: 1.2rem;
   word-spacing: 0.7px;
@@ -199,7 +200,7 @@
   /* margin: 0; */
   padding: 0;
   /* margin-top: 30px; */
-  background-color: #3b8fef;
+  /* background-color: #3b8fef; */
 }
 
 .accordionGrandChildrenStyle .expandIconStyle{
