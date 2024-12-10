@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { display, styled } from "@mui/system";
+import { display, margin, padding, styled } from "@mui/system";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Services_quizPage from "./kubernetes/Services/services_quizPage";
@@ -157,6 +157,11 @@ const Accordions: React.FC = () => {
             // "&:not(.Mui-expanded)": {
             //   display: "none", // Hide collapsed accordions
             // },
+            "&.Mui-expanded": {
+              minHeight: "40px",
+              margin: "0",
+              padding: "0"
+            },
           },
         },
       },
@@ -166,6 +171,8 @@ const Accordions: React.FC = () => {
             minHeight: "40px",
             "&.Mui-expanded": {
               minHeight: "40px",
+              margin: "0",
+              padding: "0"
             },
           },
           // content: {
