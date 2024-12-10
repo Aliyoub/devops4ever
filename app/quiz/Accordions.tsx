@@ -234,7 +234,7 @@ const Accordions: React.FC = () => {
               // padding: "0 7px",
             }}
           >
-            <Typography component="div">{parent.parent}</Typography>
+            <Typography component="div">{parent.parent.toLocaleUpperCase()}</Typography>
           </AccordionSummary>
           <AccordionDetails sx={accordionStyles}>
             {parent.children.map((child) => (
@@ -263,7 +263,7 @@ const Accordions: React.FC = () => {
                     // padding: "0 7px",
                   }}
                 >
-                  <Typography component="div">{child.child}</Typography>
+                  <Typography component="div">{child.child.toLocaleUpperCase()}</Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={accordionStyles}>
                   {child.grandChildren.map((grandChild) => (
