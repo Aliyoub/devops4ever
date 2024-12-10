@@ -201,11 +201,11 @@ const Accordions: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
     <Box
-      // sx={{
-      //   width: "100%",
-      //   padding: "0",
-      //   backgroundColor: "#3b8fef",
-      // }}
+      sx={{
+        width: "100%",
+        padding: "0",
+        backgroundColor: "#3b8fef",
+      }}
     >
       {dataForAccordionsStructure.map((parent) => (
         <Accordion
@@ -259,8 +259,6 @@ const Accordions: React.FC = () => {
                     width: "100%",
                     margin: "0",
                     borderBottom: "0.7px solid #FCA4F0",
-                    // minHeight: "32px",
-                    // padding: "0 7px",
                   }}
                 >
                   <Typography component="div">{child.child.toLocaleUpperCase()}</Typography>

@@ -62,7 +62,8 @@ export default function Services_quizPage() {
   };
 
   return (
-    <div>
+          
+          <div>
       {currentQuestion < myQuestions.length ? (
         <QuizQuestions
           question={myQuestions[currentQuestion].question}
