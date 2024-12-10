@@ -155,9 +155,9 @@ const Accordions: React.FC = () => {
             // "&:before": {
             //   display: "none", // Optionally remove the default divider line
             // },
-            // "&:not(.Mui-expanded)": {
-            //   display: "none", // Hide collapsed accordions
-            // },
+            "&:not(.Mui-expanded)": {
+              display: "none", // Hide collapsed accordions
+            },
             "&.Mui-expanded": {
               minHeight: "40px",
               height: "2.5rem",
