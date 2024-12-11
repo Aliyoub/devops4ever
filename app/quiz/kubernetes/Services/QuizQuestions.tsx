@@ -89,6 +89,7 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
           onClick={onPrevious}
           disabled={disablePrevious}
           className="previewButton"
+          sx={{marginLeft: 7}}
         >
           Précédent
         </Button>
@@ -96,6 +97,7 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
           className={!isLastQuestion ? "nextButton" : ""}
           variant="contained"
           onClick={onNext}
+          sx={{marginRight: 7}}
         >
           {isLastQuestion ? "Voir le score" : "Suivant"}
         </Button>
