@@ -7,6 +7,7 @@ import QuizQuestions from "./QuizQuestions";
 import QuizScore from "./QuizScore";
 import { questions } from "./questionServices";
 import { useRouter } from "next/router";
+import { Button } from "@mui/material";
 
 export default function Services_quizPage() {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
@@ -64,8 +65,9 @@ export default function Services_quizPage() {
     setCurrentQuestion(currentQuestion - 1);
   };
 
+  
+  const _onGotoQuiz = () => {
   const router = useRouter();
-  const onGotoQuiz = () => {
     router.push("/quiz", undefined, { shallow: true });
   };
 
@@ -88,7 +90,7 @@ export default function Services_quizPage() {
           totalQuestions={myQuestions.length}
           incorrectAnswers={incorrectAnswersList}
           unansweredQuestions={unansweredQuestionsList}
-          onGotoQuiz={onGotoQuiz}
+          onGotoQuiz={_onGotoQuiz}
         />
       )}
     </div>
