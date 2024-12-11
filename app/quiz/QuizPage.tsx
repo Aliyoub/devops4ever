@@ -9,14 +9,17 @@ import { questions } from "./kubernetes/Services/questionServices";
 import { useRouter } from "next/router";
 
 
+type QuizPageProps = {
+  myQuestions : any[];
+};
 
-export default function Services_quizPage() {
+export default function Services_quizPage({myQuestions}:QuizPageProps) {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
     (state: RootState) => state.quizStartIndex.value
   );
 
-  const myQuestions = useMemo(
+   myQuestions = useMemo(
     () => questions.slice(quizStartIndex, quizStartIndex + quizSize),
     [quizStartIndex, quizSize]
   );

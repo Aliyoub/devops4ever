@@ -65,8 +65,8 @@ export default function Services_quizPage() {
   };
 
   
-  const handleGotoQuiz = () => {
   const router = useRouter();
+  const handleGotoQuiz = () => {
     router.push("/quiz", undefined, { shallow: true });
   };
 
