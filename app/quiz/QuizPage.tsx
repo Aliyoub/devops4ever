@@ -13,7 +13,7 @@ type QuizPageProps = {
   quizQuestions : any[];
 };
 
-export default function Services_quizPage({quizQuestions}:QuizPageProps) {
+export default function QuizPage({quizQuestions}:QuizPageProps) {
   const router = useRouter();
 
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
