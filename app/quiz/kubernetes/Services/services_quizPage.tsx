@@ -6,6 +6,7 @@ import { RootState } from "../../../../store/store";
 import QuizQuestions from "./QuizQuestions";
 import QuizScore from "./QuizScore";
 import { questions } from "./questionServices";
+import { useRouter } from "next/router";
 
 export default function Services_quizPage() {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
@@ -23,7 +24,9 @@ export default function Services_quizPage() {
     Array(myQuestions.length).fill(null)
   );
   const [score, setScore] = useState(0);
-  const [incorrectAnswersList, setIncorrectAnswersList] = useState<object[]>([]);
+  const [incorrectAnswersList, setIncorrectAnswersList] = useState<object[]>(
+    []
+  );
   const [unansweredQuestionsList, setUnansweredQuestionsList] = useState<
     object[]
   >([]);
@@ -61,9 +64,13 @@ export default function Services_quizPage() {
     setCurrentQuestion(currentQuestion - 1);
   };
 
+  const router = useRouter();
+  const onGotoQuiz = () => {
+    router.push("/quiz", undefined, { shallow: true });
+  };
+
   return (
-          
-          <div>
+    <div>
       {currentQuestion < myQuestions.length ? (
         <QuizQuestions
           question={myQuestions[currentQuestion].question}
@@ -81,6 +88,7 @@ export default function Services_quizPage() {
           totalQuestions={myQuestions.length}
           incorrectAnswers={incorrectAnswersList}
           unansweredQuestions={unansweredQuestionsList}
+          onGotoQuiz={onGotoQuiz}
         />
       )}
     </div>
