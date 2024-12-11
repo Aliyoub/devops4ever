@@ -1,7 +1,7 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
+import { useRouter } from "next/router";
 import "../../../../app/styles.css";
-
 
 type QuizScoreProps = {
   score: number;
@@ -16,6 +16,7 @@ const QuizScore: React.FC<QuizScoreProps> = ({
   incorrectAnswers,
   unansweredQuestions,
 }) => {
+  const router = useRouter();
   return (
     <Box>
       <Typography
@@ -35,7 +36,9 @@ const QuizScore: React.FC<QuizScoreProps> = ({
       <Typography className="inCorrectAnswersTitle">
         Réponses incorrectes : {incorrectAnswers.length} / {totalQuestions}
       </Typography>
-      <Typography className="unansweredQuestionsTitle">Questions non répondues : {unansweredQuestions.length}</Typography>
+      <Typography className="unansweredQuestionsTitle">
+        Questions non répondues : {unansweredQuestions.length}
+      </Typography>
       <Box mt={2}>
         {incorrectAnswers.map((question: any, index) => (
           <Box key={index} mb={2}>
@@ -47,6 +50,15 @@ const QuizScore: React.FC<QuizScoreProps> = ({
             </Typography>
           </Box>
         ))}
+      </Box>
+      <Box>
+        <Button
+          className={"nextButton"}
+          variant="contained"
+          onClick={router.push("/quiz", undefined, { shallow: true })}
+        >
+          {"Retour"}
+        </Button>
       </Box>
     </Box>
   );
