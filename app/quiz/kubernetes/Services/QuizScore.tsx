@@ -17,6 +17,9 @@ const QuizScore: React.FC<QuizScoreProps> = ({
   unansweredQuestions,
 }) => {
   const router = useRouter();
+  const onBack = () => {
+    router.push("/quiz", undefined, { shallow: true })
+  }
   return (
     <Box>
       <Typography
@@ -55,7 +58,7 @@ const QuizScore: React.FC<QuizScoreProps> = ({
         <Button
           className={"nextButton"}
           variant="contained"
-          onClick={router.push("/quiz", undefined, { shallow: true })}
+          onClick={onBack()}
         >
           {"Retour"}
         </Button>
