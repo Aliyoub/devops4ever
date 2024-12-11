@@ -66,7 +66,7 @@ export default function Services_quizPage() {
   };
 
   
-  const _onGotoQuiz = () => {
+  const onGotoQuiz = () => {
   const router = useRouter();
     router.push("/quiz", undefined, { shallow: true });
   };
@@ -90,7 +90,7 @@ export default function Services_quizPage() {
           totalQuestions={myQuestions.length}
           incorrectAnswers={incorrectAnswersList}
           unansweredQuestions={unansweredQuestionsList}
-          onGotoQuiz={_onGotoQuiz}
+          onGotoQuiz={onGotoQuiz}
         />
       )}
     </div>
