@@ -123,8 +123,8 @@
   color: #3b8fef;
   border-color: #3b8fef;
   font-weight: bold;
-  margin-left: 7px;
-  margin-bottom: 7px;
+  margin-left: 17px;
+  margin-bottom: 17px;
 }
 .previewButton:hover {
   background-color: #fca4f0;
@@ -135,8 +135,8 @@
   background-color: #3B8FEF;
   color: #fff;
   font-weight: bold;
-  margin-right: 7px;
-  margin-bottom: 7px;
+  margin-right: 17px;
+  margin-bottom: 17px;
 }
 .nextButton:hover {
   background-color: #3b8fef;
