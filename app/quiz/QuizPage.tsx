@@ -10,23 +10,25 @@ import { useRouter } from "next/router";
 
 
 type QuizPageProps = {
-  myQuestions : any[];
+  quizQuestions : any[];
 };
 
-export default function Services_quizPage({myQuestions}:QuizPageProps) {
+export default function Services_quizPage({quizQuestions}:QuizPageProps) {
+  const router = useRouter();
+
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
     (state: RootState) => state.quizStartIndex.value
   );
 
-   myQuestions = useMemo(
-    () => questions.slice(quizStartIndex, quizStartIndex + quizSize),
+   const theSliceQuestions = useMemo(
+    () => quizQuestions.slice(quizStartIndex, quizStartIndex + quizSize),
     [quizStartIndex, quizSize]
   );
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState(
-    Array(myQuestions.length).fill(null)
+    Array(theSliceQuestions.length).fill(null)
   );
   const [score, setScore] = useState(0);
   const [incorrectAnswersList, setIncorrectAnswersList] = useState<object[]>(
@@ -44,21 +46,21 @@ export default function Services_quizPage({myQuestions}:QuizPageProps) {
 
   const handleNextQuestion = () => {
     const isCorrect =
-      Object.keys(myQuestions[currentQuestion].options)[
+      Object.keys(theSliceQuestions[currentQuestion].options)[
         selectedOptions[currentQuestion]
-      ] === myQuestions[currentQuestion].answer;
+      ] === theSliceQuestions[currentQuestion].answer;
 
     if (isCorrect) {
       setScore(score + 1);
     } else if (selectedOptions[currentQuestion] !== null) {
       setIncorrectAnswersList((prev) => [
         ...prev,
-        myQuestions[currentQuestion],
+        theSliceQuestions[currentQuestion],
       ]);
     } else {
       setUnansweredQuestionsList((prev) => [
         ...prev,
-        myQuestions[currentQuestion],
+        theSliceQuestions[currentQuestion],
       ]);
     }
 
@@ -71,27 +73,26 @@ export default function Services_quizPage({myQuestions}:QuizPageProps) {
 
   
   const _onGotoQuiz = () => {
-  const router = useRouter();
     router.push("/quiz", undefined, { shallow: true });
   };
 
   return (
     <div>
-      {currentQuestion < myQuestions.length ? (
+      {currentQuestion < theSliceQuestions.length ? (
         <QuizQuestions
-          question={myQuestions[currentQuestion].question}
-          options={myQuestions[currentQuestion].options}
+          question={theSliceQuestions[currentQuestion].question}
+          options={theSliceQuestions[currentQuestion].options}
           currentSelection={selectedOptions[currentQuestion]}
           onOptionChange={handleOptionChange}
           onNext={handleNextQuestion}
           onPrevious={handlePreviousQuestion}
           disablePrevious={currentQuestion === 0}
-          isLastQuestion={currentQuestion === myQuestions.length - 1}
+          isLastQuestion={currentQuestion === theSliceQuestions.length - 1}
         />
       ) : (
         <QuizScore
           score={score}
-          totalQuestions={myQuestions.length}
+          totalQuestions={theSliceQuestions.length}
           incorrectAnswers={incorrectAnswersList}
           unansweredQuestions={unansweredQuestionsList}
           onGotoQuiz={_onGotoQuiz}
