@@ -14,7 +14,7 @@ type QuizPageProps = {
 };
 
 export default function QuizPage({quizQuestions}:QuizPageProps) {
-  const router = useRouter();
+  // const router = useRouter();
 
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
@@ -95,7 +95,8 @@ export default function QuizPage({quizQuestions}:QuizPageProps) {
           totalQuestions={theSliceQuestions.length}
           incorrectAnswers={incorrectAnswersList}
           unansweredQuestions={unansweredQuestionsList}
-          onGotoQuiz={()=>router.push("/quiz", undefined, { shallow: true })}
+          onGotoQuiz={()=>console.log('first', "first")}
+          // onGotoQuiz={()=>router.push("/quiz", undefined, { shallow: true })}
         />
       )}
     </div>
