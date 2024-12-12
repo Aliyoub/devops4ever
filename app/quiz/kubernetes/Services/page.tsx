@@ -14,7 +14,7 @@ const Kubernetes: React.FC = () => {
 
 //   KUBERNETES SERVICES
   if (parent === "Kubernetes" && child === "Services" && grandChild === "Quiz")
-    return <QuizPage quizQuestions={questions}  />;
+    return <QuizPage quizQuestions={questions}  />
   else if (
     parent === "Kubernetes" &&
     child === "Services" &&
