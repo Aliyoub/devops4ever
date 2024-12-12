@@ -72,9 +72,9 @@ export default function QuizPage({quizQuestions}:QuizPageProps) {
   };
 
   
-  const _onGotoQuiz = () => {
-    router.push("/quiz", undefined, { shallow: true });
-  };
+  // const _onGotoQuiz = () => {
+  //   router.push("/quiz", undefined, { shallow: true });
+  // };
 
   return (
     <div>
@@ -95,7 +95,7 @@ export default function QuizPage({quizQuestions}:QuizPageProps) {
           totalQuestions={theSliceQuestions.length}
           incorrectAnswers={incorrectAnswersList}
           unansweredQuestions={unansweredQuestionsList}
-          onGotoQuiz={_onGotoQuiz}
+          onGotoQuiz={()=>router.push("/quiz", undefined, { shallow: true })}
         />
       )}
     </div>
