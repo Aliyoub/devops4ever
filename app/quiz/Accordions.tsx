@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { display, margin, padding, styled } from "@mui/system";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Services_quizPage from "./kubernetes/Services/services_quizPage";
+// import Services_quizPage from "./kubernetes/Services/services_quizPage";
 import { setGrandChild } from "@/store/slices/grandChild/grandChildSlice";
 import { setChild } from "@/store/slices/child/childSlice";
 import { setParent } from "@/store/slices/parent/parentSlice";
