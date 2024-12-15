@@ -64,8 +64,8 @@ const Kubernetes: React.FC = () => {
   <section>
     <h2>Introduction à Kubernetes</h2>
     <p>
-      Kubernetes est une plateforme d'orchestration de conteneurs conçue pour automatiser le déploiement, 
-      la mise à l'échelle et la gestion des applications conteneurisées. L'un des composants essentiels 
+      Kubernetes est une plateforme d&apos;orchestration de conteneurs conçue pour automatiser le déploiement, 
+      la mise à l&apos;échelle et la gestion des applications conteneurisées. L&apos;un des composants essentiels 
       de Kubernetes est le <strong>Service</strong>, une abstraction réseau permettant de connecter des pods 
       entre eux ou avec des applications externes.
     </p>
@@ -82,7 +82,7 @@ const Kubernetes: React.FC = () => {
   <section>
     <h2>Les types de services Kubernetes</h2>
     <p>
-      Kubernetes propose quatre types principaux de services pour répondre à différents cas d'utilisation :
+      Kubernetes propose quatre types principaux de services pour répondre à différents cas d&apos;utilisation :
     </p>
 
     <table>
@@ -96,7 +96,7 @@ const Kubernetes: React.FC = () => {
       <tbody>
         <tr>
           <td><strong>ClusterIP</strong></td>
-          <td>Expose le service uniquement à l'intérieur du cluster Kubernetes. Par défaut.</td>
+          <td>Expose le service uniquement à l&apos;intérieur du cluster Kubernetes. Par défaut.</td>
           <td>Interne au cluster</td>
         </tr>
         <tr>
@@ -106,7 +106,7 @@ const Kubernetes: React.FC = () => {
         </tr>
         <tr>
           <td><strong>LoadBalancer</strong></td>
-          <td>Permet d'exposer un service via un équilibre de charge externe fourni par le cloud (AWS, GCP, Azure).</td>
+          <td>Permet d&apos;exposer un service via un équilibre de charge externe fourni par le cloud (AWS, GCP, Azure).</td>
           <td>Public</td>
         </tr>
         <tr>
@@ -121,7 +121,7 @@ const Kubernetes: React.FC = () => {
   <section>
     <h2>Structure d’un Service</h2>
     <p>
-      Un service est défini à l'aide d'un manifeste YAML. Voici un exemple de base :
+      Un service est défini à l&apos;aide d&apos;un manifeste YAML. Voici un exemple de base :
     </p>
     <pre>
       <code>
@@ -153,7 +153,7 @@ spec:
         </ul>
       </li>
       <li>
-        <strong>type</strong> : Définit le mode d'exposition du service (ClusterIP, NodePort, etc.).
+        <strong>type</strong> : Définit le mode d&apos;exposition du service (ClusterIP, NodePort, etc.).
       </li>
     </ul>
   </section>
@@ -163,7 +163,7 @@ spec:
     <h3>1. `targetPort`</h3>
     <p>
       Le champ <code>targetPort</code> permet de rediriger le trafic reçu par le service vers un port interne au 
-      conteneur d'un pod. Ce port est indépendant du port externe (champ <code>port</code>) utilisé par les clients.
+      conteneur d&apos;un pod. Ce port est indépendant du port externe (champ <code>port</code>) utilisé par les clients.
     </p>
     <pre>
       <code>
@@ -191,7 +191,7 @@ spec:
     <ul>
       <li><strong>None</strong> (par défaut) : Pas d’affinité de session.</li>
       <li>
-        <strong>ClientIP</strong> : Redirige toujours les requêtes d'un même client (basé sur son IP) 
+        <strong>ClientIP</strong> : Redirige toujours les requêtes d&apos;un même client (basé sur son IP) 
         vers le même pod.
       </li>
     </ul>
