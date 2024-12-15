@@ -3,25 +3,21 @@
 import React, { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import QuizQuestions from "./kubernetes/Services/QuizQuestions";
-import QuizScore from "./kubernetes/Services/QuizScore";
-import { questions } from "./kubernetes/Services/questionServices";
-import { useRouter } from "next/router";
-
+import QuizQuestions from "./QuizQuestions";
+import QuizScore from "./QuizScore";
+// import { questions } from "./questionServices";
 
 type QuizPageProps = {
-  quizQuestions : any[];
+  quizQuestions: any[];
 };
 
-export default function QuizPage({quizQuestions}:QuizPageProps) {
-  const router = useRouter();
-
+export default function QuizPage({ quizQuestions }: QuizPageProps) {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
     (state: RootState) => state.quizStartIndex.value
   );
 
-   const theSliceQuestions = useMemo(
+  const theSliceQuestions = useMemo(
     () => quizQuestions.slice(quizStartIndex, quizStartIndex + quizSize),
     [quizStartIndex, quizSize]
   );
@@ -52,6 +48,10 @@ export default function QuizPage({quizQuestions}:QuizPageProps) {
 
     if (isCorrect) {
       setScore(score + 1);
+      // Retirer de la liste des réponses incorrectes si la réponse devient correcte
+      // setIncorrectAnswersList((prev) =>
+      //   prev.filter((item: any) => item.question_id !== currentQuestion)
+      // );
     } else if (selectedOptions[currentQuestion] !== null) {
       setIncorrectAnswersList((prev) => [
         ...prev,
@@ -63,17 +63,42 @@ export default function QuizPage({quizQuestions}:QuizPageProps) {
         theSliceQuestions[currentQuestion],
       ]);
     }
-
+    // if (currentQuestion < theSliceQuestions.length - 1) {
+    // setCurrentQuestion((prev) => prev + 1);
     setCurrentQuestion(currentQuestion + 1);
+    // }
   };
 
   const handlePreviousQuestion = () => {
-    setCurrentQuestion(currentQuestion - 1);
-  };
+    if (currentQuestion > 0) {
+      setCurrentQuestion((prev) => prev - 1);
+      const previousQuestionIndex = currentQuestion - 1;
+      const previousAnswer = selectedOptions[previousQuestionIndex];
+      console.log("previousAnswer:", previousAnswer);
+      if (previousAnswer === null) {
+        setUnansweredQuestionsList((prev) =>
+          prev.filter((item: any) => {
+            item.question_id !== previousQuestionIndex;
+            console.log("item.question_id:", item.question_id);
+          })
+        );
+      } else {
+        const wasCorrect =
+          previousAnswer === theSliceQuestions[previousQuestionIndex].answer;
+        // theSliceQuestions[previousQuestionIndex].correctAnswerIndex;
 
-  
-  const _onGotoQuiz = () => {
-    router.push("/quiz", undefined, { shallow: true });
+        if (wasCorrect) {
+          setScore((prevScore) => prevScore - 1); // Diminue le score si la réponse précédente était correcte
+        } else {
+          setIncorrectAnswersList((prev) =>
+            prev.filter(
+              (item: any) => item.question_id !== previousQuestionIndex
+            )
+          ); // Retire des réponses incorrectes si nécessaire
+        }
+      }
+      // setCurrentQuestion(currentQuestion - 1);
+    }
   };
 
   return (
@@ -95,7 +120,6 @@ export default function QuizPage({quizQuestions}:QuizPageProps) {
           totalQuestions={theSliceQuestions.length}
           incorrectAnswers={incorrectAnswersList}
           unansweredQuestions={unansweredQuestionsList}
-          onGotoQuiz={_onGotoQuiz}
         />
       )}
     </div>

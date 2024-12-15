@@ -10,7 +10,7 @@ import {
   styled,
 } from "@mui/material";
 import { Roboto } from "next/font/google";
-import "../../../../app/styles.css";
+import "../../app/styles.css";
 
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement

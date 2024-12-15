@@ -1,14 +1,13 @@
 'use client'
 import React from "react";
 import { Typography, Box, Button } from "@mui/material";
-import "../../../../app/styles.css";
+import "../../app/styles.css";
 
 type QuizScoreProps = {
   score: number;
   totalQuestions: number;
   incorrectAnswers: object[];
   unansweredQuestions: object[];
-  onGotoQuiz: () => void;
 };
 
 const QuizScore: React.FC<QuizScoreProps> = ({
@@ -16,8 +15,8 @@ const QuizScore: React.FC<QuizScoreProps> = ({
   totalQuestions,
   incorrectAnswers,
   unansweredQuestions,
-  onGotoQuiz,
 }) => {
+
   return (
     <Box>
       <Typography
@@ -51,15 +50,6 @@ const QuizScore: React.FC<QuizScoreProps> = ({
             </Typography>
           </Box>
         ))}
-      </Box>
-      <Box>
-        <Button
-          className={"nextButton"}
-          variant="contained"
-          onClick={onGotoQuiz}
-        >
-          {"Retour"}
-        </Button>
       </Box>
     </Box>
   );

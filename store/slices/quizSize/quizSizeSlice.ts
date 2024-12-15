@@ -6,7 +6,7 @@ export interface quizSizeState {
 }
 
 const initialState: quizSizeState = {
-  value: 5, // A adapter
+  value: 10, // A adapter
 };
 
 export const quizSizeSlice = createSlice({

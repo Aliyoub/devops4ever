@@ -2,11 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
+import { RootState } from "../../store/store";
 import QuizQuestions from "./QuizQuestions";
 import QuizScore from "./QuizScore";
-import { questions } from "./questionServices";
-import { useRouter } from "next/router";
+// import { questions } from "./questionServices";
 
 
 type QuizPageProps = {
@@ -14,7 +13,6 @@ type QuizPageProps = {
 };
 
 export default function QuizPage({quizQuestions}:QuizPageProps) {
-  // const router = useRouter();
 
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
@@ -71,11 +69,6 @@ export default function QuizPage({quizQuestions}:QuizPageProps) {
     setCurrentQuestion(currentQuestion - 1);
   };
 
-  
-  // const _onGotoQuiz = () => {
-  //   router.push("/quiz", undefined, { shallow: true });
-  // };
-
   return (
     <div>
       {currentQuestion < theSliceQuestions.length ? (
@@ -95,8 +88,6 @@ export default function QuizPage({quizQuestions}:QuizPageProps) {
           totalQuestions={theSliceQuestions.length}
           incorrectAnswers={incorrectAnswersList}
           unansweredQuestions={unansweredQuestionsList}
-          onGotoQuiz={()=>console.log('first', "first")}
-          // onGotoQuiz={()=>router.push("/quiz", undefined, { shallow: true })}
         />
       )}
     </div>
