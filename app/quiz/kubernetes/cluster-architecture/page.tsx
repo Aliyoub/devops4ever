@@ -43,20 +43,20 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
 
             <article id="kube-controller-manager">
               <h2>
-                1. kube-controller-manager : Maintenir l'état désiré du cluster
+                1. kube-controller-manager : Maintenir l&apos;état désiré du cluster
               </h2>
               <p>
                 Le <strong>kube-controller-manager</strong> est un composant clé
                 du plan de contrôle (control plane) de Kubernetes. Il exécute
-                des boucles de contrôle pour surveiller l'état des objets dans
+                des boucles de contrôle pour surveiller l&apos;état des objets dans
                 le cluster et agir pour aligner cet état sur celui désiré,
                 défini dans les fichiers de configuration.
               </p>
               <p>Principales fonctions :</p>
               <ul>
                 <li>
-                  Gestion des <strong>replicas</strong> pour s'assurer que le
-                  bon nombre de pods sont en cours d'exécution.
+                  Gestion des <strong>replicas</strong> pour s&apos;assurer que le
+                  bon nombre de pods sont en cours d&apos;exécution.
                 </li>
                 <li>
                   Supervision des nœuds avec le <em>Node Controller</em>{" "}
@@ -67,10 +67,10 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             </article>
 
             <article id="etcd">
-              <h2>2. etcd : Stockage de l'état du cluster</h2>
+              <h2>2. etcd : Stockage de l&apos;état du cluster</h2>
               <p>
                 <strong>etcd</strong> est un magasin clé-valeur distribué
-                utilisé par Kubernetes pour stocker l'état de configuration et
+                utilisé par Kubernetes pour stocker l&apos;état de configuration et
                 les données critiques du cluster. Il garantit la cohérence et la
                 disponibilité des données grâce à un mécanisme de consensus.
               </p>
@@ -92,9 +92,9 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             <article id="kube-scheduler">
               <h2>3. kube-scheduler : Planification des pods sur les nœuds</h2>
               <p>
-                Le <strong>kube-scheduler</strong> est chargé d'attribuer des
+                Le <strong>kube-scheduler</strong> est chargé d&apos;attribuer des
                 pods à des nœuds en fonction de critères tels que la
-                disponibilité des ressources, les contraintes d'affinité et les
+                disponibilité des ressources, les contraintes d&apos;affinité et les
                 politiques de tolérance.
               </p>
               <p>Fonctionnement :</p>
@@ -114,7 +114,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               </p>
               <p>Responsabilités :</p>
               <ul>
-                <li>Surveille l'état des pods et des conteneurs.</li>
+                <li>Surveille l&apos;état des pods et des conteneurs.</li>
                 <li>
                   Gère les redémarrages des conteneurs en cas de défaillance.
                 </li>
@@ -124,23 +124,23 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
 
             <article id="kube-apiserver">
               <h2>
-                5. kube-apiserver : Point d'entrée pour les commandes et l'accès
+                5. kube-apiserver : Point d&apos;entrée pour les commandes et l&apos;accès
                 API
               </h2>
               <p>
-                Le <strong>kube-apiserver</strong> est l'interface principale
+                Le <strong>kube-apiserver</strong> est l&apos;interface principale
                 entre les utilisateurs (via <code>kubectl</code>), les autres
                 composants du plan de contrôle et les nœuds. Il valide et traite
                 toutes les requêtes API.
               </p>
               <p>Fonctions clés :</p>
               <ul>
-                <li>Vérification et gestion des demandes d'API.</li>
+                <li>Vérification et gestion des demandes d&apos;API.</li>
                 <li>
                   Communication sécurisée avec <strong>etcd</strong> via TLS.
                 </li>
                 <li>
-                  Coordination avec les autres composants pour maintenir l'état
+                  Coordination avec les autres composants pour maintenir l&apos;état
                   désiré du cluster.
                 </li>
               </ul>
@@ -167,9 +167,9 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             <article id="health-monitoring">
               <h2>7. Monitoring des nœuds et pods</h2>
               <p>
-                Kubernetes s'appuie sur des agents comme le{" "}
+                Kubernetes s&apos;appuie sur des agents comme le{" "}
                 <strong>kubelet</strong> pour surveiller la santé des nœuds et
-                des pods. Les politiques d'éviction peuvent être appliquées si
+                des pods. Les politiques d&apos;éviction peuvent être appliquées si
                 un nœud devient défaillant.
               </p>
               <p>Exemples :</p>
@@ -200,11 +200,11 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             </article>
 
             <article id="security">
-              <h2>9. Sécurisation de l'API et des communications</h2>
+              <h2>9. Sécurisation de l&apos;API et des communications</h2>
               <p>
                 La communication entre les composants du cluster est sécurisée à
-                l'aide de certificats TLS. Le <strong>kube-apiserver</strong>{" "}
-                gère les autorisations et l'authentification via des jetons JWT
+                l&apos;aide de certificats TLS. Le <strong>kube-apiserver</strong>{" "}
+                gère les autorisations et l&apos;authentification via des jetons JWT
                 ou des politiques RBAC.
               </p>
             </article>
@@ -214,7 +214,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               <p>
                 Pour garantir la résilience, <strong>etcd</strong> utilise une
                 réplication synchrone entre plusieurs nœuds. Cela permet de
-                maintenir la cohérence des données même en cas de panne d'un
+                maintenir la cohérence des données même en cas de panne d&apos;un
                 nœud.
               </p>
             </article>
@@ -231,7 +231,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               <p>Principaux objectifs :</p>
               <ul>
                 <li>Créer des règles de routage pour les services.</li>
-                <li>Équilibrage de charge entre les pods d'un service.</li>
+                <li>Équilibrage de charge entre les pods d&apos;un service.</li>
               </ul>
             </article>
 
@@ -246,7 +246,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               <p>Points importants :</p>
               <ul>
                 <li>
-                  Certificats TLS pour l'authentification et le chiffrement.
+                  Certificats TLS pour l&apos;authentification et le chiffrement.
                 </li>
                 <li>
                   Protocole obligatoire pour sécuriser les interactions avec{" "}
@@ -269,7 +269,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                   Gestion des probes (<em>liveness</em> et <em>readiness</em>).
                 </li>
                 <li>
-                  Rapport de l'état des pods et des nœuds au{" "}
+                  Rapport de l&apos;état des pods et des nœuds au{" "}
                   <strong>kube-apiserver</strong>.
                 </li>
               </ul>
@@ -310,7 +310,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                 <li>
                   Marquer le nœud comme <code>NotReady</code>.
                 </li>
-                <li>Réassigner les pods à d'autres nœuds sains.</li>
+                <li>Réassigner les pods à d&apos;autres nœuds sains.</li>
               </ul>
             </article>
 
@@ -334,7 +334,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               <p>
                 Dans Kubernetes, un plugin réseau (par exemple,{" "}
                 <strong>Calico</strong> ou <strong>Weave</strong>) est
-                responsable de l'attribution d'adresses IP uniques à chaque pod,
+                responsable de l&apos;attribution d&apos;adresses IP uniques à chaque pod,
                 garantissant ainsi une connectivité réseau au sein du cluster.
               </p>
               <p>Caractéristiques supplémentaires :</p>
@@ -384,11 +384,11 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                 Dans une configuration haute disponibilité,{" "}
                 <strong>etcd</strong> utilise la réplication synchrone pour
                 garantir la cohérence des données entre les nœuds. Cela repose
-                sur l'algorithme de consensus Raft.
+                sur l&apos;algorithme de consensus Raft.
               </p>
               <p>Avantages :</p>
               <ul>
-                <li>Aucune perte de données en cas de panne d'un nœud.</li>
+                <li>Aucune perte de données en cas de panne d&apos;un nœud.</li>
                 <li>
                   Récupération rapide grâce à des sauvegardes et des répliques.
                 </li>
@@ -442,8 +442,8 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                 Le <strong>metrics-server</strong> est un composant clé pour la
                 surveillance des performances dans Kubernetes. Il collecte et
                 agrège les métriques des <strong>kubelets</strong>, telles que
-                l'utilisation du CPU et de la mémoire des pods, et les expose
-                via l'API.
+                l&apos;utilisation du CPU et de la mémoire des pods, et les expose
+                via l&apos;API.
               </p>
               <p>Utilisations courantes :</p>
               <ul>
@@ -454,12 +454,12 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
 
             <article id="custom-config-kube-scheduler">
               <h2>
-                24. Utilisation d'un fichier de configuration personnalisé pour
+                24. Utilisation d&apos;un fichier de configuration personnalisé pour
                 le kube-scheduler
               </h2>
               <p>
-                Le <strong>kube-scheduler</strong> peut être configuré à l'aide
-                d'un fichier de configuration spécifique, passé en paramètre
+                Le <strong>kube-scheduler</strong> peut être configuré à l&apos;aide
+                d&apos;un fichier de configuration spécifique, passé en paramètre
                 avec <code>--config</code>. Cela permet une personnalisation
                 avancée de ses comportements.
               </p>
@@ -480,7 +480,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                 La <strong>leader election</strong> assure la redondance et la
                 haute disponibilité des composants critiques du plan de
                 contrôle, comme le <strong>kube-controller-manager</strong>.
-                Elle garantit qu'un seul composant est actif à la fois pour
+                Elle garantit qu&apos;un seul composant est actif à la fois pour
                 éviter les conflits.
               </p>
               <p>Fonctionnement :</p>
@@ -490,7 +490,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                   leader.
                 </li>
                 <li>
-                  Surveillance continue de l'état du leader et réélection
+                  Surveillance continue de l&apos;état du leader et réélection
                   automatique en cas de défaillance.
                 </li>
               </ul>
