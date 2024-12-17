@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
 import Kubernetes_ClusterArchitecture from "./kubernetes/cluster-architecture/page";
-import Kubernetes_Services from "./kubernetes/services/page";
+import Kubernetes_Services from "./kubernetes/services/page2";
 // DON'T DELETE ME !!!
 
 import {
