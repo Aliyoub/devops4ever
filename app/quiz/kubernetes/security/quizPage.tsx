@@ -42,9 +42,12 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
 
   const handleNextQuestion = () => {
     const isCorrect =
-      Object.keys(theSliceQuestions[currentQuestion].options)[
+      theSliceQuestions[currentQuestion].options[
         selectedOptions[currentQuestion]
       ] === theSliceQuestions[currentQuestion].answer;
+      // Object.keys(theSliceQuestions[currentQuestion].options)[
+      //   selectedOptions[currentQuestion]
+      // ] === theSliceQuestions[currentQuestion].answer;
 
     if (isCorrect) {
       setScore(score + 1);
