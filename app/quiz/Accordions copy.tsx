@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
-import Kubernetes from "./kubernetes/services/page";
+import Kubernetes from "./kubernetes/Services/page";
 // DON'T DELETE ME !!!
 
 import {
@@ -16,7 +16,7 @@ import {
 import { display, styled } from "@mui/system";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Services_quizPage from "./kubernetes/services/services_quizPage";
+import Services_quizPage from "./kubernetes/Services/services_quizPage";
 import { setGrandChild } from "@/store/slices/grandChild/grandChildSlice";
 import { setChild } from "@/store/slices/child/childSlice";
 import { setParent } from "@/store/slices/parent/parentSlice";
