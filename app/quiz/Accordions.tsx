@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
-import Kubernetes from "./kubernetes/Services/page";
+import Kubernetes_ClusterArchitecture from "./kubernetes/cluster-architecture/page";
+import Kubernetes_Services from "./kubernetes/services/page";
 // DON'T DELETE ME !!!
 
 import {
@@ -26,6 +27,7 @@ import { setParent } from "@/store/slices/parent/parentSlice";
 // import Ansible from "./Ansible/Playbook/page";
 // Données hiérarchiques pour les accordéons
 import { dataForAccordionsStructure } from "./accordionsStructure";
+import ListOfKubernetesThemes from "./kubernetes/listOfKubernetesThemes";
 
 // Type pour l'état actif
 type ActiveState = {
@@ -70,7 +72,6 @@ const Accordions: React.FC = () => {
       grandChildId
     );
   };
-
   // const QuizAccordionSummary= (
   //   parentId: string,
   //   childId: string,
@@ -288,7 +289,9 @@ const Accordions: React.FC = () => {
                       <AccordionDetails sx={accordionStyles}>
                         {/* component="div" => pour empêcher le message d'erreur: <div> cannot be a descendant of <p>  */}
                         <Typography component="div">
-                          <Kubernetes />
+                          {/* <Kubernetes_ClusterArchitecture />
+                          <Kubernetes_Services /> */}
+                          <ListOfKubernetesThemes />
                           {/* <Ansible /> */}
                           {/* // DO NOT DELETE !!! */}
                         </Typography>

@@ -18,7 +18,7 @@ import {
 // import { styled } from "@mui/material/styles";
 
 // import { styled } from "@mui/system";
-import { questions } from "../../kubernetes/Services/questionServices";
+import { questions } from "../../kubernetes/services/questionsServices";
 
 import { Roboto } from "next/font/google";
 // import "../../styles.css";
