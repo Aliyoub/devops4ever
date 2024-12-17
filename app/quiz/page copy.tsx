@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
-import Kubernetes from "./kubernetes/services/KubernetesServices";
+import Kubernetes from "./kubernetes/services/page";
 // DON'T DELETE ME !!!
 
 import {

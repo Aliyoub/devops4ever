@@ -1,12 +1,12 @@
 import React from 'react'
 
-import KubernetesServices from './app/quiz/kubernetes/services/KubernetesServices'
 import Kubernetes_ClusterArchitecture from './cluster-architecture/page'
+import Kubernetes_Services from './services/page'
 
 const ListOfKubernetesThemes = () => {
   return (
     <>
-    <KubernetesServices />
+    <Kubernetes_Services />
     <Kubernetes_ClusterArchitecture />
     </>
   )

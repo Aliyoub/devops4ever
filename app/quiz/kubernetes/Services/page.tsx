@@ -6,7 +6,7 @@ import { RootState, AppDispatch } from "../../../../store/store";
 import QuizPage from './quizPage'
 import { questions } from "./questionsServices";
 
-const KubernetesServices: React.FC = () => {
+const Kubernetes_Services: React.FC = () => {
   const parent = useSelector((state: RootState) => state.parent.value);
   const child = useSelector((state: RootState) => state.child.value);
   const grandChild = useSelector((state: RootState) => state.grandChild.value);
@@ -312,4 +312,4 @@ const KubernetesServices: React.FC = () => {
   // parent
 };
 
-export default KubernetesServices;
+export default Kubernetes_Services;
