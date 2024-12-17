@@ -677,8 +677,8 @@ spec:
         rules:
           - level: Metadata
             resources:
-              - group: ""
-                resources: ["pods"]
+              - group: &quot;&quot;
+                resources: [&quot;pods&quot;]
     </code>
   </pre>
 </section>
@@ -797,7 +797,7 @@ spec:
         etcd:
           encryption:
             enabled: true
-            provider: "aes256-gcm"
+            provider: &quot;aes256-gcm&quot;
     </code>
   </pre>
 </section>
