@@ -41,11 +41,11 @@ const Kubernetes_Security: React.FC = () => {
             <section>
               <h2>1. Comportement par défaut des pods sans Security Context</h2>
               <p>
-                Par défaut, si aucun <strong>Security Context</strong> n'est
+                Par défaut, si aucun <strong>Security Context</strong> n&apos;est
                 spécifié pour un pod, Kubernetes exécute les pods en tant que{" "}
-                <strong>root user</strong>. C'est un risque majeur de sécurité,
+                <strong>root user</strong>. C&apos;est un risque majeur de sécurité,
                 car un conteneur exécuté avec des privilèges root peut
-                compromettre l'hôte ou d'autres ressources.
+                compromettre l&apos;hôte ou d&apos;autres ressources.
               </p>
               <h3>Bonne pratique :</h3>
               <ul>
@@ -72,12 +72,12 @@ spec:
               </pre>
             </section>
 
-            {/* 2. Restriction des registries d'images */}
+            {/* 2. Restriction des registries d&apos;images */}
             <section>
-              <h2>2. Restriction des registries d'images</h2>
+              <h2>2. Restriction des registries d&apos;images</h2>
               <p>
-                Kubernetes permet de restreindre les registries d'images via
-                l'utilisation de <strong>ImagePolicyWebhook</strong>. Cette
+                Kubernetes permet de restreindre les registries d&apos;images via
+                l&apos;utilisation de <strong>ImagePolicyWebhook</strong>. Cette
                 ressource applique des politiques pour autoriser uniquement des
                 images provenant de registries approuvées.
               </p>
@@ -122,7 +122,7 @@ spec:
               <p>
                 Kubernetes utilise le modèle{" "}
                 <strong>RBAC (Role-Based Access Control)</strong> pour gérer les
-                permissions d'accès aux ressources. Les principaux composants
+                permissions d&apos;accès aux ressources. Les principaux composants
                 sont :
               </p>
               <ul>
@@ -141,7 +141,7 @@ spec:
                 </li>
               </ul>
               <p>
-                <strong>Note :</strong> "RolePolicy" n'est pas une ressource
+                <strong>Note :</strong> &quot;RolePolicy&quot; n&apos;est pas une ressource
                 valide.
               </p>
             </section>
@@ -170,11 +170,11 @@ spec:
               </pre>
             </section>
 
-            {/* 6. Empêcher l'exécution root */}
+            {/* 6. Empêcher l&apos;exécution root */}
             <section>
-              <h2>6. Empêcher un conteneur de s'exécuter en tant que root</h2>
+              <h2>6. Empêcher un conteneur de s&apos;exécuter en tant que root</h2>
               <p>
-                Pour éviter que des conteneurs ne s'exécutent avec des
+                Pour éviter que des conteneurs ne s&apos;exécutent avec des
                 privilèges root, définissez <code>runAsNonRoot: true</code> dans
                 le Security Context.
               </p>
@@ -198,7 +198,7 @@ spec:
               <h2>7. Permissions API via Roles et RoleBindings</h2>
               <p>
                 Utilisez <strong>Roles</strong> et <strong>RoleBindings</strong>{" "}
-                pour configurer des permissions granulaires pour accéder à l'API
+                pour configurer des permissions granulaires pour accéder à l&apos;API
                 Kubernetes.
               </p>
             </section>
@@ -217,10 +217,10 @@ spec:
               <h2>9. Kubernetes Audit Logs</h2>
               <p>
                 Les <strong>Audit Logs</strong> de Kubernetes enregistrent les
-                requêtes faites à l'API server, ce qui est essentiel pour :
+                requêtes faites à l&apos;API server, ce qui est essentiel pour :
               </p>
               <ul>
-                <li>Surveiller l'activité des utilisateurs.</li>
+                <li>Surveiller l&apos;activité des utilisateurs.</li>
                 <li>Détecter les comportements anormaux.</li>
                 <li>Garantir la conformité.</li>
               </ul>
@@ -230,8 +230,8 @@ spec:
             <section>
               <h2>10. Sécurisation des connexions kubelet</h2>
               <p>
-                Pour sécuriser les connexions entre kubelet et d'autres
-                composants, activez TLS avec l'option{" "}
+                Pour sécuriser les connexions entre kubelet et d&apos;autres
+                composants, activez TLS avec l&apos;option{" "}
                 <code>--tls-cert-file</code>.
               </p>
             </section>
