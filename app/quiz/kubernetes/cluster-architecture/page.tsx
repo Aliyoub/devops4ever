@@ -59,7 +59,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                   bon nombre de pods sont en cours d&apos;exécution.
                 </li>
                 <li>
-                  Supervision des nœuds avec le <em>Node Controller</em> 
+                  Supervision des nœuds avec le <em>Node Controller</em>{" "}
                   (détection de pannes).
                 </li>
                 <li>Administration des volumes et des tokens de service.</li>
@@ -167,7 +167,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             <article id="health-monitoring">
               <h2>7. Monitoring des nœuds et pods</h2>
               <p>
-                Kubernetes s&apos;appuie sur des agents comme le 
+                Kubernetes s&apos;appuie sur des agents comme le{" "}
                 <strong>kubelet</strong> pour surveiller la santé des nœuds et
                 des pods. Les politiques d&apos;éviction peuvent être appliquées si
                 un nœud devient défaillant.
@@ -175,7 +175,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               <p>Exemples :</p>
               <ul>
                 <li>
-                  Détection de pannes via des probes (<em>liveness</em>, 
+                  Détection de pannes via des probes (<em>liveness</em>,{" "}
                   <em>readiness</em>).
                 </li>
                 <li>
@@ -187,7 +187,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             <article id="network-plugin">
               <h2>8. Plugins réseau : Allocation des adresses IP</h2>
               <p>
-                Les plugins réseau comme <strong>Calico</strong> ou 
+                Les plugins réseau comme <strong>Calico</strong> ou{" "}
                 <strong>Flannel</strong> gèrent la connectivité réseau entre les
                 pods et les services. Ils attribuent des adresses IP uniques à
                 chaque pod et appliquent des politiques réseau.
@@ -203,7 +203,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               <h2>9. Sécurisation de l&apos;API et des communications</h2>
               <p>
                 La communication entre les composants du cluster est sécurisée à
-                l&apos;aide de certificats TLS. Le <strong>kube-apiserver</strong> 
+                l&apos;aide de certificats TLS. Le <strong>kube-apiserver</strong>{" "}
                 gère les autorisations et l&apos;authentification via des jetons JWT
                 ou des politiques RBAC.
               </p>
@@ -249,7 +249,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                   Certificats TLS pour l&apos;authentification et le chiffrement.
                 </li>
                 <li>
-                  Protocole obligatoire pour sécuriser les interactions avec 
+                  Protocole obligatoire pour sécuriser les interactions avec{" "}
                   <code>kubectl</code> et les composants du cluster.
                 </li>
               </ul>
@@ -269,7 +269,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                   Gestion des probes (<em>liveness</em> et <em>readiness</em>).
                 </li>
                 <li>
-                  Rapport de l&apos;état des pods et des nœuds au 
+                  Rapport de l&apos;état des pods et des nœuds au{" "}
                   <strong>kube-apiserver</strong>.
                 </li>
               </ul>
@@ -301,7 +301,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
                 15. Détection des pannes de nœuds par le kube-controller-manager
               </h2>
               <p>
-                Le <strong>kube-controller-manager</strong> inclut un 
+                Le <strong>kube-controller-manager</strong> inclut un{" "}
                 <em>Node Controller</em> qui surveille la disponibilité des
                 nœuds. En cas de panne, il agit pour rééquilibrer les workloads.
               </p>
@@ -319,7 +319,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               <p>
                 Le drapeau <code>--secure-port</code> spécifie le port sécurisé
                 sur lequel le <strong>kube-apiserver</strong> écoute pour les
-                requêtes HTTPS. Par défaut, ce port est généralement 
+                requêtes HTTPS. Par défaut, ce port est généralement{" "}
                 <code>6443</code>.
               </p>
               <p>Raisons de son importance :</p>
@@ -332,7 +332,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             <article id="network-ip-allocation">
               <h2>17. Plugins réseau : Attribution des adresses IP aux pods</h2>
               <p>
-                Dans Kubernetes, un plugin réseau (par exemple, 
+                Dans Kubernetes, un plugin réseau (par exemple,{" "}
                 <strong>Calico</strong> ou <strong>Weave</strong>) est
                 responsable de l&apos;attribution d&apos;adresses IP uniques à chaque pod,
                 garantissant ainsi une connectivité réseau au sein du cluster.
@@ -364,10 +364,10 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             </article>
 
             <article id="leader-election">
-              <h2>19. Mécanisme de "leader election" dans Kubernetes</h2>
+              <h2>19. Mécanisme de &quot;leader election&quot; dans Kubernetes</h2>
               <p>
                 La <strong>leader election</strong> est utilisée par certains
-                composants du plan de contrôle (comme le 
+                composants du plan de contrôle (comme le{" "}
                 <strong>kube-controller-manager</strong>) pour assurer la
                 redondance et éviter les conflits dans la gestion des tâches.
               </p>
@@ -381,7 +381,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             <article id="etcd-data-consistency">
               <h2>20. Cohérence des données dans etcd</h2>
               <p>
-                Dans une configuration haute disponibilité, 
+                Dans une configuration haute disponibilité,{" "}
                 <strong>etcd</strong> utilise la réplication synchrone pour
                 garantir la cohérence des données entre les nœuds. Cela repose
                 sur l&apos;algorithme de consensus Raft.
@@ -399,7 +399,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
             <article id="etcd-authentication">
               <h2>21. Authentification de etcd par le kube-apiserver</h2>
               <p>
-                Pour accéder à <strong>etcd</strong>, le 
+                Pour accéder à <strong>etcd</strong>, le{" "}
                 <strong>kube-apiserver</strong> utilise des certificats TLS. Ce
                 mécanisme garantit que seules les communications authentifiées
                 et sécurisées sont permises entre les composants Kubernetes et
@@ -416,8 +416,8 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
               <h2>22. Décision du placement des pods par le kube-scheduler</h2>
               <p>
                 Le <strong>kube-scheduler</strong> choisit un nœud pour exécuter
-                chaque pod en tenant compte des 
-                <strong>ressources disponibles</strong> et des 
+                chaque pod en tenant compte des{" "}
+                <strong>ressources disponibles</strong> et des{" "}
                 <strong>politiques définies</strong>, telles que les taints, les
                 tolerations et les affinities.
               </p>
