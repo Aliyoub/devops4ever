@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Kubernetes_Services from './services/page2'
+import Kubernetes_Services from './services/Kubernetes_Services'
 import Kubernetes_ClusterArchitecture from './cluster-architecture/page'
 
 const ListOfKubernetesThemes = () => {
