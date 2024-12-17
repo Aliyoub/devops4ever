@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    // empêcher les erreurs de casse dans les importations.
     "forceConsistentCasingInFileNames": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
