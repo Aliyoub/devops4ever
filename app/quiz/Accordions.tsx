@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
 import Kubernetes_ClusterArchitecture from "./kubernetes/cluster-architecture/page";
-import Kubernetes_Services from "./kubernetes/services/page";
+import Kubernetes_Services from "./kubernetes/Services/page";
 // DON'T DELETE ME !!!
 
 import {
@@ -27,7 +27,7 @@ import { setParent } from "@/store/slices/parent/parentSlice";
 // import Ansible from "./Ansible/Playbook/page";
 // Données hiérarchiques pour les accordéons
 import { dataForAccordionsStructure } from "./accordionsStructure";
-import ListOfKubernetesThemes from "./kubernetes/listOfKubernetesThemes";
+import ListOfKubernetesThemes from "./kubernetes/page";
 
 // Type pour l'état actif
 type ActiveState = {
