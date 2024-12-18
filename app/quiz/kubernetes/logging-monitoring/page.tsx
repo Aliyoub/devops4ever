@@ -4,19 +4,19 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
 import QuizPage from "./quizPage";
-import { questions } from "./questionsInstallationConfiguration";
+import { questions } from "./questionsLoggingMonitoring";
 
-const Kubernetes_InstallationConfiguration: React.FC = () => {
+const Kubernetes_LoggingMonitoring: React.FC = () => {
   const parent = useSelector((state: RootState) => state.parent.value);
   const child = useSelector((state: RootState) => state.child.value);
   const grandChild = useSelector((state: RootState) => state.grandChild.value);
 
   //   KUBERNETES Installation Configuration
-  if (parent === "Kubernetes" && child === "Installation and Configuration" && grandChild === "Quiz")
+  if (parent === "Kubernetes" && child === "Logging and Monitoring" && grandChild === "Quiz")
     return <QuizPage quizQuestions={questions} />;
   else if (
     parent === "Kubernetes" &&
-    child === "Installation and Configuration" &&
+    child === "Logging and Monitoring" &&
     grandChild === "Lecture"
   )
     return (
@@ -2087,4 +2087,4 @@ spec:
   // parent
 };
 
-export default Kubernetes_InstallationConfiguration;
+export default Kubernetes_LoggingMonitoring;

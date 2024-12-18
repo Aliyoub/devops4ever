@@ -6,7 +6,15 @@ export const kubernetes_dataForAccordionsStructure = {
       grandChildren: ["Quiz", "Lecture"],
     },
     {
-      child: "Installation Configuration",
+      child: "Workloads and Scheduling",
+      grandChildren: ["Quiz", "Lecture"],
+    },
+    {
+      child: "Installation and Configuration",
+      grandChildren: ["Quiz", "Lecture"],
+    },
+    {
+      child: "Logging and Monitoring",
       grandChildren: ["Quiz", "Lecture"],
     },
     {
