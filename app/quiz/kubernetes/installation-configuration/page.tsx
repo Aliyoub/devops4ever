@@ -1371,7 +1371,7 @@ spec:
           <section>
             <h2>68. Gestion des nœuds non prêts</h2>
             <p>
-              Kubernetes marque les nœuds comme "NotReady" lorsqu&apos;ils ne
+              Kubernetes marque les nœuds comme &quot;NotReady&quot; lorsqu&apos;ils ne
               répondent pas ou ont des problèmes. Utilisez{" "}
               <code>kubectl describe node</code> pour diagnostiquer le problème.
             </p>
@@ -2053,7 +2053,6 @@ spec:
               </code>
             </pre>
           </section>
-          
         </div>
         <style jsx>{`
           h1 {
