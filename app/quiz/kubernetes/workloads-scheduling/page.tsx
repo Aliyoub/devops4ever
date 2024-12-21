@@ -581,7 +581,7 @@ spec:
             </section>
 
             <section>
-              <h2>23. Influence de "priorityClassName" sur la planification</h2>
+              <h2>23. Influence de &quot;priorityClassName&quot; sur la planification</h2>
               <p>
                 Le champ <strong>priorityClassName</strong> attribue une
                 priorité au pod, influençant son ordre de planification lorsque
@@ -627,7 +627,7 @@ spec:
             </section>
 
             <section>
-              <h2>25. Utilité des "topologySpreadConstraints"</h2>
+              <h2>25. Utilité des &quot;topologySpreadConstraints&quot;</h2>
               <p>
                 Les <strong>topologySpreadConstraints</strong> permettent de
                 répartir les pods uniformément à travers des domaines de
@@ -642,7 +642,7 @@ kind: Pod
 spec:
   topologySpreadConstraints:
     - maxSkew: 1
-      topologyKey: "topology.kubernetes.io/zone"
+      topologyKey:&quot; "topology.kubernetes.io/zone"
       whenUnsatisfiable: DoNotSchedule
       labelSelector:
         matchLabels:
@@ -736,7 +736,7 @@ spec:
             </section>
 
             <section>
-              <h2>29. Utilité du "serviceAccountName"</h2>
+              <h2>29. Utilité du &quot;serviceAccountName&quot;</h2>
               <p>
                 Le champ <strong>serviceAccountName</strong> associe un pod à un
                 compte de service, déterminant les autorisations du pod pour
@@ -793,7 +793,7 @@ spec:
               </h2>
               <p>
                 Par défaut, les <strong>StatefulSets</strong> utilisent la
-                stratégie "<code>OnDelete</code>", ce qui signifie que les pods
+                stratégie &quot;<code>OnDelete</code>&quot;, ce qui signifie que les pods
                 ne seront mis à jour que s&apos;ils sont manuellement supprimés.
               </p>
               <h3>Exemple :</h3>
@@ -1032,7 +1032,7 @@ spec:
             </section>
 
             <section>
-              <h2>42. Rôle de "nodeSelector" dans un pod spec</h2>
+              <h2>42. Rôle de &quot;nodeSelector&quot; dans un pod spec</h2>
               <p>
                 Le <strong>nodeSelector</strong> permet de spécifier que le pod
                 doit être exécuté uniquement sur des nœuds ayant certaines
@@ -1239,7 +1239,7 @@ spec:
               </h2>
               <p>
                 Par défaut, Kubernetes termine les pods les plus récents
-                ("Newest") en premier lors d&apos;un événement de scale-down.
+                (&quot;Newest&quot;) en premier lors d&apos;un événement de scale-down.
               </p>
               <h3>Exemple :</h3>
               <pre>
