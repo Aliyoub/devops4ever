@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Roboto } from "next/font/google";
 import "@/app/styles.css";
+import { myColors } from "@/myConstants/colors/page";
 
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement

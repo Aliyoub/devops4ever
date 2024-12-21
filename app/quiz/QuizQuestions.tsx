@@ -20,10 +20,7 @@ const roboto = Roboto({
 });
 
 const CustomRadio = styled(Radio)({
-  "& .MuiSvgIcon-root": { fontSize: 15 },
-  color: "rgb(224, 247, 250)",
-//   color: "#3B8FEF",
-  fontWeight:"bolder",
+  "& .MuiSvgIcon-root": { fontSize: 15,color: "#fca4f0"},
   "&.Mui-checked": { color: "#FCA4F0" },
 });
 
@@ -49,47 +46,61 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
   isLastQuestion,
 }) => {
   return (
-      <Box
-        sx={{
-          width: "100%",
-          maxHeight: "70vh",
-          overflowY: "auto",
-          marginBottom: "16px",
-        }}
-      >
-        <Typography  className={(roboto.className, "questionText")} variant="h6">
-          {question}
-        </Typography>
-        <FormControl style={{ width: "100%" }} component="fieldset">
-          <RadioGroup value={currentSelection} onChange={onOptionChange}>
-            {Object.entries(options).map(([key, value], index) => (
-              <FormControlLabel
-                key={index}
-                value={index}
-                control={<CustomRadio />}
-                label={
-                  <Typography sx={{ color: "rgb(224, 247, 250)", fontSize: "1rem" }}>
-                    {value}
-                  </Typography>
-                }
-                style={{
-                  backgroundColor: "#3B8FEF",
-                  borderBottom: "0.5px solid #FCA4F0",
-                  padding: 0,
-                  margin: 0,
-                  width: "100%",
-                }}
-              />
-            ))}
-          </RadioGroup>
-        </FormControl>
-      <Box display="flex" justifyContent="space-between" mt={3}>
+    <Box
+      // sx={{
+      //   width: "100%",
+      //   maxHeight: "70vh",
+      //   overflowY: "auto",
+      //   marginBottom: "16px",
+      // }}
+
+      // style={{
+      //   width: "100%",
+      //   height: "300px",
+      //   overflowY: "auto",
+      //   overflowX: "auto",
+      //   scrollbarColor: "#FCA4F0",
+      //   WebkitScrollbar: "#FCA4F0",
+      //   borderRadius: "5px",
+      //   paddingBottom: "20px",
+      // }}
+      className="scrollable-content"
+    >
+      <Typography className={(roboto.className, "questionText")} variant="h6">
+        {question}
+      </Typography>
+      <FormControl style={{ width: "100%" }} component="fieldset">
+        <RadioGroup value={currentSelection} onChange={onOptionChange}>
+          {Object.entries(options).map(([key, value], index) => (
+            <FormControlLabel
+              key={index}
+              value={index}
+              control={<CustomRadio />}
+              label={
+                <Typography
+                  sx={{ color: "rgb(224, 247, 250)", fontSize: "1rem" }}
+                >
+                  {value}
+                </Typography>
+              }
+              style={{
+                backgroundColor: "#3B8FEF",
+                borderBottom: "0.5px solid #FCA4F0",
+                padding: 0,
+                margin: 0,
+                width: "100%",
+              }}
+            />
+          ))}
+        </RadioGroup>
+      </FormControl>
+      <Box display="flex" justifyContent="space-between" mt={1}>
         <Button
           variant="outlined"
           onClick={onPrevious}
           disabled={disablePrevious}
           className="previewButton"
-          sx={{marginLeft: 2}}
+          sx={{ marginLeft: 2 }}
         >
           Précédent
         </Button>
@@ -97,12 +108,12 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
           className={!isLastQuestion ? "nextButton" : ""}
           variant="outlined"
           onClick={onNext}
-          sx={{marginRight: 2, borderWidth: 2}}
+          sx={{ marginRight: 2, borderWidth: 2 }}
         >
           {isLastQuestion ? "Voir le score" : "Suivant"}
         </Button>
       </Box>
-      </Box>
+    </Box>
   );
 };
 

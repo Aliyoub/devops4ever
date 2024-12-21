@@ -12,7 +12,11 @@ const Kubernetes_WorkloadsScheduling: React.FC = () => {
   const grandChild = useSelector((state: RootState) => state.grandChild.value);
 
   //   KUBERNETES Installation Configuration
-  if (parent === "Kubernetes" && child === "Workloads and Scheduling" && grandChild === "Quiz")
+  if (
+    parent === "Kubernetes" &&
+    child === "Workloads and Scheduling" &&
+    grandChild === "Quiz"
+  )
     return <QuizPage quizQuestions={questions} />;
   else if (
     parent === "Kubernetes" &&
@@ -35,125 +39,14 @@ const Kubernetes_WorkloadsScheduling: React.FC = () => {
       >
         <div>
           <div>
-            <h1>Sécurité Kubernetes : Concepts essentiels</h1>
-
-            {/* 1. Comportement par défaut des pods sans Security Context */}
+            <h1>Kubernetes Workloads and Scheduling</h1>
             <section>
-              <h2>1. Comportement par défaut des pods sans Security Context</h2>
+              <h2>1. Politique de redémarrage par défaut pour les pods</h2>
               <p>
-                Par défaut, si aucun <strong>Security Context</strong>{" "}
-                n&apos;est spécifié pour un pod, Kubernetes exécute les pods en
-                tant que <strong>root user</strong>. C&apos;est un risque majeur
-                de sécurité, car un conteneur exécuté avec des privilèges root
-                peut compromettre l&apos;hôte ou d&apos;autres ressources.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer le <code>runAsNonRoot: true</code> dans le Security
-                  Context.
-                </li>
-                <li>
-                  Utiliser un utilisateur spécifique non-root pour le conteneur.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  containers:
-    - name: mycontainer
-      image: myimage
-      securityContext:
-        runAsNonRoot: true`}
-                </code>
-              </pre>
-            </section>
-
-            {/* 2. Restriction des registries d&apos;images */}
-            <section>
-              <h2>2. Restriction des registries d&apos;images</h2>
-              <p>
-                Kubernetes permet de restreindre les registries d&apos;images
-                via l&apos;utilisation de <strong>ImagePolicyWebhook</strong>.
-                Cette ressource applique des politiques pour autoriser
-                uniquement des images provenant de registries approuvées.
-              </p>
-              <h3>Utilisation :</h3>
-              <ul>
-                <li>
-                  Configurer un admission controller utilisant
-                  ImagePolicyWebhook.
-                </li>
-                <li>Implémenter une politique de signature pour les images.</li>
-              </ul>
-            </section>
-
-            {/* 3. Network Policies */}
-            <section>
-              <h2>3. Enforcement des Network Policies</h2>
-              <p>
-                Les <strong>Network Policies</strong> dans Kubernetes sont
-                appliquées par le <strong>CNI plugin</strong> (Container Network
-                Interface). Elles permettent de contrôler le flux de trafic
-                réseau entre pods.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: deny-all
-spec:
-  podSelector: {}
-  policyTypes:
-    - Ingress
-    - Egress`}
-                </code>
-              </pre>
-            </section>
-
-            {/* 4. Kubernetes RBAC */}
-            <section>
-              <h2>4. RBAC dans Kubernetes</h2>
-              <p>
-                Kubernetes utilise le modèle{" "}
-                <strong>RBAC (Role-Based Access Control)</strong> pour gérer les
-                permissions d&apos;accès aux ressources. Les principaux
-                composants sont :
-              </p>
-              <ul>
-                <li>
-                  <strong>Role</strong> : définit les permissions dans un
-                  namespace spécifique.
-                </li>
-                <li>
-                  <strong>ClusterRole</strong> : définit les permissions
-                  globales au cluster.
-                </li>
-                <li>
-                  <strong>RoleBinding</strong> et{" "}
-                  <strong>ClusterRoleBinding</strong> : lient les rôles aux
-                  utilisateurs.
-                </li>
-              </ul>
-              <p>
-                <strong>Note :</strong> &quot;RolePolicy&quot; n&apos;est pas
-                une ressource valide.
-              </p>
-            </section>
-
-            {/* 5. readOnlyRootFilesystem */}
-            <section>
-              <h2>5. Paramètre readOnlyRootFilesystem</h2>
-              <p>
-                Le paramètre <code>readOnlyRootFilesystem</code> dans le
-                Security Context rend le système de fichiers du conteneur{" "}
-                <strong>immuable</strong>. Cela empêche toute modification
-                malveillante du conteneur.
+                La politique de redémarrage par défaut pour les pods dans
+                Kubernetes est <strong>"Always"</strong>. Cela signifie que le
+                pod sera redémarré automatiquement s&apos;il échoue ou est
+                supprimé.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -164,21 +57,74 @@ spec:
   containers:
     - name: mycontainer
       image: myimage
-      securityContext:
-        readOnlyRootFilesystem: true`}
+      restartPolicy: Always`}
                 </code>
               </pre>
             </section>
 
-            {/* 6. Empêcher l&apos;exécution root */}
             <section>
               <h2>
-                6. Empêcher un conteneur de s&apos;exécuter en tant que root
+                2. Contrôleur responsable de la gestion des réplicas d&apos;un
+                déploiement
               </h2>
               <p>
-                Pour éviter que des conteneurs ne s&apos;exécutent avec des
-                privilèges root, définissez <code>runAsNonRoot: true</code> dans
-                le Security Context.
+                Le contrôleur <strong>ReplicaSet</strong> est chargé de garantir
+                qu&apos;un nombre spécifié de réplicas de pods est en cours
+                d&apos;exécution à tout moment. Les déploiements utilisent les
+                ReplicaSets pour gérer les pods.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: Deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: mycontainer
+        image: myimage`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>3. Meilleur type de workload pour les tâches batch</h2>
+              <p>
+                Le type de workload le mieux adapté pour exécuter une tâche
+                batch est un <strong>Job</strong>. Les Jobs sont conçus pour
+                exécuter des tâches qui doivent se terminer après leur
+                exécution.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: Job
+spec:
+  template:
+    spec:
+      containers:
+      - name: batch-task
+        image: myimage
+      restartPolicy: Never`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>4. Utilité de "nodeSelector" dans un spec de pod</h2>
+              <p>
+                Le champ <strong>nodeSelector</strong> est utilisé pour
+                contraindre un pod à s&apos;exécuter uniquement sur les nœuds
+                ayant des étiquettes spécifiques.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -186,275 +132,8 @@ spec:
                   {`apiVersion: v1
 kind: Pod
 spec:
-  containers:
-    - name: secure-container
-      image: secure-image
-      securityContext:
-        runAsNonRoot: true`}
-                </code>
-              </pre>
-            </section>
-
-            {/* 7. Permissions API : Roles et RoleBindings */}
-            <section>
-              <h2>7. Permissions API via Roles et RoleBindings</h2>
-              <p>
-                Utilisez <strong>Roles</strong> et <strong>RoleBindings</strong>{" "}
-                pour configurer des permissions granulaires pour accéder à
-                l&apos;API Kubernetes.
-              </p>
-            </section>
-
-            {/* 8. Isolation réseau via NetworkPolicy */}
-            <section>
-              <h2>8. Isolation réseau avec NetworkPolicy</h2>
-              <p>
-                Les <strong>Network Policies</strong> isolent les pods en
-                définissant des règles de trafic réseau (Ingress/Egress).
-              </p>
-            </section>
-
-            {/* 9. Kubernetes Audit Logs */}
-            <section>
-              <h2>9. Kubernetes Audit Logs</h2>
-              <p>
-                Les <strong>Audit Logs</strong> de Kubernetes enregistrent les
-                requêtes faites à l&apos;API server, ce qui est essentiel pour :
-              </p>
-              <ul>
-                <li>Surveiller l&apos;activité des utilisateurs.</li>
-                <li>Détecter les comportements anormaux.</li>
-                <li>Garantir la conformité.</li>
-              </ul>
-            </section>
-
-            {/* 10. Sécuriser les connexions kubelet */}
-            <section>
-              <h2>10. Sécurisation des connexions kubelet</h2>
-              <p>
-                Pour sécuriser les connexions entre kubelet et d&apos;autres
-                composants, activez TLS avec l&apos;option{" "}
-                <code>--tls-cert-file</code>.
-              </p>
-            </section>
-            <section>
-              <h2>
-                11. Ressource limitant les opérations privilégiées d&apos;un pod
-              </h2>
-              <p>
-                Le champ <code>PodSecurityPolicy</code> permet de limiter les
-                opérations privilégiées qu&apos;un pod peut effectuer. Cela
-                comprend des restrictions comme l&apos;interdiction
-                d&apos;exécuter des conteneurs privilégiés ou d&apos;imposer
-                l&apos;utilisation d&apos;utilisateurs non-root.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: extensions/v1beta1 kind: PodSecurityPolicy
-                  metadata: name: example-psp spec: privileged: false runAsUser:
-                  rule: MustRunAsNonRoot
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>12. ServiceAccount dans Kubernetes</h2>
-              <p>
-                Un <code>ServiceAccount</code> dans Kubernetes permet
-                d&apos;attribuer une identité aux pods pour les authentifier
-                auprès de l&apos;API Kubernetes et d&apos;autres services au
-                sein du cluster. Cela facilite l&apos;authentification des pods
-                et leur interaction avec d&apos;autres ressources Kubernetes.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: ServiceAccount metadata: name:
-                  example-serviceaccount
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>13. Validation des politiques RBAC</h2>
-              <p>
-                Le <code>kube-apiserver</code> est le composant responsable de
-                la validation et de l&apos;application des politiques{" "}
-                <code>RBAC</code> dans Kubernetes. Il s&apos;assure que les
-                utilisateurs et les comptes de service ne peuvent effectuer que
-                les actions qui leur sont permises.
-              </p>
-            </section>
-
-            <section>
-              <h2>14. Empêcher un pod de monter le système de fichiers hôte</h2>
-              <p>
-                Le paramètre <code>privileged: false</code> dans le contexte de
-                sécurité d&apos;un pod empêche celui-ci d&apos;effectuer des
-                opérations privilégiées, telles que le montage du système de
-                fichiers hôte. Cela renforce la sécurité en limitant les
-                interactions avec l&apos;hôte.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Pod spec: securityContext: privileged:
-                  false
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                15. Vérification des permissions d&apos;un utilisateur
-                Kubernetes
-              </h2>
-              <p>
-                La commande <code>kubectl auth can-i</code> permet de vérifier
-                les actions qu&apos;un utilisateur ou un compte de service est
-                autorisé à effectuer en fonction des politiques{" "}
-                <code>RBAC</code>.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>kubectl auth can-i get pods --as=example-user</code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                16. Avantage de l&apos;option <code>anonymous-auth=false</code>{" "}
-                sur le kube-apiserver
-              </h2>
-              <p>
-                En activant <code>anonymous-auth=false</code> sur le{" "}
-                <code>kube-apiserver</code>, on garantit que toutes les requêtes
-                à l&apos;API Kubernetes doivent être authentifiées. Cela
-                améliore la sécurité en interdisant les accès non authentifiés.
-              </p>
-            </section>
-
-            <section>
-              <h2>17. Cryptage des Secrets Kubernetes au repos</h2>
-              <p>
-                Kubernetes permet de crypter les <code>Secrets</code> au repos
-                en activant le chiffrement <code>etcd</code> avec une
-                configuration de fournisseur spécifiée. Cela protège les données
-                sensibles en les chiffrant dans la base de données{" "}
-                <code>etcd</code>.
-              </p>
-              <h3>Exemple de configuration :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Secret metadata: name: example-secret
-                  data: username: dXNlcm5hbWU=
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                18. Méthode recommandée pour fournir des identifiants à un pod
-              </h2>
-              <p>
-                La méthode recommandée pour fournir des identifiants à un pod
-                est d&apos;utiliser une ressource <code>Kubernetes Secret</code>
-                . Les <code>Secrets</code> sont chiffrés au repos et permettent
-                de stocker des informations sensibles comme des identifiants de
-                manière sécurisée.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Secret metadata: name: mysecret data:
-                  password: cGFzc3dvcmQ=
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                19. Admission Controller pour valider et appliquer des
-                politiques de sécurité personnalisées
-              </h2>
-              <p>
-                Le contrôleur d&apos;admission <code>ValidatingWebhook</code>{" "}
-                permet d&apos;appliquer des politiques de validation
-                personnalisées pour les ressources Kubernetes. Cela permet aux
-                administrateurs d&apos;ajouter des règles de sécurité
-                spécifiques aux objets créés dans le cluster.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                20. Objectif principal de <code>allowPrivilegeEscalation</code>
-              </h2>
-              <p>
-                Le paramètre <code>allowPrivilegeEscalation</code> dans le
-                contexte de sécurité d&apos;un pod empêche un conteneur
-                d&apos;acquérir plus de privilèges que son processus parent, ce
-                qui bloque les escalades de privilèges et renforce la sécurité
-                des conteneurs.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
-                  securityContext: allowPrivilegeEscalation: false
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>21. Fonction de NetworkPolicy dans Kubernetes</h2>
-              <p>
-                Le <strong>NetworkPolicy</strong> est une fonctionnalité de
-                Kubernetes permettant de sécuriser la communication entre les
-                pods. Il définit des règles concernant le trafic réseau entrant
-                et sortant d&apos;un pod, ce qui permet de restreindre la
-                communication entre les différents pods du cluster.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: allow-ingress
-spec:
-  podSelector: {}
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              role: frontend`}
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                22. Empêcher un conteneur d&apos;utiliser le namespace réseau de
-                l&apos;hôte
-              </h2>
-              <p>
-                Pour garantir qu&apos;un conteneur n&apos;utilise pas le{" "}
-                <strong>namespace réseau</strong> de l&apos;hôte, il est
-                possible de définir l&apos;option{" "}
-                <code>hostNetwork: false</code> dans la spécification du pod.
-                Cela évite que le conteneur partage les mêmes interfaces réseau
-                que l&apos;hôte, réduisant ainsi l&apos;exposition à
-                d&apos;éventuelles failles de sécurité.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  hostNetwork: false
+  nodeSelector:
+    disktype: ssd
   containers:
     - name: mycontainer
       image: myimage`}
@@ -463,37 +142,333 @@ spec:
             </section>
 
             <section>
-              <h2>
-                23. Activer le chiffrement pour la communication entre
-                kube-apiserver et etcd
-              </h2>
+              <h2>5. Mise à jour d&apos;un déploiement sans interruption</h2>
               <p>
-                Le flag <code>--etcd-cert-file</code> permet d&apos;activer le
-                chiffrement TLS pour sécuriser la communication entre le{" "}
-                <strong>kube-apiserver</strong> et <strong>etcd</strong>, la
-                base de données clé-valeur utilisée par Kubernetes pour stocker
-                la configuration et l&apos;état du cluster.
+                Pour mettre à jour un déploiement en cours sans interruption,
+                vous pouvez utiliser la commande <code>kubectl apply</code> pour
+                appliquer le manifeste du déploiement. Kubernetes effectue une
+                mise à jour continue (rolling update) pour appliquer les
+                changements.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl apply -f deployment.yaml`}</code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>6. Différence clé entre Deployment et StatefulSet</h2>
+              <p>
+                La principale différence est que les{" "}
+                <strong>StatefulSets</strong> garantissent l&apos;ordre et la
+                persistance des pods, tandis que les{" "}
+                <strong>Deployments</strong> sont mieux adaptés aux workloads
+                stateless.
               </p>
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`kube-apiserver --etcd-cert-file=/etc/kubernetes/pki/etcd/etcd-server.crt`}
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: myapp
+spec:
+  serviceName: "my-service"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: mycontainer
+        image: myimage`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>7. Fonctionnement des DaemonSets</h2>
+              <p>
+                Un <strong>DaemonSet</strong> garantit qu&apos;une copie
+                d&apos;un pod s&apos;exécute sur tous (ou certains) nœuds du
+                cluster, souvent utilisé pour des tâches système comme la
+                journalisation ou la surveillance.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: logging-agent
+spec:
+  selector:
+    matchLabels:
+      name: logging-agent
+  template:
+    metadata:
+      labels:
+        name: logging-agent
+    spec:
+      containers:
+      - name: logging-agent
+        image: logimage`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>8. Comportement des pods avec RestartPolicy "Never"</h2>
+              <p>
+                Si un pod avec une RestartPolicy définie à{" "}
+                <strong>"Never"</strong> échoue, le pod restera dans l&apos;état
+                "Failed" et ne sera pas redémarré automatiquement.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: test-container
+      image: testimage
+      restartPolicy: Never`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>9. Ordre de création des pods dans un StatefulSet</h2>
+              <p>
+                L&apos;ordre de création et de suppression des pods dans un{" "}
+                <strong>StatefulSet</strong> est contrôlé par la politique{" "}
+                <code>podManagementPolicy</code>. Par défaut, il est réglé sur
+                "OrderedReady".
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+spec:
+  podManagementPolicy: OrderedReady`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>10. Rôle des "tolerations" dans la planification</h2>
+              <p>
+                Les <strong>tolerations</strong> permettent aux pods de tolérer
+                des conditions spécifiques sur les nœuds (marqués avec des
+                taints) pour contrôler leur placement.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  tolerations:
+    - key: "key1"
+      operator: "Equal"
+      value: "value1"
+      effect: "NoSchedule"`}
                 </code>
               </pre>
             </section>
 
             <section>
               <h2>
-                24. Budget de Disruption des Pods (PDB) pour les applications
-                sensibles à la sécurité
+                11. Objet Kubernetes garantissant une identité réseau unique
               </h2>
               <p>
-                Un <strong>Pod Disruption Budget</strong> (PDB) est utilisé pour
-                garantir qu&apos;un nombre minimum de pods reste disponible lors
-                des disruptions volontaires, comme lors des mises à jour ou des
-                redémarrages. Cela est particulièrement utile pour les
-                applications sensibles à la sécurité qui nécessitent une haute
-                disponibilité.
+                Les <strong>StatefulSets</strong> sont utilisés pour des
+                applications nécessitant une identité réseau unique pour chaque
+                pod, un stockage persistant et un déploiement ordonné.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-stateful-app
+spec:
+  serviceName: "my-service"
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: app-container
+        image: appimage`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                12. Rôle des conteneurs d&apos;initialisation (initContainers)
+              </h2>
+              <p>
+                Les <strong>initContainers</strong> exécutent des tâches de
+                pré-démarrage avant que les conteneurs principaux du pod ne
+                commencent. Ils sont utiles pour initialiser des données ou
+                configurer l&apos;environnement.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  initContainers:
+    - name: init-myservice
+      image: busybox
+      command: ["sh", "-c", "echo Initializing..."]
+  containers:
+    - name: myservice
+      image: myimage`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>13. Placement spécifique avec NodeAffinity</h2>
+              <p>
+                Les règles <strong>NodeAffinity</strong> permettent de spécifier
+                des préférences avancées sur le placement des pods basées sur
+                des étiquettes des nœuds.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "disktype"
+            operator: "In"
+            values:
+            - "ssd"`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                14. Échelle de déploiement par défaut avec
+                HorizontalPodAutoscaler
+              </h2>
+              <p>
+                Par défaut, Kubernetes prend en charge l&apos;échelle
+                horizontale (scaling) basée sur l&apos;utilisation des
+                ressources, comme le CPU ou la mémoire, via l&apos;
+                <strong>Horizontal Pod Autoscaler</strong>.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                15. Gestion automatique des pods supprimés dans un DaemonSet
+              </h2>
+              <p>
+                Si un pod dans un <strong>DaemonSet</strong> est supprimé
+                manuellement, le contrôleur DaemonSet recrée automatiquement le
+                pod sur le même nœud.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl delete pod <pod-name>`}</code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>16. Workload adapté aux tâches périodiques</h2>
+              <p>
+                Le workload <strong>CronJob</strong> est utilisé pour exécuter
+                des tâches périodiques à des intervalles de temps spécifiques,
+                similaire à une tâche cron dans Linux.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-job
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: daily-task
+            image: taskimage
+          restartPolicy: OnFailure`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>17. Gestion des pods échoués avec ReadinessProbe</h2>
+              <p>
+                Si une <strong>ReadinessProbe</strong> échoue, le pod est marqué
+                comme "NotReady" et retiré des points de terminaison du service,
+                empêchant le trafic de lui être envoyé.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-readiness-probe
+spec:
+  containers:
+  - name: main-container
+    image: mainimage
+    readinessProbe:
+      httpGet:
+        path: /health
+        port: 8080`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                18. Contrôle des interruptions avec Pod Disruption Budget (PDB)
+              </h2>
+              <p>
+                Un <strong>Pod Disruption Budget</strong> (PDB) limite le nombre
+                maximum de pods pouvant être interrompus simultanément lors
+                d&apos;opérations de maintenance ou de défaillances volontaires.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -501,9 +476,9 @@ spec:
                   {`apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: my-pdb
+  name: pdb-example
 spec:
-  minAvailable: 1
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: myapp`}
@@ -512,13 +487,1121 @@ spec:
             </section>
 
             <section>
-              <h2>25. Rôle de kube-proxy dans le réseau Kubernetes</h2>
+              <h2>19. Placement des pods avec TopologySpreadConstraints</h2>
               <p>
-                Le <strong>kube-proxy</strong> est responsable du routage du
-                trafic vers les pods appropriés en fonction des{" "}
-                <strong>Services</strong> définis dans Kubernetes. Il applique
-                les règles de routage et gère la communication réseau entre les
-                différents composants du cluster.
+                Les <strong>TopologySpreadConstraints</strong> garantissent que
+                les pods sont répartis uniformément sur les domaines de
+                défaillance comme les zones ou les régions, améliorant ainsi la
+                tolérance aux pannes.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: "zone"
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        app: myapp`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>20. Fonction des PreemptionPolicy</h2>
+              <p>
+                Les <strong>PreemptionPolicy</strong> permettent à des pods
+                prioritaires de préempter ou d&apos;évincer des pods à priorité
+                inférieure pour libérer des ressources dans le cluster.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 1000000
+preemptionPolicy: PreemptLowerPriority`}
+                </code>
+              </pre>
+            </section>
+            <section>
+              <h2>
+                21. Objectif des "taints" dans la planification Kubernetes
+              </h2>
+              <p>
+                Les <strong>taints</strong> empêchent les pods d&apos;être
+                programmés sur des nœuds spécifiques sauf si ces pods ont une
+                tolérance correspondante. Cela permet de contrôler plus
+                précisément où les workloads sont exécutés.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`kubectl taint nodes nodename key=value:NoSchedule`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                22. Utilisation des DaemonSets pour les workloads spécifiques
+              </h2>
+              <p>
+                Un <strong>DaemonSet</strong> est idéal pour exécuter un pod sur
+                tous les nœuds du cluster, souvent pour des tâches comme la
+                collecte de journaux ou la surveillance.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monitoring-agent
+spec:
+  selector:
+    matchLabels:
+      app: monitoring
+  template:
+    metadata:
+      labels:
+        app: monitoring
+    spec:
+      containers:
+      - name: monitoring-agent
+        image: monitoring-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>23. Influence de "priorityClassName" sur la planification</h2>
+              <p>
+                Le champ <strong>priorityClassName</strong> attribue une
+                priorité au pod, influençant son ordre de planification lorsque
+                les ressources sont limitées. Les pods à haute priorité sont
+                planifiés en premier.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  priorityClassName: high-priority
+  containers:
+    - name: critical-task
+      image: critical-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>24. Rôle des Pod Disruption Budgets (PDBs)</h2>
+              <p>
+                Les <strong>PDBs</strong> (Pod Disruption Budgets) définissent
+                le nombre minimal de pods qui doivent rester disponibles lors de
+                perturbations volontaires, comme des mises à jour ou des
+                maintenances.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: myapp-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: myapp`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>25. Utilité des "topologySpreadConstraints"</h2>
+              <p>
+                Les <strong>topologySpreadConstraints</strong> permettent de
+                répartir les pods uniformément à travers des domaines de
+                défaillance (zones, régions, etc.) pour améliorer la tolérance
+                aux pannes.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "topology.kubernetes.io/zone"
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app: myapp`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>26. Fonction des ReadinessGates</h2>
+              <p>
+                Les <strong>ReadinessGates</strong> ajoutent des conditions
+                supplémentaires pour déterminer si un pod est prêt à recevoir du
+                trafic, en complément des ReadinessProbes.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  readinessGates:
+    - conditionType: "my-custom-condition"
+  containers:
+    - name: app-container
+      image: app-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>27. Différence entre Job et CronJob</h2>
+              <p>
+                Un <strong>Job</strong> exécute une tâche unique, tandis
+                qu&apos;un <strong>CronJob</strong> programme des Jobs à des
+                intervalles spécifiques, comme un cron sous Linux.
+              </p>
+              <h3>Exemple de CronJob :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: my-cronjob
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron-task
+            image: cron-image
+          restartPolicy: OnFailure`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                28. Comportement par défaut d&apos;un StatefulSet lors de
+                l&apos;échec d&apos;un pod
+              </h2>
+              <p>
+                Lorsqu&apos;un pod d&apos;un <strong>StatefulSet</strong>{" "}
+                échoue, le contrôleur redémarre ce pod tout en conservant son
+                identité et son ordre dans le StatefulSet.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-statefulset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stateful-app
+  template:
+    metadata:
+      labels:
+        app: stateful-app
+    spec:
+      containers:
+      - name: stateful-container
+        image: stateful-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>29. Utilité du "serviceAccountName"</h2>
+              <p>
+                Le champ <strong>serviceAccountName</strong> associe un pod à un
+                compte de service, déterminant les autorisations du pod pour
+                accéder aux ressources Kubernetes.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  serviceAccountName: my-service-account
+  containers:
+    - name: app-container
+      image: app-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                30. Effet de la mise à l&apos;échelle d&apos;un Deployment à 0
+                répliques
+              </h2>
+              <p>
+                Lorsqu&apos;un Deployment est mis à l&apos;échelle à 0
+                répliques, tous les pods qu&apos;il gère sont terminés, mais le
+                Deployment lui-même reste intact pour un redéploiement futur.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`kubectl scale deployment my-deployment --replicas=0`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>31. Fonctionnalité de révision des déploiements</h2>
+              <p>
+                La <strong>revision history</strong> dans un Deployment permet
+                de conserver un historique des révisions, facilitant ainsi un
+                rollback à une version précédente en cas de problème.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl rollout undo deployment/my-deployment`}</code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                32. Stratégie par défaut pour les mises à jour des StatefulSets
+              </h2>
+              <p>
+                Par défaut, les <strong>StatefulSets</strong> utilisent la
+                stratégie "<code>OnDelete</code>", ce qui signifie que les pods
+                ne seront mis à jour que s&apos;ils sont manuellement supprimés.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+spec:
+  updateStrategy:
+    type: OnDelete`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>33. Limitation des ressources par namespace</h2>
+              <p>
+                Les <strong>Resource Quotas</strong> peuvent être utilisées pour
+                limiter le nombre de ressources, comme les pods, au sein
+                d&apos;un namespace, garantissant une répartition équitable.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: pod-quota
+  namespace: mynamespace
+spec:
+  hard:
+    pods: "10"`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>34. Probes et redémarrage des conteneurs</h2>
+              <p>
+                Les <strong>Liveness Probes</strong> permettent de vérifier si
+                un conteneur est toujours en vie. En cas d&apos;échec, le
+                conteneur est redémarré par le kubelet.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: app-container
+      image: app-image
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 8080`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>35. Comportement des pods dépassant leur limite mémoire</h2>
+              <p>
+                Si un pod dépasse sa limite de mémoire définie, le conteneur est
+                terminé par Kubernetes pour éviter des conflits de ressources.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: app-container
+      image: app-image
+      resources:
+        limits:
+          memory: "128Mi"`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>36. Fonctionnement du Horizontal Pod Autoscaler</h2>
+              <p>
+                L&apos;<strong>Horizontal Pod Autoscaler</strong> ajuste
+                dynamiquement le nombre de réplicas d&apos;un Deployment en
+                fonction des métriques telles que l&apos;utilisation CPU ou
+                mémoire.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-deployment
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>37. Utilité des règles AntiAffinity</h2>
+              <p>
+                Les règles <strong>AntiAffinity</strong> garantissent que les
+                pods sont déployés sur des nœuds différents, améliorant la
+                tolérance aux pannes et la répartition de la charge.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - myapp
+          topologyKey: "kubernetes.io/hostname"`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>38. Utilisation des Jobs pour des tâches uniques</h2>
+              <p>
+                Un <strong>Job</strong> est utilisé pour exécuter des tâches
+                uniques et garantit leur exécution complète, même en cas de
+                panne de nœud.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processing-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: processor
+        image: processor-image
+      restartPolicy: OnFailure`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>39. Rôle des taints et tolerations</h2>
+              <p>
+                Les <strong>taints</strong> repoussent les pods des nœuds sauf
+                si ces derniers ont des <strong>tolerations</strong>{" "}
+                correspondantes, permettant une planification contrôlée.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "batch"
+      effect: "NoSchedule"`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>40. Effet d&apos;une Readiness Probe échouée</h2>
+              <p>
+                Si une <strong>Readiness Probe</strong> échoue, le pod est
+                marqué comme "NotReady" et retiré des endpoints des services,
+                garantissant qu&apos;il ne reçoit pas de trafic jusqu&apos;à ce
+                qu&apos;il soit prêt.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: app-container
+      image: app-image
+      readinessProbe:
+        httpGet:
+          path: /readyz
+          port: 8080`}
+                </code>
+              </pre>
+            </section>
+            <section>
+              <h2>41. Contrôleur pour les applications persistantes</h2>
+              <p>
+                Les <strong>StatefulSets</strong> sont conçus pour gérer les
+                applications nécessitant une identité réseau unique pour chaque
+                pod et un stockage persistant.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: persistent-app
+spec:
+  serviceName: "persistent-service"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: persistent
+  template:
+    metadata:
+      labels:
+        app: persistent
+    spec:
+      containers:
+      - name: persistent-container
+        image: persistent-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>42. Rôle de "nodeSelector" dans un pod spec</h2>
+              <p>
+                Le <strong>nodeSelector</strong> permet de spécifier que le pod
+                doit être exécuté uniquement sur des nœuds ayant certaines
+                étiquettes, limitant ainsi le placement.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  nodeSelector:
+    disktype: ssd
+  containers:
+    - name: selective-container
+      image: selective-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>43. Effet d&apos;un scale-up sur un Deployment</h2>
+              <p>
+                Lorsqu&apos;un Deployment est augmenté, de nouveaux pods sont
+                créés et programmés sur des nœuds ayant les ressources
+                nécessaires pour répondre aux nouvelles demandes.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`kubectl scale deployment my-deployment --replicas=5`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>44. Rôle des règles d&apos;affinité</h2>
+              <p>
+                Les règles d&apos;<strong>affinité</strong> permettent de
+                contrôler où les pods doivent être programmés ou non en fonction
+                des labels des nœuds.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>45. Avantages du Horizontal Pod Autoscaler</h2>
+              <p>
+                L&apos;<strong>Horizontal Pod Autoscaler</strong> ajuste
+                dynamiquement le nombre de pods en fonction des besoins en
+                ressources, assurant une meilleure gestion des charges de
+                travail.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: scalable-app
+  minReplicas: 3
+  maxReplicas: 15
+  targetCPUUtilizationPercentage: 70`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>46. Utilisation des CronJobs pour les tâches périodiques</h2>
+              <p>
+                Les <strong>CronJobs</strong> permettent de programmer et
+                exécuter des tâches périodiques à des intervalles définis,
+                similaires aux tâches cron sous Linux.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: periodic-task
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron-container
+            image: cron-image
+          restartPolicy: OnFailure`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>47. Utilité du RestartPolicy</h2>
+              <p>
+                Le champ <strong>RestartPolicy</strong> définit les conditions
+                dans lesquelles les conteneurs dans un pod sont redémarrés,
+                comme <code>Always</code>, <code>OnFailure</code>, ou{" "}
+                <code>Never</code>.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: controlled-container
+      image: controlled-image
+  restartPolicy: OnFailure`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>48. Composant responsable de la planification des pods</h2>
+              <p>
+                Le <strong>kube-scheduler</strong> est le composant de
+                Kubernetes chargé d&apos;assigner les pods aux nœuds en fonction
+                de la disponibilité des ressources et des contraintes de
+                planification.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`kubectl get events --namespace kube-system | grep scheduler`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                49. Stratégie par défaut lors d&apos;une mise à jour continue
+              </h2>
+              <p>
+                La stratégie de mise à jour continue (rolling update) garantit
+                que de nouveaux pods sont créés avant la suppression des
+                anciens, minimisant ainsi les interruptions.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: Deployment
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>50. Rôle des Pod Disruption Budgets</h2>
+              <p>
+                Les <strong>Pod Disruption Budgets (PDB)</strong> définissent le
+                nombre maximal de pods qui peuvent être perturbés lors
+                d&apos;interventions planifiées, garantissant une disponibilité
+                minimale.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-example
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: myapp`}
+                </code>
+              </pre>
+            </section>
+            <section>
+              <h2>
+                51. Politique par défaut pour la suppression des pods lors
+                d&apos;un scale-down
+              </h2>
+              <p>
+                Par défaut, Kubernetes termine les pods les plus récents
+                ("Newest") en premier lors d&apos;un événement de scale-down.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`kubectl scale deployment my-deployment --replicas=3`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                52. Meilleur contrôleur pour exécuter un pod sur chaque nœud
+              </h2>
+              <p>
+                Le <strong>DaemonSet</strong> est le contrôleur idéal pour
+                garantir qu&apos;un pod s&apos;exécute sur chaque nœud du
+                cluster.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemonset-example
+spec:
+  selector:
+    matchLabels:
+      app: daemon-app
+  template:
+    metadata:
+      labels:
+        app: daemon-app
+    spec:
+      containers:
+      - name: daemon-container
+        image: daemon-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>53. Objectif des PriorityClasses</h2>
+              <p>
+                Les <strong>PriorityClasses</strong> définissent la priorité
+                relative des pods, influençant leur planification et leur
+                éviction lors de la contention des ressources.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 1000
+globalDefault: false
+description: "Priority for critical workloads"`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>54. Prévention de la surcharge des nœuds</h2>
+              <p>
+                Kubernetes utilise les{" "}
+                <strong>Resource Requests et Limits</strong> pour s&apos;assurer
+                que les pods sont programmés uniquement sur des nœuds ayant
+                suffisamment de ressources disponibles.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: resource-controlled-container
+      image: resource-image
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>55. Configuration DNS personnalisée pour les pods</h2>
+              <p>
+                Le champ <strong>dnsPolicy</strong> dans la spécification
+                d&apos;un pod permet de configurer des politiques DNS
+                personnalisées pour le pod.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  dnsPolicy: ClusterFirst
+  containers:
+    - name: dns-container
+      image: dns-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>56. Champ TerminationGracePeriodSeconds</h2>
+              <p>
+                Le champ <strong>TerminationGracePeriodSeconds</strong> contrôle
+                le temps d&apos;attente de Kubernetes avant de forcer
+                l&apos;arrêt d&apos;un pod lors de sa suppression.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  terminationGracePeriodSeconds: 30
+  containers:
+    - name: graceful-container
+      image: graceful-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                57. Planification des pods selon des critères personnalisés
+              </h2>
+              <p>
+                La <strong>Node Affinity</strong> permet de planifier les pods
+                sur des nœuds spécifiques en fonction de labels définis.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: high-memory
+            operator: In
+            values:
+            - true`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>58. Comportement d&apos;un Job si le nœud échoue</h2>
+              <p>
+                Si un nœud hébergeant un pod d&apos;un <strong>Job</strong>{" "}
+                échoue, le contrôleur du Job reprogramme le pod sur un autre
+                nœud pour assurer l&apos;exécution complète.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: Job
+metadata:
+  name: resilient-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: task-container
+        image: task-image
+      restartPolicy: OnFailure`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>59. Processus de préemption dans Kubernetes</h2>
+              <p>
+                La <strong>préemption</strong> permet aux pods à haute priorité
+                d&apos;évincer des pods à faible priorité pour libérer des
+                ressources lors de la contention.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: preemptive-priority
+value: 100000
+preemptionPolicy: PreemptLowerPriority`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>60. Fonction des taints et tolerations</h2>
+              <p>
+                Les <strong>taints</strong> appliquées aux nœuds repoussent les
+                pods, sauf si ces derniers ont des <strong>tolerations</strong>{" "}
+                correspondantes, permettant un contrôle précis de la
+                planification.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "batch"
+      effect: "NoSchedule"`}
+                </code>
+              </pre>
+            </section>
+            <section>
+              <h2>
+                61. Commande pour afficher les détails de planification
+                d&apos;un pod
+              </h2>
+              <p>
+                La commande <code>kubectl describe pod</code> permet
+                d&apos;afficher des informations détaillées sur un pod, y
+                compris ses événements de planification.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl describe pod my-pod`}</code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>
+                62. Comportement par défaut des StatefulSets en cas d&apos;échec
+                d&apos;un pod
+              </h2>
+              <p>
+                Si un pod géré par un <strong>StatefulSet</strong> échoue, il
+                est automatiquement recréé tout en conservant son identité
+                unique.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: stateful-app
+spec:
+  replicas: 3
+  serviceName: "stateful-service"
+  template:
+    metadata:
+      labels:
+        app: stateful-app
+    spec:
+      containers:
+      - name: app-container
+        image: stateful-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>63. Ordre de création des pods dans un StatefulSet</h2>
+              <p>
+                Les <strong>ordinal indexes</strong> dans un{" "}
+                <strong>StatefulSet</strong> déterminent l&apos;ordre de
+                création et de suppression des pods, garantissant une séquence
+                précise.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ordered-stateful
+spec:
+  serviceName: "stateful-service"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: ordered-app
+    spec:
+      containers:
+      - name: ordered-container
+        image: ordered-image`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>64. Processus d&apos;éviction dans Kubernetes</h2>
+              <p>
+                L&apos;<strong>éviction</strong> se produit lorsque Kubernetes
+                supprime des pods d&apos;un nœud pour libérer des ressources,
+                souvent lors de la maintenance ou de la contention.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl drain node-name --ignore-daemonsets`}</code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>65. Mise à jour d&apos;un DaemonSet</h2>
+              <p>
+                Lorsqu&apos;un <strong>DaemonSet</strong> est mis à jour, ses
+                pods sont recréés un par un sur chaque nœud, garantissant la
+                continuité du service.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl rollout restart daemonset/my-daemonset`}</code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>66. Champ BackoffLimit dans un Job</h2>
+              <p>
+                Le champ <strong>BackoffLimit</strong> contrôle le nombre
+                maximal de tentatives avant qu&apos;un Job ne soit considéré
+                comme échoué.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-with-backoff
+spec:
+  backoffLimit: 4
+  template:
+    spec:
+      containers:
+      - name: job-container
+        image: job-image
+      restartPolicy: OnFailure`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>67. Objet pour exposer un pod au trafic externe</h2>
+              <p>
+                Un <strong>Service</strong> est utilisé pour exposer un pod ou
+                un ensemble de pods au trafic externe, en créant un point
+                d&apos;accès réseau stable.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -526,8 +1609,9 @@ spec:
                   {`apiVersion: v1
 kind: Service
 metadata:
-  name: myservice
+  name: external-service
 spec:
+  type: LoadBalancer
   selector:
     app: myapp
   ports:
@@ -540,1052 +1624,38 @@ spec:
 
             <section>
               <h2>
-                26. Contrôle d&apos;admission PodSecurityPolicy pour empêcher
-                l&apos;exécution en tant qu&apos;utilisateur root
+                68. Stratégie pour planifier un pod sur un nœud spécifique
               </h2>
               <p>
-                Le <strong>PodSecurityPolicy</strong> permet de définir des
-                restrictions de sécurité pour les pods. Par exemple, il peut
-                être configuré pour empêcher l&apos;exécution de conteneurs en
-                tant qu&apos;utilisateur root, ce qui limite les risques de
-                sécurité liés à des privilèges excessifs.
+                La <strong>Node Affinity</strong> permet de spécifier qu&apos;un
+                pod doit être planifié sur un nœud avec des étiquettes
+                spécifiques.
               </p>
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  name: restrict-root
+                  {`apiVersion: v1
+kind: Pod
 spec:
-  runAsUser:
-    rule: 'MustRunAsNonRoot'`}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "dedicated"
+            operator: "In"
+            values:
+            - "high-cpu"`}
                 </code>
               </pre>
             </section>
 
             <section>
-              <h2>27. Impact du flag --anonymous-auth=false pour le kubelet</h2>
+              <h2>69. Effet d&apos;un échec de la Liveness Probe</h2>
               <p>
-                Le flag <code>--anonymous-auth=false</code> désactive
-                l&apos;accès anonyme à l&apos;API du <strong>kubelet</strong>,
-                forçant ainsi une authentification pour toutes les requêtes.
-                Cela améliore la sécurité en empêchant l&apos;accès non autorisé
-                aux ressources du kubelet.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>{`kubelet --anonymous-auth=false`}</code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                28. Restreindre l&apos;accès aux données sensibles dans les
-                ConfigMaps
-              </h2>
-              <p>
-                Pour protéger les données sensibles stockées dans les{" "}
-                <strong>ConfigMaps</strong>, il est recommandé d&apos;utiliser{" "}
-                <strong>RBAC</strong> pour restreindre l&apos;accès en fonction
-                des rôles et des comptes de service. Cela empêche les
-                utilisateurs non autorisés d&apos;accéder ou de modifier ces
-                données.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: default
-  name: configmap-reader
-rules:
-- apiGroups: [""]
-  resources: ["configmaps"]
-  verbs: ["get", "list"]`}
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                29. ImagePolicyWebhook pour garantir l&apos;utilisation
-                d&apos;images signées
-              </h2>
-              <p>
-                Le <strong>ImagePolicyWebhook</strong> permet d&apos;appliquer
-                des politiques qui exigent que les images des conteneurs soient
-                signées et proviennent de registres de confiance. Cela ajoute
-                une couche de sécurité en garantissant l&apos;intégrité et
-                l&apos;origine des images utilisées dans le cluster.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: admission.k8s.io/v1
-kind: AdmissionReview
-metadata:
-  name: image-policy
-spec:
-  kind: Webhook
-  admissionReview:
-    name: validate-image`}
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                30. PodSecurityPolicy pour restreindre les capacités des
-                conteneurs
-              </h2>
-              <p>
-                Le <strong>PodSecurityPolicy</strong> permet d&apos;imposer des
-                contraintes sur les capacités des conteneurs, telles que
-                l&apos;interdiction de l&apos;accès au mode privilégié ou à
-                l&apos;espace de noms de l&apos;hôte. Cela permet de renforcer
-                la sécurité des pods en limitant leurs privilèges et leurs
-                interactions avec l&apos;infrastructure sous-jacente.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  name: restrict-capabilities
-spec:
-  allowedCapabilities: ["NET_BIND_SERVICE", "IPC_LOCK"]`}
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                31. Quel est l&apos;avantage principal d&apos;activer les
-                journaux d&apos;audit dans Kubernetes ?
-              </h2>
-              <p>
-                L&apos;activation des <strong>journaux d&apos;audit</strong>{" "}
-                permet de suivre les requêtes effectuées par le serveur API de
-                Kubernetes. Ces journaux sont essentiels pour détecter des
-                anomalies de sécurité et garantir la conformité aux règles de
-                sécurité.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Activer les journaux d&apos;audit pour suivre les interactions
-                  avec l&apos;API et détecter des comportements suspects.
-                </li>
-                <li>
-                  Configurer une politique de rétention pour conserver les
-                  journaux pendant une période appropriée.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: audit.k8s.io/v1 kind: Policy metadata: name:
-                  audit-policy spec: rules: - level: Metadata resources: -
-                  group: &quot;&quot; resources: [&quot;pods&quot;]
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                32. Comment s&apos;assurer qu&apos;un pod fonctionne uniquement
-                avec un identifiant utilisateur spécifique ?
-              </h2>
-              <p>
-                Pour s&apos;assurer qu&apos;un pod s&apos;exécute sous un
-                identifiant utilisateur particulier, vous pouvez configurer le
-                champ <strong>runAsUser</strong> dans le{" "}
-                <strong>Security Context</strong> du pod. Cela empêche
-                l&apos;exécution du pod avec des privilèges{" "}
-                <strong>root</strong>.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Utiliser <code>runAsUser</code> pour spécifier l&apos;ID
-                  utilisateur souhaité dans le contexte de sécurité du pod.
-                </li>
-                <li>
-                  Éviter de laisser des pods s&apos;exécuter avec des privilèges
-                  élevés pour renforcer la sécurité.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
-                  image: myimage securityContext: runAsUser: 1001
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                33. Quel est le but du profil <strong>seccomp</strong> dans
-                Kubernetes ?
-              </h2>
-              <p>
-                Le profil <strong>seccomp</strong> permet de restreindre les
-                appels système accessibles par un conteneur. Cela réduit la
-                surface d&apos;attaque du conteneur en limitant les opérations
-                risquées qui pourraient compromettre l&apos;hôte.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Utiliser un profil <code>seccomp</code> strict pour limiter
-                  les appels système autorisés dans les conteneurs.
-                </li>
-                <li>
-                  Configurer des profils <code>seccomp</code> pour différentes
-                  applications afin de mieux contrôler les permissions.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
-                  image: myimage securityContext: seccompProfile: type:
-                  RuntimeDefault
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                34. Que se passe-t-il lorsque{" "}
-                <code>allowPrivilegeEscalation</code> est défini sur{" "}
-                <code>false</code> ?
-              </h2>
-              <p>
-                Lorsque <code>allowPrivilegeEscalation: false</code> est
-                configuré, un conteneur ne peut pas obtenir plus de privilèges
-                que ceux de son processus parent. Cela empêche les escalades de
-                privilèges et améliore la sécurité en isolant mieux les
-                conteneurs.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Définir <code>allowPrivilegeEscalation: false</code> pour
-                  prévenir les escalades de privilèges involontaires dans vos
-                  conteneurs.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
-                  image: myimage securityContext: allowPrivilegeEscalation:
-                  false
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                35. Quel est le rôle du contrôleur d&apos;admission{" "}
-                <strong>NodeRestriction</strong> ?
-              </h2>
-              <p>
-                Le contrôleur d&apos;admission <strong>NodeRestriction</strong>{" "}
-                empêche les nœuds de modifier les ressources du serveur API en
-                dehors de leurs propres objets Node et Pod. Cela limite les
-                actions qu&apos;un nœud peut entreprendre, réduisant ainsi les
-                risques d&apos;accès non autorisé.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Activer <code>NodeRestriction</code> pour limiter les actions
-                  des nœuds sur les objets Kubernetes sensibles.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: admission.k8s.io/v1 kind: AdmissionControl spec:
-                  plugins: - name: NodeRestriction
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                36. Comment forcer l&apos;encryption des données dans{" "}
-                <strong>etcd</strong> pour Kubernetes ?
-              </h2>
-              <p>
-                L&apos;encryption des données dans <strong>etcd</strong> peut
-                être activée à l&apos;aide d&apos;une configuration de
-                fournisseur d&apos;encryption. Cela permet de sécuriser les
-                données sensibles telles que les Secrets, en les cryptant au
-                repos.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer l&apos;encryption avec un fichier de configuration
-                  de fournisseur d&apos;encryption pour protéger les données
-                  sensibles.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: kubeadm.k8s.io/v1 kind: KubeadmConfig spec: etcd:
-                  encryption: enabled: true provider: &quot;aes256-gcm&quot;
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                37. Quelle commande liste les contrôleurs d&apos;admission
-                actifs dans un cluster Kubernetes ?
-              </h2>
-              <p>
-                Pour lister les contrôleurs d&apos;admission actifs, vous devez
-                consulter la configuration du <strong>kube-apiserver</strong>{" "}
-                via la commande qui affiche les plugins d&apos;admission
-                activés. Ces contrôleurs sont spécifiés dans le flag{" "}
-                <code>--enable-admission-plugins</code>.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Vérifier la configuration de <code>kube-apiserver</code> pour
-                  assurer que les contrôleurs d&apos;admission nécessaires sont
-                  activés.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  kubectl describe pod kube-apiserver | grep
-                  --enable-admission-plugins
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                38. Que permet de réaliser <code>hostPID: false</code> dans la
-                spécification d&apos;un pod ?
-              </h2>
-              <p>
-                En définissant <code>hostPID: false</code>, on empêche le
-                conteneur de partager l&apos;espace de processus de l&apos;hôte.
-                Cela permet une meilleure isolation des processus et évite que
-                les conteneurs accèdent aux processus de l&apos;hôte.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Utiliser <code>hostPID: false</code> pour renforcer
-                  l&apos;isolement des processus dans un environnement
-                  Kubernetes.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
-                  image: myimage securityContext: hostPID: false
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                39. Quel est le rôle des <strong>Service Accounts</strong> dans
-                Kubernetes ?
-              </h2>
-              <p>
-                Les <strong>Service Accounts</strong> fournissent une identité
-                aux pods, leur permettant de s&apos;authentifier et
-                d&apos;interagir de manière sécurisée avec le serveur API de
-                Kubernetes. Cela est essentiel pour la gestion des autorisations
-                dans le cluster.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Utiliser des <code>Service Accounts</code> pour définir des
-                  permissions spécifiques pour les pods dans le cluster.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: ServiceAccount metadata: name:
-                  myserviceaccount
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                40. Quelle configuration permet de garantir qu&apos;un conteneur
-                fonctionne avec un système de fichiers en lecture seule ?
-              </h2>
-              <p>
-                En définissant <code>readOnlyRootFilesystem: true</code> dans le
-                contexte de sécurité d&apos;un pod, vous garantissez que le
-                système de fichiers du conteneur est monté en mode lecture
-                seule, empêchant toute modification des données sensibles ou
-                critiques.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer <code>readOnlyRootFilesystem: true</code> pour
-                  renforcer la sécurité des conteneurs en empêchant toute
-                  altération des fichiers système.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
-                  image: myimage securityContext: readOnlyRootFilesystem: true
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>
-                41. Le rôle du contrôleur d&apos;admission{" "}
-                <strong>NodeRestriction</strong>
-              </h2>
-              <p>
-                Le contrôleur d&apos;admission <strong>NodeRestriction</strong>{" "}
-                empêche les nœuds (via le kubelet) de modifier les objets API
-                qui ne leur appartiennent pas. Cela renforce la sécurité en
-                limitant la capacité des nœuds à interférer avec d&apos;autres
-                objets dans le cluster.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Par défaut, un nœud peut uniquement modifier ses propres objets
-                (Node, Pod) et ne peut pas interférer avec ceux d&apos;autres
-                nœuds, réduisant ainsi les risques d&apos;accès non autorisé.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                42. Empêcher l&apos;exécution d&apos;un pod en tant
-                qu&apos;utilisateur root
-              </h2>
-              <p>
-                Pour empêcher un pod de s&apos;exécuter en tant
-                qu&apos;utilisateur root, il est possible de définir{" "}
-                <strong>runAsNonRoot: true</strong> dans le{" "}
-                <strong>Security Context</strong> du pod. Cela garantit que le
-                conteneur ne pourra pas s&apos;exécuter avec des privilèges
-                élevés.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                La directive <code>runAsNonRoot: true</code> dans le{" "}
-                <strong>Security Context</strong> permet d&apos;exécuter le
-                conteneur avec un utilisateur non-root, évitant ainsi les
-                risques liés à l&apos;exécution de processus avec des privilèges
-                élevés.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                43. Le rôle du contrôleur d&apos;admission{" "}
-                <strong>ValidatingWebhook</strong>
-              </h2>
-              <p>
-                Le contrôleur d&apos;admission{" "}
-                <strong>ValidatingWebhook</strong> permet de valider les
-                demandes d&apos;API Kubernetes en fonction de règles
-                personnalisées avant que les modifications ne soient appliquées.
-                Il est utilisé pour renforcer la sécurité en s&apos;assurant que
-                seules les modifications conformes aux politiques définies sont
-                acceptées.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Ce contrôleur d&apos;admission intercepte les demandes
-                d&apos;API et les valide selon des règles spécifiques avant de
-                les appliquer, permettant une gestion fine de la sécurité dans
-                le cluster Kubernetes.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                44. Activation de l&apos;authentification TLS mutuelle pour la
-                communication kubelet
-              </h2>
-              <p>
-                Pour activer l&apos;authentification TLS mutuelle pour la
-                communication avec le kubelet, il faut utiliser l&apos;option{" "}
-                <code>--client-ca-file</code>. Cela permet de vérifier les
-                certificats clients présentés lors de la communication avec le
-                kubelet.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Le paramètre <code>--client-ca-file</code> garantit que seul un
-                client disposant d&apos;un certificat valide pourra se connecter
-                au kubelet, renforçant ainsi la sécurité des échanges.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                45. Objectif principal du <strong>NetworkPolicy</strong> dans
-                Kubernetes
-              </h2>
-              <p>
-                <strong>NetworkPolicy</strong> est utilisé pour limiter le
-                trafic réseau entre les pods en fonction de règles définies.
-                Cela permet de contrôler l&apos;accès aux services et
-                d&apos;améliorer la sécurité en limitant la communication entre
-                les différentes ressources du cluster.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Les <strong>NetworkPolicies</strong> permettent de définir des
-                règles sur le trafic entrant et sortant des pods, de manière à
-                interdire certaines connexions non sécurisées ou non autorisées.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                46. Composant Kubernetes responsable de la création des journaux
-                d&apos;audit
-              </h2>
-              <p>
-                Le composant Kubernetes <strong>kube-apiserver</strong> est
-                responsable de la génération des journaux d&apos;audit. Ces
-                journaux enregistrent toutes les demandes d&apos;API pour des
-                fins de surveillance et d&apos;analyse de sécurité.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Les journaux d&apos;audit générés par le{" "}
-                <strong>kube-apiserver</strong> sont essentiels pour analyser et
-                détecter les anomalies de sécurité dans le cluster Kubernetes.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                47. Limiter l&apos;utilisation du CPU et de la mémoire d&apos;un
-                conteneur
-              </h2>
-              <p>
-                Pour limiter l&apos;utilisation du CPU et de la mémoire
-                d&apos;un conteneur, il est possible de définir des demandes (
-                <code>requests</code>) et des limites (<code>limits</code>) dans
-                la spécification du pod. Cela garantit que les ressources
-                allouées sont respectées et évite une surcharge de
-                l&apos;infrastructure.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Les <code>requests</code> définissent la quantité minimale de
-                ressources nécessaires pour que le conteneur fonctionne
-                correctement, tandis que les <code>limits</code> imposent une
-                limite supérieure pour éviter une consommation excessive des
-                ressources.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                48. Comportement de l&apos;option <code>hostIPC: true</code>
-              </h2>
-              <p>
-                Lorsque <code>hostIPC: true</code> est défini dans un pod, ce
-                dernier partage l&apos;espace de noms IPC du nœud hôte. Cela
-                permet au conteneur d&apos;accéder à des informations sensibles
-                au niveau des processus du nœud, ce qui peut représenter un
-                risque de sécurité.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Partager l&apos;espace de noms IPC avec le nœud hôte peut
-                exposer le conteneur à des processus non sécurisés ou sensibles,
-                augmentant ainsi la surface d&apos;attaque.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                49. Commande pour vérifier les permissions RBAC pour une action
-                spécifique
-              </h2>
-              <p>
-                La commande <code>kubectl auth can-i</code> permet de vérifier
-                si un utilisateur ou un compte de service a la permission
-                d&apos;effectuer une action spécifique selon les politiques RBAC
-                définies.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Cette commande est utile pour valider les permissions
-                d&apos;accès à certaines ressources ou actions dans Kubernetes,
-                facilitant ainsi la gestion de la sécurité et de l&apos;accès.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                50. Ressource Kubernetes pour gérer les informations sensibles
-              </h2>
-              <p>
-                <strong>Secret</strong> est la ressource Kubernetes utilisée
-                pour stocker et gérer de manière sécurisée des informations
-                sensibles comme des mots de passe, des jetons ou des clés. Elle
-                évite de coder en dur ces informations dans les spécifications
-                de pods.
-              </p>
-              <h3>Explication :</h3>
-              <p>
-                Les <strong>Secrets</strong> permettent de protéger les
-                informations sensibles en limitant leur exposition dans les
-                configurations Kubernetes. Ils sont chiffrés au repos,
-                garantissant leur confidentialité.
-              </p>
-            </section>
-
-            <section>
-              <h2>51. Chiffrement des Secrets Kubernetes au repos</h2>
-              <p>
-                Pour chiffrer les <strong>Secrets Kubernetes</strong> au repos,
-                vous devez activer le chiffrement en utilisant le flag{" "}
-                <code>--encryption-provider-config</code> dans la configuration
-                de <strong>kube-apiserver</strong>. Cela garantit que les
-                Secrets sont protégés en stockage.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer un fichier de fournisseur de chiffrement et activer
-                  l&apos;option.
-                </li>
-                <li>
-                  Limiter les accès aux Secrets via des politiques RBAC
-                  strictes.
-                </li>
-              </ul>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: apiserver.config.k8s.io/v1
-kind: EncryptionConfiguration
-resources:
-  - resources:
-      - secrets
-    providers:
-      - aescbc:
-          keys:
-            - name: key1
-              secret: <base64-encoded-key>`}
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>52. Désactivation des requêtes anonymes au kube-apiserver</h2>
-              <p>
-                L&apos;option <code>--anonymous-auth=false</code> dans la
-                configuration du
-                <strong>kube-apiserver</strong> désactive les requêtes non
-                authentifiées. Cela force toutes les requêtes à être
-                authentifiées, réduisant ainsi les risques de sécurité.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer l&apos;authentification basée sur les certificats
-                  ou un jeton.
-                </li>
-                <li>
-                  Appliquer des politiques RBAC pour contrôler l&apos;accès.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                53. Politique &quot;default-deny&quot; dans NetworkPolicies
-              </h2>
-              <p>
-                Une politique <strong>default-deny</strong> dans les{" "}
-                <strong>NetworkPolicies</strong>
-                interdit tout le trafic réseau entre pods par défaut, sauf si
-                des règles explicites le permettent. C&apos;est une pratique
-                essentielle pour isoler les flux réseau.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Créer une règle deny par défaut pour limiter le trafic entrant
-                  et sortant.
-                </li>
-                <li>
-                  Ajouter des règles explicites pour autoriser uniquement le
-                  trafic nécessaire.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                54. Admission des valeurs par défaut via PodSecurityPolicy
-              </h2>
-              <p>
-                Le contrôleur d&apos;admission{" "}
-                <strong>PodSecurityPolicy</strong> permet de définir et
-                d&apos;appliquer des paramètres de sécurité par défaut, comme
-                l&apos;interdiction des pods privilégiés ou l&apos;utilisation
-                d&apos;un utilisateur non-root.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-spec:
-  runAsUser:
-    rule: MustRunAsNonRoot`}
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>55. Utilisation de runAsGroup dans le Security Context</h2>
-              <p>
-                L&apos;option <code>runAsGroup</code> dans le{" "}
-                <strong>Security Context</strong> garantit que le conteneur
-                s&apos;exécute avec un ID de groupe spécifique, facilitant le
-                contrôle des accès basés sur les groupes.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                56. Éviter les ports privilégiés (&lt;1024) pour les conteneurs
-              </h2>
-              <p>
-                Pour empêcher les conteneurs de se lier à des ports privilégiés,
-                configurez
-                <code>runAsNonRoot: true</code> et définissez un utilisateur
-                non-root dans le Security Context.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Éviter les ports privilégiés dans la conception des
-                  applications.
-                </li>
-                <li>
-                  Vérifier les permissions réseau avec des tests
-                  d&apos;intégration.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>57. Rôle d&apos;un ClusterRole dans Kubernetes</h2>
-              <p>
-                Un <strong>ClusterRole</strong> définit des permissions à
-                l&apos;échelle du cluster, contrairement à un Role, qui est
-                limité à un espace de noms.
-              </p>
-              <h3>Exemple :</h3>
-              <pre>
-                <code>
-                  {`apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-rules:
-  - apiGroups: [""]
-    resources: ["pods"]
-    verbs: ["get", "watch", "list"]`}
-                </code>
-              </pre>
-            </section>
-
-            <section>
-              <h2>58. Restreindre la communication entre namespaces</h2>
-              <p>
-                Pour limiter la communication entre namespaces, utilisez une
-                <strong>NetworkPolicy</strong> avec des sélecteurs de namespace.
-              </p>
-            </section>
-
-            <section>
-              <h2>59. Protection de l&apos;API kubelet</h2>
-              <p>
-                L&apos;option <code>--anonymous-auth=false</code> dans la
-                configuration de kubelet désactive les accès non authentifiés à
-                son API, améliorant la sécurité.
-              </p>
-            </section>
-
-            <section>
-              <h2>60. Fonction principale du système RBAC</h2>
-              <p>
-                Le <strong>RBAC (Role-Based Access Control)</strong> permet de
-                définir et d&apos;appliquer des politiques de contrôle
-                d&apos;accès basées sur les rôles, contrôlant qui peut accéder à
-                quelles ressources Kubernetes.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                61. Quel objet Kubernetes peut appliquer des limites
-                d&apos;utilisation des ressources pour un namespace ?
-              </h2>
-              <p>
-                L&apos;objet <code>ResourceQuota</code> applique des limites
-                d&apos;utilisation des ressources dans un namespace, comme le
-                CPU, la mémoire ou le nombre d&apos;objets.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer un <code>ResourceQuota</code> dans chaque namespace
-                  pour éviter les abus de ressources.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                62. Comment Kubernetes gère-t-il le stockage des informations
-                sensibles dans les Secrets par défaut ?
-              </h2>
-              <p>
-                Par défaut, les <code>Secrets</code> sont stockés sous forme de
-                chaînes encodées en base64 dans <code>etcd</code>. Une
-                configuration manuelle est nécessaire pour activer le
-                chiffrement au repos.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer le chiffrement au repos en utilisant le paramètre{" "}
-                  <code>--encryption-provider-config</code> sur le
-                  kube-apiserver.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                63. Quelle est la méthode recommandée pour sécuriser la
-                communication avec etcd ?
-              </h2>
-              <p>
-                La configuration de certificats TLS pour la communication avec{" "}
-                <code>etcd</code> garantit que celle-ci est chiffrée et
-                authentifiée.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Utiliser des certificats TLS pour sécuriser les communications
-                  entre etcd et les clients.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                64. Quelle fonctionnalité Kubernetes restreint l&apos;accès des
-                conteneurs à certains appels système ?
-              </h2>
-              <p>
-                Les profils <code>seccomp</code> restreignent les appels système
-                utilisables par les conteneurs, réduisant ainsi les risques
-                d&apos;exploitation.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Appliquer des profils <code>seccomp</code> personnalisés
-                  adaptés à vos besoins de sécurité.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                65. Que fournit le ServiceAccount à un pod dans Kubernetes ?
-              </h2>
-              <p>
-                Un <code>ServiceAccount</code> fournit une identité aux pods
-                pour interagir avec l&apos;API server de Kubernetes de manière
-                sécurisée.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Créer des <code>ServiceAccounts</code> spécifiques aux
-                  applications pour limiter leurs permissions.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                66. Quel est le rôle du flag kube-apiserver{" "}
-                <code>--audit-policy-file</code> ?
-              </h2>
-              <p>
-                Le flag <code>--audit-policy-file</code> permet de spécifier la
-                politique de journalisation des événements d&apos;audit dans
-                Kubernetes.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer une politique d&apos;audit pour capturer les
-                  événements critiques et faciliter les enquêtes en cas
-                  d&apos;incident.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                67. Que permet l&apos;option <code>hostNetwork: true</code> dans
-                la spécification d&apos;un pod ?
-              </h2>
-              <p>
-                L&apos;option <code>hostNetwork: true</code> permet au pod
-                d&apos;utiliser l&apos;espace réseau de l&apos;hôte, exposant
-                ainsi ses interfaces réseau au conteneur.
-              </p>
-              <h3>Attention :</h3>
-              <ul>
-                <li>
-                  Cette option doit être utilisée avec précaution, car elle peut
-                  introduire des vulnérabilités potentielles.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                68. Comment empêcher un pod d&apos;être exécuté en tant que
-                conteneur privilégié ?
-              </h2>
-              <p>
-                Définir <code>privileged: false</code> dans le{" "}
-                <strong>Security Context</strong> du conteneur empêche son
-                exécution en mode privilégié.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Appliquer une <code>PodSecurityPolicy</code> ou son équivalent
-                  pour désactiver les privilèges élevés.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                69. Quel est le rôle des règles egress dans une NetworkPolicy
-                Kubernetes ?
-              </h2>
-              <p>
-                Les règles <strong>egress</strong> d&apos;une{" "}
-                <code>NetworkPolicy</code> contrôlent le trafic sortant des
-                pods, permettant un contrôle précis des destinations autorisées.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer des règles <strong>egress</strong> restrictives
-                  pour limiter les communications externes non nécessaires.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                70. Quel est l&apos;objectif principal du contrôleur Pod
-                Security Admission (PSA) dans Kubernetes ?
-              </h2>
-              <p>
-                Le contrôleur <code>Pod Security Admission</code> valide et
-                applique les standards de sécurité des pods (e.g.,{" "}
-                <strong>privileged</strong>, <strong>baseline</strong>,{" "}
-                <strong>restricted</strong>).
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Appliquer des politiques PSA alignées sur vos exigences de
-                  sécurité organisationnelle.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                71. Désactiver l&apos;authentification anonyme dans kubelet
-              </h2>
-              <p>
-                Le flag <code>--anonymous-auth=false</code> dans la
-                configuration de kubelet désactive les requêtes non
-                authentifiées. Cela renforce la sécurité de l&apos;API kubelet
-                en bloquant les accès anonymes.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer <code>--anonymous-auth=false</code> pour améliorer
-                  la sécurité.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>72. Règle `default-deny-all` dans une NetworkPolicy</h2>
-              <p>
-                Une règle <code>default-deny-all</code> bloque par défaut tout
-                le trafic entrant et sortant, sauf si d&apos;autres règles
-                spécifiques autorisent ces communications.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Définir explicitement les règles pour autoriser le trafic
-                  nécessaire.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>73. Isolation des PID de l&apos;hôte</h2>
-              <p>
-                Pour empêcher un pod d&apos;accéder au namespace PID de
-                l&apos;hôte, configurez <code>hostPID: false</code> dans la
-                spécification du pod. Cela garantit une isolation des processus.
+                Si une <strong>Liveness Probe</strong> échoue, le kubelet
+                redémarre automatiquement le conteneur, garantissant sa
+                disponibilité continue.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -1594,457 +1664,493 @@ rules:
 kind: Pod
 spec:
   containers:
-    - name: mycontainer
-      image: myimage
-      securityContext:
-        hostPID: false`}
+    - name: app-container
+      image: app-image
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 8080
+        initialDelaySeconds: 3
+        periodSeconds: 10`}
                 </code>
               </pre>
             </section>
 
             <section>
-              <h2>74. Rôle des logs d&apos;audit Kubernetes</h2>
+              <h2>70. Fonction du Horizontal Pod Autoscaler (HPA)</h2>
               <p>
-                Les logs d&apos;audit Kubernetes enregistrent toutes les
-                requêtes adressées au serveur d&apos;API, fournissant une
-                traçabilité détaillée pour la sécurité et le débogage.
+                Le <strong>Horizontal Pod Autoscaler</strong> ajuste
+                dynamiquement le nombre de pods d&apos;un Deployment en fonction
+                des métriques de ressources comme l&apos;utilisation CPU.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer une politique d&apos;audit pour capturer les
-                  événements critiques.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-example
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: scalable-app
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 75`}
+                </code>
+              </pre>
+            </section>
+            <section>
+              <h2>71. Stratégie de mise à jour continue dans un Deployment</h2>
+              <p>
+                La stratégie de mise à jour continue (rolling update) permet de
+                remplacer progressivement les anciens pods par de nouveaux pods,
+                garantissant ainsi zéro temps d&apos;arrêt.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rolling-update-example
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>75. Empêcher l&apos;escalade de privilèges</h2>
+              <h2>72. Planification des pods par défaut dans Kubernetes</h2>
               <p>
-                Le paramètre <code>allowPrivilegeEscalation: false</code>{" "}
-                empêche un conteneur d&apos;obtenir des privilèges supérieurs à
-                ceux de son processus parent.
+                Par défaut, Kubernetes planifie les pods sur les nœuds en
+                fonction des ressources disponibles (CPU, mémoire) et des
+                contraintes définies.
               </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl describe node node-name`}</code>
+              </pre>
             </section>
 
             <section>
-              <h2>76. NodeRestriction Admission Controller</h2>
+              <h2>73. Bénéfice principal des ReplicaSets</h2>
               <p>
-                Le <strong>NodeRestriction Admission Controller</strong> limite
-                les kubelets à modifier uniquement leurs propres objets Node et
-                Pod, empêchant l&apos;accès non autorisé aux ressources
-                d&apos;autres nœuds.
+                Les <strong>ReplicaSets</strong> assurent qu&apos;un nombre
+                spécifié de réplicas d&apos;un pod est toujours en cours
+                d&apos;exécution, même en cas de défaillance.
               </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: app-container
+        image: app-image`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>77. Restreindre l&apos;accès au serveur d&apos;API</h2>
+              <h2>74. Composant responsable de la planification des pods</h2>
               <p>
-                Pour limiter l&apos;accès au serveur d&apos;API Kubernetes à des
-                adresses IP spécifiques, utilisez un pare-feu ou le flag{" "}
-                <code>--client-ca-file</code> pour authentifier les requêtes.
+                Le <strong>kube-scheduler</strong> est responsable de
+                l&apos;assignation des pods aux nœuds en fonction de contraintes
+                de ressources et de politiques définies.
               </p>
-            </section>
-
-            <section>
-              <h2>78. Rôle de kubeadm pour les certificats TLS</h2>
-              <p>
-                <strong>kubeadm</strong> génère et gère les certificats TLS
-                pendant la configuration du cluster, assurant une communication
-                sécurisée entre les composants Kubernetes.
-              </p>
-            </section>
-
-            <section>
-              <h2>79. Système de fichiers en lecture seule</h2>
-              <p>
-                En définissant <code>readOnlyRootFilesystem: true</code>, vous
-                empêchez un conteneur de modifier son système de fichiers
-                racine, renforçant ainsi sa sécurité.
-              </p>
-            </section>
-
-            <section>
-              <h2>80. NodeRestriction Admission Controller</h2>
-              <p>
-                Le <strong>NodeRestriction Admission Controller</strong> empêche
-                les nœuds de modifier les ressources qu&apos;ils ne possèdent
-                pas, limitant ainsi les risques d&apos;accès non autorisé.
-              </p>
-            </section>
-
-            <section>
-              <h2>
-                81. Configuration du flag{" "}
-                <code>--kubelet-client-certificate</code>
-              </h2>
-              <p>
-                Le flag <code>--kubelet-client-certificate</code> configure un
-                certificat client utilisé par les kubelets pour
-                s&apos;authentifier de manière sécurisée auprès de l&apos;API
-                server Kubernetes.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Utiliser des certificats TLS valides et correctement signés
-                  pour sécuriser les communications entre les composants du
-                  cluster.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                82. Rôle du volume <code>hostPath</code>
-              </h2>
-              <p>
-                Le volume <code>hostPath</code> permet aux pods d&apos;accéder
-                au système de fichiers de l&apos;hôte, mais il peut poser des
-                risques de sécurité s&apos;il n&apos;est pas contrôlé.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Limiter l&apos;utilisation des volumes <code>hostPath</code>{" "}
-                  aux cas strictement nécessaires.
-                </li>
-                <li>
-                  Restreindre leur usage via des{" "}
-                  <strong>PodSecurityPolicies</strong>.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`kubectl get events --namespace kube-system | grep scheduler`}
+                </code>
+              </pre>
             </section>
 
             <section>
               <h2>
-                83. Exécution de conteneurs avec des utilisateurs non-root
+                75. Règles pour empêcher la planification sur des nœuds
+                spécifiques
               </h2>
               <p>
-                Pour forcer l&apos;exécution de conteneurs avec des utilisateurs
-                non-root, il est recommandé de définir{" "}
-                <code>runAsNonRoot: true</code> dans le contexte de sécurité.
+                Les règles d&apos;<strong>affinité</strong> ou d&apos;
+                <strong>anti-affinité</strong> permettent de limiter la
+                planification des pods sur des nœuds spécifiques en fonction de
+                leurs étiquettes.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer un utilisateur spécifique non-root pour les
-                  conteneurs.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "key1"
+            operator: "NotIn"
+            values:
+            - "value1"`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>76. Utilisation des CronJobs pour les tâches planifiées</h2>
+              <p>
+                Les <strong>CronJobs</strong> permettent de planifier
+                l&apos;exécution de tâches à intervalles réguliers, similaires
+                aux jobs cron sous Linux.
+              </p>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: periodic-task
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron-container
+            image: cron-image
+          restartPolicy: OnFailure`}
+                </code>
+              </pre>
+            </section>
+
+            <section>
+              <h2>77. Différence entre Job et Deployment</h2>
+              <p>
+                Un <strong>Job</strong> exécute une tâche unique et finit après
+                son exécution, tandis qu&apos;un <strong>Deployment</strong>{" "}
+                garantit que des pods sont toujours actifs pour des workloads
+                continus.
+              </p>
+              <h3>Exemple de Job :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: batch/v1
+kind: Job
+metadata:
+  name: one-time-task
+spec:
+  template:
+    spec:
+      containers:
+      - name: job-container
+        image: job-image
+      restartPolicy: OnFailure`}
+                </code>
+              </pre>
             </section>
 
             <section>
               <h2>
-                84. Contrôle des volumes <code>hostPath</code> avec
-                PodSecurityPolicy
+                78. Comportement d&apos;un StatefulSet en cas de panne de nœud
               </h2>
               <p>
-                Le contrôleur d&apos;admission{" "}
-                <strong>PodSecurityPolicy</strong> peut être configuré pour
-                interdire l&apos;utilisation des volumes <code>hostPath</code>,
-                réduisant ainsi les risques potentiels.
+                Si un nœud hébergeant un pod d&apos;un{" "}
+                <strong>StatefulSet</strong> échoue, le pod est recréé sur un
+                autre nœud tout en conservant son identité et ses propriétés
+                uniques.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Appliquer des PodSecurityPolicies strictes pour protéger le
-                  cluster.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl describe statefulset my-statefulset`}</code>
+              </pre>
             </section>
 
             <section>
-              <h2>85. Avantages des NetworkPolicies</h2>
+              <h2>79. Contrôleur des Jobs</h2>
               <p>
-                Les <strong>NetworkPolicies</strong> permettent de définir et
-                d&apos;appliquer des règles pour sécuriser les communications
-                pod-à-pod et pod-à-externe.
+                Le <strong>Job Controller</strong> gère les Jobs en Kubernetes,
+                s&apos;assurant que les tâches configurées s&apos;exécutent
+                jusqu&apos;à leur complétion.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Définir des NetworkPolicies pour restreindre le trafic réseau
-                  en fonction des besoins des applications.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl get jobs`}</code>
+              </pre>
             </section>
 
             <section>
-              <h2>86. Chiffrement des données dans etcd</h2>
+              <h2>80. Politique de redémarrage par défaut des Deployments</h2>
               <p>
-                Les Encryption Providers configurés dans{" "}
-                <code>kube-apiserver</code> permettent de chiffrer les données
-                dans etcd pour les protéger au repos.
+                Les pods gérés par des <strong>Deployments</strong> utilisent la
+                politique de redémarrage <code>Always</code> par défaut,
+                garantissant leur disponibilité continue en cas de panne.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer le flag <code>--encryption-provider-config</code>{" "}
-                  pour activer le chiffrement des données sensibles.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-example
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: app-container
+        image: app-image
+      restartPolicy: Always`}
+                </code>
+              </pre>
             </section>
-
-            <section>
-              <h2>87. Prévention de l&apos;élévation de privilèges</h2>
-              <p>
-                La configuration <code>allowPrivilegeEscalation: false</code>{" "}
-                empêche un conteneur d&apos;acquérir des privilèges
-                supplémentaires au-delà de ceux qui lui sont accordés
-                initialement.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Appliquer cette configuration à tous les pods pour limiter les
-                  risques de sécurité.
-                </li>
-              </ul>
-            </section>
-
             <section>
               <h2>
-                88. Impact du flag <code>--protect-kernel-defaults</code>
+                81. Comportement des ReplicaSets lorsque des pods sont supprimés
               </h2>
               <p>
-                Ce flag empêche kubelet de modifier les paramètres de sécurité
-                du noyau, garantissant que les paramètres par défaut restent
-                intacts.
+                Si un pod géré par un <strong>ReplicaSet</strong> est supprimé,
+                le ReplicaSet crée un nouveau pod pour maintenir le nombre
+                spécifié de réplicas.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Activer <code>--protect-kernel-defaults</code> pour renforcer
-                  la sécurité au niveau du système d&apos;exploitation.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl delete pod my-pod`}</code>
+              </pre>
             </section>
 
             <section>
-              <h2>89. Limitation des appels système avec Seccomp</h2>
+              <h2>82. Fonctionnalité Anti-Affinity pour les pods</h2>
               <p>
-                Les profils Seccomp permettent de limiter les appels système
-                qu&apos;un conteneur peut effectuer, réduisant ainsi les risques
-                d&apos;exploits au niveau du noyau.
+                La règle <strong>Pod Anti-Affinity</strong> garantit qu&apos;un
+                pod ne sera pas programmé sur le même nœud qu&apos;un autre pod
+                spécifique, améliorant la répartition.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer des profils Seccomp adaptés aux besoins spécifiques
-                  de chaque conteneur.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: myapp
+          topologyKey: "kubernetes.io/hostname"`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>90. Rôle de kube-scheduler</h2>
+              <h2>83. Commande pour évincer manuellement un pod</h2>
               <p>
-                Le composant <strong>kube-scheduler</strong> garantit que les
-                pods sont programmés sur des nœuds appropriés en fonction de la
-                disponibilité des ressources et des contraintes définies.
+                La commande <strong>kubectl drain</strong> permet d&apos;évincer
+                tous les pods d&apos;un nœud, préparant ce dernier à une
+                maintenance.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Définir des contraintes explicites pour améliorer
-                  l&apos;efficacité et la sécurité de la planification des pods.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>{`kubectl drain node-name --ignore-daemonsets`}</code>
+              </pre>
             </section>
 
             <section>
-              <h2>
-                91. Mécanisme de sécurité Kubernetes pour empêcher l&apos;accès
-                des conteneurs au namespace IPC de l&apos;hôte
-              </h2>
+              <h2>84. Définition des ressources requises par un pod</h2>
               <p>
-                Pour empêcher les conteneurs d&apos;accéder au namespace IPC de
-                l&apos;hôte, vous pouvez configurer
-                <code>hostIPC: false</code>. Cela améliore l&apos;isolement des
-                processus en limitant leur portée à leur propre espace
-                utilisateur.
+                Le champ <strong>resources.requests</strong> dans le spec
+                d&apos;un pod spécifie la quantité minimale de CPU et de mémoire
+                requise pour le pod.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer <code>hostIPC: false</code> pour tous les pods sauf
-                  si nécessaire.
-                </li>
-                <li>
-                  Éviter de partager des namespaces de l&apos;hôte pour réduire
-                  les risques de fuite de données ou d&apos;escalade de
-                  privilèges.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: resource-container
+      image: resource-image
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>92. Rôle du composant Kubernetes `kube-proxy`</h2>
+              <h2>85. Différence entre StatefulSet et Deployment</h2>
               <p>
-                Le composant <code>kube-proxy</code> gère les règles de réseau
-                pour assurer le routage du trafic entre les pods et les
-                services. Il s&apos;appuie sur les fonctionnalités réseau du
-                système d&apos;exploitation pour établir des connexions
-                efficaces.
+                Les <strong>StatefulSets</strong> conservent l&apos;identité des
+                pods (nom, IP, etc.) tandis que les <strong>Deployments</strong>{" "}
+                gèrent des workloads stateless sans contrainte d&apos;identité.
               </p>
-              <h3>Fonctionnalités principales :</h3>
-              <ul>
-                <li>
-                  Génère des règles IPtables ou IPVS pour diriger le trafic vers
-                  les pods appropriés.
-                </li>
-                <li>
-                  Permet la communication entre les services et les pods sur
-                  différents nœuds du cluster.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: stateful-app
+spec:
+  serviceName: "stateful-service"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: stateful-app
+    spec:
+      containers:
+      - name: stateful-container
+        image: stateful-image`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>93. Avantages des `NetworkPolicies` dans Kubernetes</h2>
+              <h2>86. Annotation nécessaire pour tolérer un taint</h2>
               <p>
-                Les <code>NetworkPolicies</code> permettent de contrôler le
-                trafic entrant (ingress) et sortant (egress) à destination et en
-                provenance des pods. Cela offre une granularité fine pour la
-                gestion de la sécurité réseau dans un cluster Kubernetes.
+                Les pods doivent inclure une annotation{" "}
+                <strong>tolerations</strong> pour être planifiés sur des nœuds
+                ayant des taints spécifiques.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Définir des politiques de réseau strictes pour limiter le
-                  trafic non autorisé.
-                </li>
-                <li>
-                  Utiliser des labels pour appliquer des règles spécifiques aux
-                  groupes de pods.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "batch"
+      effect: "NoSchedule"`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>
-                94. Protection des données sensibles dans Kubernetes avec les
-                `Secrets`
-              </h2>
+              <h2>87. Effet d&apos;une Readiness Probe échouée</h2>
               <p>
-                Les <code>Secrets</code> sont conçus pour stocker des
-                informations sensibles telles que des mots de passe, des clés
-                API ou des certificats. Ils permettent de gérer ces données de
-                manière sécurisée au sein d&apos;un cluster Kubernetes.
+                Si une <strong>Readiness Probe</strong> échoue, le pod est
+                retiré des endpoints de service et cesse de recevoir du trafic
+                jusqu&apos;à ce qu&apos;il devienne prêt.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>Éviter de stocker les Secrets dans des ConfigMaps.</li>
-                <li>Activer le chiffrement au repos pour etcd.</li>
-                <li>
-                  Utiliser des politiques RBAC pour limiter l&apos;accès aux
-                  Secrets.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: app-container
+      image: app-image
+      readinessProbe:
+        httpGet:
+          path: /readyz
+          port: 8080`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>95. Effet de l&apos;activation de `PodSecurityAdmission`</h2>
+              <h2>88. Objectif des PriorityClasses</h2>
               <p>
-                La fonctionnalité <code>PodSecurityAdmission</code> permet de
-                valider les configurations des pods en fonction de standards de
-                sécurité prédéfinis tels que <strong>privileged</strong>,{" "}
-                <strong>baseline</strong>, et <strong>restricted</strong>.
+                Les <strong>PriorityClasses</strong> influencent l&apos;ordre de
+                planification des pods, particulièrement lors de la contention
+                des ressources.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer le niveau de sécurité adapté aux besoins des
-                  applications.
-                </li>
-                <li>
-                  Auditer les pods existants pour s&apos;assurer de leur
-                  conformité.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 1000
+globalDefault: false
+description: "Priority for critical workloads"`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>
-                96. Validation des connexions etcd avec le drapeau
-                `--etcd-certfile`
-              </h2>
+              <h2>89. Méthode de vérification de la santé des pods</h2>
               <p>
-                Le drapeau <code>--etcd-certfile</code> permet à l&apos;API
-                server de valider les connexions etcd via des certificats TLS,
-                garantissant une communication sécurisée entre les composants.
+                Kubernetes utilise des <strong>Liveness</strong> et{" "}
+                <strong>Readiness Probes</strong> pour vérifier si un pod est
+                vivant et prêt à recevoir du trafic.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Utiliser des certificats TLS signés par une autorité de
-                  confiance.
-                </li>
-                <li>
-                  Vérifier régulièrement les paramètres de sécurité des
-                  certificats.
-                </li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: app-container
+      image: app-image
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 8080
+      readinessProbe:
+        httpGet:
+          path: /readyz
+          port: 8080`}
+                </code>
+              </pre>
             </section>
 
             <section>
-              <h2>
-                97. Sécurisation des communications entre l&apos;API server et
-                kubelet
-              </h2>
+              <h2>90. Description des DaemonSets</h2>
               <p>
-                Kubernetes utilise des certificats TLS pour authentifier et
-                chiffrer les communications entre l&apos;API server et kubelet,
-                empêchant ainsi les écoutes ou les interférences non autorisées.
+                Les <strong>DaemonSets</strong> garantissent qu&apos;un pod est
+                exécuté sur tous les nœuds (ou certains) d&apos;un cluster,
+                souvent pour des tâches comme la collecte de journaux ou la
+                surveillance.
               </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer des certificats TLS mutuels pour toutes les
-                  communications internes.
-                </li>
-                <li>
-                  Utiliser des outils de gestion des certificats pour les
-                  renouvellements.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>
-                98. Admission controller pour les critères de sécurité des pods
-              </h2>
-              <p>
-                L&apos;admission controller <code>PodSecurityPolicy</code>{" "}
-                permet de bloquer les pods qui ne respectent pas certains
-                critères de sécurité, tels que la désactivation de privilèges ou
-                l&apos;usage de namespaces partagés.
-              </p>
-              <h3>Exemples de critères :</h3>
-              <ul>
-                <li>Interdire les conteneurs privilégiés.</li>
-                <li>
-                  Exiger l&apos;utilisation de <code>runAsNonRoot</code>.
-                </li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>99. Sécurisation des données dans les Secrets Kubernetes</h2>
-              <p>
-                La meilleure manière de sécuriser les Secrets dans Kubernetes
-                est d&apos;activer le chiffrement au repos pour etcd, empêchant
-                ainsi l&apos;accès non autorisé aux données sensibles.
-              </p>
-              <h3>Bonne pratique :</h3>
-              <ul>
-                <li>
-                  Configurer un fichier <code>EncryptionConfiguration</code>{" "}
-                  pour activer le chiffrement.
-                </li>
-                <li>Utiliser des clés de chiffrement gérées et sécurisées.</li>
-              </ul>
+              <h3>Exemple :</h3>
+              <pre>
+                <code>
+                  {`apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemonset-example
+spec:
+  selector:
+    matchLabels:
+      app: daemon-app
+  template:
+    metadata:
+      labels:
+        app: daemon-app
+    spec:
+      containers:
+      - name: daemon-container
+        image: daemon-image`}
+                </code>
+              </pre>
             </section>
           </div>
         </div>

@@ -6,7 +6,7 @@ export interface quizStartIndexState {
 }
 
 const initialState: quizStartIndexState = {
-  value: 1 // A adapter
+  value: 24 // A adapter
 };
 
 export const quizStartIndexSlice = createSlice({
