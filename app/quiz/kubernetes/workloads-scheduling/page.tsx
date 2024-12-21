@@ -222,7 +222,7 @@ spec:
             </section>
 
             <section>
-              <h2>8. Comportement des pods avec RestartPolicy "Never"</h2>
+              <h2>8. Comportement des pods avec RestartPolicy &quot;Never&quot;</h2>
               <p>
                 Si un pod avec une RestartPolicy définie à{" "}
                 <strong>&quot;Never&quot;</strong> échoue, le pod restera dans l&apos;état
