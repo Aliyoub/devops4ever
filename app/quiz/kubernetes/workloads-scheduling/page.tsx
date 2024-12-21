@@ -44,7 +44,7 @@ const Kubernetes_WorkloadsScheduling: React.FC = () => {
               <h2>1. Politique de redémarrage par défaut pour les pods</h2>
               <p>
                 La politique de redémarrage par défaut pour les pods dans
-                Kubernetes est <strong>"Always"</strong>. Cela signifie que le
+                Kubernetes est <strong>&quot;Always&quot;</strong>. Cela signifie que le
                 pod sera redémarré automatiquement s&apos;il échoue ou est
                 supprimé.
               </p>
@@ -120,7 +120,7 @@ spec:
             </section>
 
             <section>
-              <h2>4. Utilité de "nodeSelector" dans un spec de pod</h2>
+              <h2>4. Utilité de &quot;nodeSelector&quot; dans un spec de pod</h2>
               <p>
                 Le champ <strong>nodeSelector</strong> est utilisé pour
                 contraindre un pod à s&apos;exécuter uniquement sur les nœuds
@@ -225,8 +225,8 @@ spec:
               <h2>8. Comportement des pods avec RestartPolicy "Never"</h2>
               <p>
                 Si un pod avec une RestartPolicy définie à{" "}
-                <strong>"Never"</strong> échoue, le pod restera dans l&apos;état
-                "Failed" et ne sera pas redémarré automatiquement.
+                <strong>&quot;Never&quot;</strong> échoue, le pod restera dans l&apos;état
+                &quot;Failed&quot; et ne sera pas redémarré automatiquement.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -248,7 +248,7 @@ spec:
                 L&apos;ordre de création et de suppression des pods dans un{" "}
                 <strong>StatefulSet</strong> est contrôlé par la politique{" "}
                 <code>podManagementPolicy</code>. Par défaut, il est réglé sur
-                "OrderedReady".
+                &quot;OrderedReady&quot;.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -262,7 +262,7 @@ spec:
             </section>
 
             <section>
-              <h2>10. Rôle des "tolerations" dans la planification</h2>
+              <h2>10. Rôle des &quot;tolerations&quot; dans la planification</h2>
               <p>
                 Les <strong>tolerations</strong> permettent aux pods de tolérer
                 des conditions spécifiques sur les nœuds (marqués avec des
@@ -439,7 +439,7 @@ spec:
               <h2>17. Gestion des pods échoués avec ReadinessProbe</h2>
               <p>
                 Si une <strong>ReadinessProbe</strong> échoue, le pod est marqué
-                comme "NotReady" et retiré des points de terminaison du service,
+                comme &quot;NotReady&quot; et retiré des points de terminaison du service,
                 empêchant le trafic de lui être envoyé.
               </p>
               <h3>Exemple :</h3>
@@ -532,7 +532,7 @@ preemptionPolicy: PreemptLowerPriority`}
             </section>
             <section>
               <h2>
-                21. Objectif des "taints" dans la planification Kubernetes
+                21. Objectif des &quot;taints&quot; dans la planification Kubernetes
               </h2>
               <p>
                 Les <strong>taints</strong> empêchent les pods d&apos;être
@@ -979,7 +979,7 @@ spec:
               <h2>40. Effet d&apos;une Readiness Probe échouée</h2>
               <p>
                 Si une <strong>Readiness Probe</strong> échoue, le pod est
-                marqué comme "NotReady" et retiré des endpoints des services,
+                marqué comme &quot;NotReady&quot; et retiré des endpoints des services,
                 garantissant qu&apos;il ne reçoit pas de trafic jusqu&apos;à ce
                 qu&apos;il soit prêt.
               </p>
