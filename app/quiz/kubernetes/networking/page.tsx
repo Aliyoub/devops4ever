@@ -47,7 +47,10 @@ const Kubernetes_Networking: React.FC = () => {
             <p>
               Le networking est une des pierres angulaires de Kubernetes. Il
               permet aux conteneurs, Pods, Services et autres composants de
-              communiquer entre eux et avec le monde extérieur.
+              communiquer entre eux et avec le monde extérieur. Ce module
+              couvrira toutes les notions relatives au networking en Kubernetes,
+              en respectant les contraintes du modèle de certification CKA et
+              CKAD.
             </p>
           </section>
 
