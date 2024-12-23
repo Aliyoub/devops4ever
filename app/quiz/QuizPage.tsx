@@ -11,7 +11,8 @@ type QuizPageProps = {
   quizQuestions: any[];
 };
 
-export default function QuizPage({ quizQuestions }: QuizPageProps) {
+const QuizPage =({ quizQuestions }: QuizPageProps) => {
+// export default function QuizPage({ quizQuestions }: QuizPageProps) {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
     (state: RootState) => state.quizStartIndex.value
@@ -125,3 +126,4 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
     </div>
   );
 }
+export default QuizPage;
