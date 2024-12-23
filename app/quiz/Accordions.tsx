@@ -27,7 +27,7 @@ import { setParent } from "@/store/slices/parent/parentSlice";
 // import Ansible from "./Ansible/Playbook/page";
 // Données hiérarchiques pour les accordéons
 import { dataForAccordionsStructure } from "./accordionsStructure";
-import ListOfKubernetesThemes from "./kubernetes/page";
+import ListOfKubernetesThemes from "./kubernetes/listOfKubernetesThemes";
 
 // Type pour l'état actif
 type ActiveState = {
