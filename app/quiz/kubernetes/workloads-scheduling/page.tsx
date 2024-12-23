@@ -44,9 +44,9 @@ const Kubernetes_WorkloadsScheduling: React.FC = () => {
               <h2>1. Politique de redémarrage par défaut pour les pods</h2>
               <p>
                 La politique de redémarrage par défaut pour les pods dans
-                Kubernetes est <strong>&quot;Always&quot;</strong>. Cela signifie que le
-                pod sera redémarré automatiquement s&apos;il échoue ou est
-                supprimé.
+                Kubernetes est <strong>&quot;Always&quot;</strong>. Cela
+                signifie que le pod sera redémarré automatiquement s&apos;il
+                échoue ou est supprimé.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -120,7 +120,9 @@ spec:
             </section>
 
             <section>
-              <h2>4. Utilité de &quot;nodeSelector&quot; dans un spec de pod</h2>
+              <h2>
+                4. Utilité de &quot;nodeSelector&quot; dans un spec de pod
+              </h2>
               <p>
                 Le champ <strong>nodeSelector</strong> est utilisé pour
                 contraindre un pod à s&apos;exécuter uniquement sur les nœuds
@@ -222,11 +224,14 @@ spec:
             </section>
 
             <section>
-              <h2>8. Comportement des pods avec RestartPolicy &quot;Never&quot;</h2>
+              <h2>
+                8. Comportement des pods avec RestartPolicy &quot;Never&quot;
+              </h2>
               <p>
                 Si un pod avec une RestartPolicy définie à{" "}
-                <strong>&quot;Never&quot;</strong> échoue, le pod restera dans l&apos;état
-                &quot;Failed&quot; et ne sera pas redémarré automatiquement.
+                <strong>&quot;Never&quot;</strong> échoue, le pod restera dans
+                l&apos;état &quot;Failed&quot; et ne sera pas redémarré
+                automatiquement.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -262,7 +267,9 @@ spec:
             </section>
 
             <section>
-              <h2>10. Rôle des &quot;tolerations&quot; dans la planification</h2>
+              <h2>
+                10. Rôle des &quot;tolerations&quot; dans la planification
+              </h2>
               <p>
                 Les <strong>tolerations</strong> permettent aux pods de tolérer
                 des conditions spécifiques sur les nœuds (marqués avec des
@@ -439,8 +446,8 @@ spec:
               <h2>17. Gestion des pods échoués avec ReadinessProbe</h2>
               <p>
                 Si une <strong>ReadinessProbe</strong> échoue, le pod est marqué
-                comme &quot;NotReady&quot; et retiré des points de terminaison du service,
-                empêchant le trafic de lui être envoyé.
+                comme &quot;NotReady&quot; et retiré des points de terminaison
+                du service, empêchant le trafic de lui être envoyé.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -532,7 +539,8 @@ preemptionPolicy: PreemptLowerPriority`}
             </section>
             <section>
               <h2>
-                21. Objectif des &quot;taints&quot; dans la planification Kubernetes
+                21. Objectif des &quot;taints&quot; dans la planification
+                Kubernetes
               </h2>
               <p>
                 Les <strong>taints</strong> empêchent les pods d&apos;être
@@ -581,7 +589,10 @@ spec:
             </section>
 
             <section>
-              <h2>23. Influence de &quot;priorityClassName&quot; sur la planification</h2>
+              <h2>
+                23. Influence de &quot;priorityClassName&quot; sur la
+                planification
+              </h2>
               <p>
                 Le champ <strong>priorityClassName</strong> attribue une
                 priorité au pod, influençant son ordre de planification lorsque
@@ -793,8 +804,9 @@ spec:
               </h2>
               <p>
                 Par défaut, les <strong>StatefulSets</strong> utilisent la
-                stratégie &quot;<code>OnDelete</code>&quot;, ce qui signifie que les pods
-                ne seront mis à jour que s&apos;ils sont manuellement supprimés.
+                stratégie &quot;<code>OnDelete</code>&quot;, ce qui signifie que
+                les pods ne seront mis à jour que s&apos;ils sont manuellement
+                supprimés.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -979,9 +991,9 @@ spec:
               <h2>40. Effet d&apos;une Readiness Probe échouée</h2>
               <p>
                 Si une <strong>Readiness Probe</strong> échoue, le pod est
-                marqué comme &quot;NotReady&quot; et retiré des endpoints des services,
-                garantissant qu&apos;il ne reçoit pas de trafic jusqu&apos;à ce
-                qu&apos;il soit prêt.
+                marqué comme &quot;NotReady&quot; et retiré des endpoints des
+                services, garantissant qu&apos;il ne reçoit pas de trafic
+                jusqu&apos;à ce qu&apos;il soit prêt.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -1239,7 +1251,8 @@ spec:
               </h2>
               <p>
                 Par défaut, Kubernetes termine les pods les plus récents
-                (&quot;Newest&quot;) en premier lors d&apos;un événement de scale-down.
+                (&quot;Newest&quot;) en premier lors d&apos;un événement de
+                scale-down.
               </p>
               <h3>Exemple :</h3>
               <pre>
@@ -2155,6 +2168,14 @@ spec:
           </div>
         </div>
         <style jsx>{`
+          pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            
+            white-space: pre-wrap; /* Assures the YAML indentation is respected */
+          }
           h1 {
             color: #fca4f0; /* Bleu pour les sous-titres */
             margin-top: 20px;

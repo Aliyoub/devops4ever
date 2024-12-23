@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "./quizPage";
+import QuizPage from "../../quizPage";
 import { questions } from "./questionsNetworking";
-
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { myColors } from "@/myConstants/colors/page";
 const Kubernetes_Networking: React.FC = () => {
   const parent = useSelector((state: RootState) => state.parent.value);
   const child = useSelector((state: RootState) => state.child.value);
@@ -213,6 +214,16 @@ const Kubernetes_Networking: React.FC = () => {
                 </code>
               </pre>
             </article>
+          </section>
+          <section>
+            {questions.map((question) => (
+              <article style={{ marginTop: 15 }} key={question.question_id}>
+                <ArrowRightIcon
+                  style={{ color: myColors.lightPink, fontSize: 25 }}
+                />
+                {question.explanation}
+              </article>
+            ))}
           </section>
         </div>
         <style jsx>{`

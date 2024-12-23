@@ -12,7 +12,11 @@ const Kubernetes_LoggingMonitoring: React.FC = () => {
   const grandChild = useSelector((state: RootState) => state.grandChild.value);
 
   //   KUBERNETES Installation Configuration
-  if (parent === "Kubernetes" && child === "Logging and Monitoring" && grandChild === "Quiz")
+  if (
+    parent === "Kubernetes" &&
+    child === "Logging and Monitoring" &&
+    grandChild === "Quiz"
+  )
     return <QuizPage quizQuestions={questions} />;
   else if (
     parent === "Kubernetes" &&
@@ -2049,6 +2053,13 @@ spec:
           </div>
         </div>
         <style jsx>{`
+          pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Assures the YAML indentation is respected */
+          }
           h1 {
             color: #fca4f0; /* Bleu pour les sous-titres */
             margin-top: 20px;
