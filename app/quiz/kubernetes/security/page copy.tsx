@@ -307,11 +307,8 @@ metadata:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  securityContext:
-    privileged: false`}
+                  apiVersion: v1 kind: Pod spec: securityContext: privileged:
+                  false
                 </code>
               </pre>
             </section>
@@ -329,7 +326,7 @@ spec:
               </p>
               <h3>Exemple :</h3>
               <pre>
-                <code>{`kubectl auth can-i get pods --as=example-user`}</code>
+                <code>kubectl auth can-i get pods --as=example-user</code>
               </pre>
             </section>
 
@@ -358,12 +355,8 @@ spec:
               <h3>Exemple de configuration :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Secret
-metadata:
-  name: example-secret
-data:
-  username: dXNlcm5hbWU=`}
+                  apiVersion: v1 kind: Secret metadata: name: example-secret
+                  data: username: dXNlcm5hbWU=
                 </code>
               </pre>
             </section>
@@ -382,12 +375,8 @@ data:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-data:
-  password: cGFzc3dvcmQ=`}
+                  apiVersion: v1 kind: Secret metadata: name: mysecret data:
+                  password: cGFzc3dvcmQ=
                 </code>
               </pre>
             </section>
@@ -420,13 +409,8 @@ data:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: mycontainer
-    securityContext:
-      allowPrivilegeEscalation: false`}
+                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
+                  securityContext: allowPrivilegeEscalation: false
                 </code>
               </pre>
             </section>
@@ -711,16 +695,9 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: audit.k8s.io/v1
-kind: Policy
-metadata:
-  name: audit-policy
-spec:
-  rules:
-  - level: Metadata
-    resources:
-    - group: ""
-      resources: ["pods"]`}
+                  apiVersion: audit.k8s.io/v1 kind: Policy metadata: name:
+                  audit-policy spec: rules: - level: Metadata resources: -
+                  group: &quot;&quot; resources: [&quot;pods&quot;]
                 </code>
               </pre>
             </section>
@@ -752,14 +729,8 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: mycontainer
-    image: myimage
-    securityContext:
-      runAsUser: 1001`}
+                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
+                  image: myimage securityContext: runAsUser: 1001
                 </code>
               </pre>
             </section>
@@ -789,15 +760,9 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: mycontainer
-    image: myimage
-    securityContext:
-      seccompProfile:
-        type: RuntimeDefault`}
+                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
+                  image: myimage securityContext: seccompProfile: type:
+                  RuntimeDefault
                 </code>
               </pre>
             </section>
@@ -826,14 +791,9 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  containers:
-    - name: mycontainer
-      image: myimage
-      securityContext:
-        allowPrivilegeEscalation: false`}
+                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
+                  image: myimage securityContext: allowPrivilegeEscalation:
+                  false
                 </code>
               </pre>
             </section>
@@ -860,11 +820,8 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: admission.k8s.io/v1
-kind: AdmissionControl
-spec:
-  plugins:
-  - name: NodeRestriction`}
+                  apiVersion: admission.k8s.io/v1 kind: AdmissionControl spec:
+                  plugins: - name: NodeRestriction
                 </code>
               </pre>
             </section>
@@ -892,13 +849,8 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: kubeadm.k8s.io/v1
-kind: KubeadmConfig
-spec:
-  etcd:
-    encryption:
-      enabled: true
-      provider: "aes256-gcm"`}
+                  apiVersion: kubeadm.k8s.io/v1 kind: KubeadmConfig spec: etcd:
+                  encryption: enabled: true provider: &quot;aes256-gcm&quot;
                 </code>
               </pre>
             </section>
@@ -926,8 +878,8 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`kubectl describe pod kube-apiserver | grep
-                  --enable-admission-plugins`}
+                  kubectl describe pod kube-apiserver | grep
+                  --enable-admission-plugins
                 </code>
               </pre>
             </section>
@@ -954,14 +906,8 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: mycontainer
-    image: myimage
-    securityContext:
-      hostPID: false`}
+                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
+                  image: myimage securityContext: hostPID: false
                 </code>
               </pre>
             </section>
@@ -988,10 +934,8 @@ spec:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: myserviceaccount`}
+                  apiVersion: v1 kind: ServiceAccount metadata: name:
+                  myserviceaccount
                 </code>
               </pre>
             </section>
@@ -1019,14 +963,8 @@ metadata:
               <h3>Exemple :</h3>
               <pre>
                 <code>
-                  {`apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: mycontainer
-    image: myimage
-    securityContext:
-      readOnlyRootFilesystem: true`}
+                  apiVersion: v1 kind: Pod spec: containers: - name: mycontainer
+                  image: myimage securityContext: readOnlyRootFilesystem: true
                 </code>
               </pre>
             </section>

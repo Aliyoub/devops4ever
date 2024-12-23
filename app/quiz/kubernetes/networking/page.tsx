@@ -121,9 +121,18 @@ const Kubernetes_Networking: React.FC = () => {
               <p>Exemple de création d&apos;un Service :</p>
               <pre>
                 <code>
-                  apiVersion: v1 kind: Service metadata: name: my-service spec:
-                  selector: app: MyApp ports: - protocol: TCP port: 80
-                  targetPort: 9376 type: ClusterIP
+                  {`apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  type: ClusterIP`}
                 </code>
               </pre>
             </article>
@@ -138,10 +147,22 @@ const Kubernetes_Networking: React.FC = () => {
               <p>Exemple d&apos;Ingress :</p>
               <pre>
                 <code>
-                  apiVersion: networking.k8s.io/v1 kind: Ingress metadata: name:
-                  example-ingress spec: rules: - host: example.com http: paths:
-                  - path: / pathType: Prefix backend: service: name: my-service
-                  port: number: 80
+                {`apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+spec:
+  rules:
+    - host: example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-service
+                port:
+                  number: 80`}
                 </code>
               </pre>
             </article>
@@ -207,10 +228,21 @@ const Kubernetes_Networking: React.FC = () => {
               </p>
               <pre>
                 <code>
-                  apiVersion: networking.k8s.io/v1 kind: NetworkPolicy metadata:
-                  name: allow-http spec: podSelector: matchLabels: role:
-                  frontend ingress: - from: - ipBlock: cidr: 192.168.1.0/24
-                  ports: - protocol: TCP port: 80
+                  {`apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-http
+spec:
+  podSelector:
+    matchLabels:
+      role: frontend
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: 192.168.1.0/24
+      ports:
+        - protocol: TCP
+          port: 80`}
                 </code>
               </pre>
             </article>
@@ -228,6 +260,7 @@ const Kubernetes_Networking: React.FC = () => {
         </div>
         <style jsx>{`
           pre {
+          width: 100%;
             background-color: #f4f4f4;
             padding: 10px;
             border-radius: 5px;
