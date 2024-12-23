@@ -36,7 +36,8 @@ type ActiveState = {
   grandChild: string | null; // Nom du Petit-Enfant actif (Quiz ou Lecture)
 };
 
-const Accordions: React.FC = () => {
+const Accordions = () => {
+// const Accordions: React.FC = () => {
   const dispatch = useDispatch();
 
   const [activeState, setActiveState] = useState<ActiveState>({
