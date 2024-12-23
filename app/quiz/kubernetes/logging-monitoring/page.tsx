@@ -3,7 +3,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "./quizPage";
+import QuizPage from "../../quizPage/quizPage";
 import { questions } from "./questionsLoggingMonitoring";
 
 const Kubernetes_LoggingMonitoring: React.FC = () => {
