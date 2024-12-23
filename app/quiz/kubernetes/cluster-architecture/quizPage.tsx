@@ -4,7 +4,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import QuizQuestions from "./QuizQuestions";
-import QuizScore from "../../QuizScore";
+import QuizScore from "../../quizPage/QuizScore";
 // import { questions } from "./questionServices";
 
 type QuizPageProps = {

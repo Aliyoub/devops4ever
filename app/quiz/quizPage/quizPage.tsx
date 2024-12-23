@@ -2,16 +2,17 @@
 
 import React, { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
-import QuizQuestions from "../../quizPage/QuizQuestions";
-import QuizScore from "../../quizPage/QuizScore";
+import { RootState } from "../../../store/store";
+import QuizQuestions from "./QuizQuestions";
+import QuizScore from "./QuizScore";
 // import { questions } from "./questionServices";
 
 type QuizPageProps = {
   quizQuestions: any[];
 };
 
-export default function QuizPage({ quizQuestions }: QuizPageProps) {
+const QuizPage = ({ quizQuestions }: QuizPageProps) => {
+// export default function QuizPage({ quizQuestions }: QuizPageProps) {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
     (state: RootState) => state.quizStartIndex.value
@@ -42,12 +43,9 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
 
   const handleNextQuestion = () => {
     const isCorrect =
-      theSliceQuestions[currentQuestion].options[
+      Object.keys(theSliceQuestions[currentQuestion].options)[
         selectedOptions[currentQuestion]
       ] === theSliceQuestions[currentQuestion].answer;
-      // Object.keys(theSliceQuestions[currentQuestion].options)[
-      //   selectedOptions[currentQuestion]
-      // ] === theSliceQuestions[currentQuestion].answer;
 
     if (isCorrect) {
       setScore(score + 1);
@@ -128,3 +126,4 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
     </div>
   );
 }
+export default QuizPage;

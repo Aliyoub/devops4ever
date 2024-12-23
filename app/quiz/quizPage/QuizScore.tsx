@@ -1,7 +1,7 @@
 'use client'
 import React from "react";
 import { Typography, Box, Button } from "@mui/material";
-import "../../app/styles.css";
+import "../../../app/styles.css";
 
 type QuizScoreProps = {
   score: number;

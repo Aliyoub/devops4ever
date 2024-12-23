@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
-import QuizQuestions from "../../QuizQuestions";
-import QuizScore from "../../QuizScore";
+import QuizQuestions from "../../quizPage/QuizQuestions";
+import QuizScore from "../../quizPage/QuizScore";
 
 type QuizPageProps = {
   quizQuestions: any[];
