@@ -12,7 +12,7 @@ type QuizPageProps = {
 };
 
 const QuizPage = ({ quizQuestions }: QuizPageProps) => {
-// export default function QuizPage({ quizQuestions }: QuizPageProps) {
+  // export default function QuizPage({ quizQuestions }: QuizPageProps) {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
     (state: RootState) => state.quizStartIndex.value
@@ -36,16 +36,21 @@ const QuizPage = ({ quizQuestions }: QuizPageProps) => {
   >([]);
 
   const handleOptionChange = (event: any) => {
+    event.preventDefault();
     const updatedOptions = [...selectedOptions];
     updatedOptions[currentQuestion] = parseInt(event.target.value, 10);
     setSelectedOptions(updatedOptions);
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = (event: any) => {
+    event.preventDefault();
     const isCorrect =
-      Object.keys(theSliceQuestions[currentQuestion].options)[
+      theSliceQuestions[currentQuestion].options[
         selectedOptions[currentQuestion]
       ] === theSliceQuestions[currentQuestion].answer;
+    // Object.keys(theSliceQuestions[currentQuestion].options)[
+    //   selectedOptions[currentQuestion]
+    // ] === theSliceQuestions[currentQuestion].answer;
 
     if (isCorrect) {
       setScore(score + 1);
@@ -68,9 +73,13 @@ const QuizPage = ({ quizQuestions }: QuizPageProps) => {
     // setCurrentQuestion((prev) => prev + 1);
     setCurrentQuestion(currentQuestion + 1);
     // }
+    console.log("score", score);
+    console.log("unansweredQuestionsList", unansweredQuestionsList);
+    console.log("incorrectAnswersList", incorrectAnswersList);
   };
 
-  const handlePreviousQuestion = () => {
+  const handlePreviousQuestion = (event: any) => {
+    event.preventDefault();
     if (currentQuestion > 0) {
       setCurrentQuestion((prev) => prev - 1);
       const previousQuestionIndex = currentQuestion - 1;
@@ -106,6 +115,7 @@ const QuizPage = ({ quizQuestions }: QuizPageProps) => {
     <div>
       {currentQuestion < theSliceQuestions.length ? (
         <QuizQuestions
+          question_id={theSliceQuestions[currentQuestion].question_id}
           question={theSliceQuestions[currentQuestion].question}
           options={theSliceQuestions[currentQuestion].options}
           currentSelection={selectedOptions[currentQuestion]}
@@ -125,5 +135,5 @@ const QuizPage = ({ quizQuestions }: QuizPageProps) => {
       )}
     </div>
   );
-}
+};
 export default QuizPage;

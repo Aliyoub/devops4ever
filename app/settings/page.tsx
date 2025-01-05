@@ -47,17 +47,17 @@ function ControlledAccordion() {
     expanded !== null && childExpanded !== null
   );
 
-
   // ================================================================================
-  
+
   const quizStartIndex = useSelector(
-    (state: RootState) => state.quizStartIndex.value);
-    
-    const quizStartIndexInputChange = (
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      const numericValue: number = Number(event.target.value);
-      
+    (state: RootState) => state.quizStartIndex.value
+  );
+
+  const quizStartIndexInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const numericValue: number = Number(event.target.value);
+
     dispatch(setQuizStartIndex(numericValue));
   };
   // ================================================================================
@@ -72,12 +72,8 @@ function ControlledAccordion() {
     dispatch(setQuizSize(numericValue));
   };
 
-
-
-
-
   return (
-    <div style={{marginBottom: 40}}>
+    <div style={{ marginTop: 20, marginBottom: 0.5 }}>
       {/* Parent Accordion 1 */}
       <Accordion
         expanded={expanded === "panel1"}
@@ -108,7 +104,7 @@ function ControlledAccordion() {
               placeholder="ex: 5, pour commencer à la question 5..."
               inputProps={{ min: 0, max: 100 }} // Ajout de contraintes
               fullWidth // S'adapte à la largeur du conteneur
-              value={quizStartIndex  || ""}
+              value={quizStartIndex || ""}
               onChange={quizStartIndexInputChange}
               sx={{
                 marginTop: 1,
@@ -127,7 +123,7 @@ function ControlledAccordion() {
               placeholder="ex: 20, pour traiter 20 questions ..."
               inputProps={{ min: 0, max: 100 }} // Ajout de contraintes
               fullWidth // S'adapte à la largeur du conteneur
-              value={quizSize  || ""}
+              value={quizSize || ""}
               onChange={quizSizeInputChange}
               sx={{
                 marginTop: 2,

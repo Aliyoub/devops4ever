@@ -2,7 +2,7 @@ export const questions = [
   {
     question:
       "Which component in the Kubernetes control plane is responsible for maintaining the desired state of the cluster?",
-    question_id: 0,
+    question_id: 1,
     options: [
       "a) kube-apiserver",
       "b) kube-scheduler",
@@ -13,7 +13,7 @@ export const questions = [
   },
   {
     question: "What is the primary role of etcd in Kubernetes architecture?",
-    question_id: 1,
+    question_id: 2,
     options: [
       "a) Scheduling workloads",
       "b) Storing cluster configuration and state",
@@ -25,7 +25,7 @@ export const questions = [
   {
     question:
       "Which component of Kubernetes schedules pods to nodes based on resource availability and requirements?",
-    question_id: 2,
+    question_id: 3,
     options: [
       "a) kube-controller-manager",
       "b) kube-scheduler",
@@ -36,7 +36,7 @@ export const questions = [
   },
   {
     question: "What is the role of the kubelet in a Kubernetes cluster?",
-    question_id: 3,
+    question_id: 4,
     options: [
       "a) Running container workloads",
       "b) Managing network traffic",
@@ -48,7 +48,7 @@ export const questions = [
   {
     question:
       "Which component of the Kubernetes control plane is the entry point for all kubectl commands?",
-    question_id: 4,
+    question_id: 5,
     options: [
       "a) kube-scheduler",
       "b) etcd",
@@ -60,7 +60,7 @@ export const questions = [
   {
     question:
       "In a Kubernetes cluster, what is the purpose of the kube-proxy component?",
-    question_id: 5,
+    question_id: 6,
     options: [
       "a) Managing container runtime",
       "b) Implementing network rules to route traffic",
@@ -72,7 +72,7 @@ export const questions = [
   {
     question:
       "What is the role of the kube-controller-manager in a Kubernetes cluster?",
-    question_id: 6,
+    question_id: 7,
     options: [
       "a) To manage service networking",
       "b) To maintain the cluster's desired state",
@@ -84,14 +84,14 @@ export const questions = [
   {
     question:
       "Which component is used for cluster data storage and is often configured as a highly available key-value store in Kubernetes?",
-    question_id: 7,
+    question_id: 8,
     options: ["a) kube-proxy", "b) kube-scheduler", "c) etcd", "d) kubelet"],
     answer: "c) etcd",
   },
   {
     question:
       "In Kubernetes, which of the following components monitors node health and enforces eviction policies?",
-    question_id: 8,
+    question_id: 9,
     options: [
       "a) kube-scheduler",
       "b) kubelet",
@@ -103,7 +103,7 @@ export const questions = [
   {
     question:
       "Which Kubernetes component is essential for communication within the control plane and with worker nodes?",
-    question_id: 9,
+    question_id: 10,
     options: [
       "a) kube-scheduler",
       "b) kube-apiserver",
@@ -115,7 +115,7 @@ export const questions = [
   {
     question:
       "In Kubernetes architecture, what is the primary responsibility of the kube-scheduler?",
-    question_id: 10,
+    question_id: 11,
     options: [
       "a) Scheduling pods to nodes",
       "b) Managing storage volumes",
@@ -127,7 +127,7 @@ export const questions = [
   {
     question:
       "Which component in Kubernetes applies IP tables rules for managing service traffic?",
-    question_id: 11,
+    question_id: 12,
     options: [
       "a) kube-scheduler",
       "b) kubelet",
@@ -139,14 +139,14 @@ export const questions = [
   {
     question:
       "The kube-apiserver uses which protocol by default for secure communication?",
-    question_id: 12,
+    question_id: 13,
     options: ["a) HTTP", "b) SSH", "c) HTTPS", "d) FTP"],
     answer: "c) HTTPS",
   },
   {
     question:
       "Which component ensures that the containers in a pod are running and restarts them if they fail?",
-    question_id: 13,
+    question_id: 14,
     options: [
       "a) kubelet",
       "b) kube-apiserver",
@@ -158,7 +158,7 @@ export const questions = [
   {
     question:
       "In Kubernetes, what is the role of the cloud-controller-manager?",
-    question_id: 14,
+    question_id: 15,
     options: [
       "a) To schedule pods based on node availability",
       "b) To manage interactions with cloud providers",
@@ -170,7 +170,7 @@ export const questions = [
   {
     question:
       "Which process in the Kubernetes control plane is responsible for detecting and responding to node failures?",
-    question_id: 15,
+    question_id: 16,
     options: [
       "a) kube-scheduler",
       "b) kube-proxy",
@@ -182,7 +182,7 @@ export const questions = [
   {
     question:
       "What is the purpose of the --secure-port flag in the kube-apiserver configuration?",
-    question_id: 16,
+    question_id: 17,
     options: [
       "a) Specifies the secure port for kubelet",
       "b) Specifies the port to listen on for secure requests",
@@ -194,7 +194,7 @@ export const questions = [
   {
     question:
       "In Kubernetes, which component is in charge of assigning a unique IP address to each pod?",
-    question_id: 17,
+    question_id: 18,
     options: [
       "a) kube-proxy",
       "b) kube-controller-manager",
@@ -206,7 +206,7 @@ export const questions = [
   {
     question:
       "Which flag in kubelet ensures that only signed and trusted images are pulled from the registry?",
-    question_id: 18,
+    question_id: 19,
     options: [
       "a) --allow-privileged",
       "b) --pod-manifest-path",
@@ -218,7 +218,7 @@ export const questions = [
   {
     question:
       "Which Kubernetes component uses a 'leader election' mechanism to manage control plane tasks?",
-    question_id: 19,
+    question_id: 20,
     options: [
       "a) kube-scheduler",
       "b) kube-controller-manager",
@@ -230,7 +230,7 @@ export const questions = [
   {
     question:
       "In a highly available Kubernetes control plane setup, how is data consistency across etcd nodes ensured?",
-    question_id: 20,
+    question_id: 21,
     options: [
       "a) By using synchronous replication",
       "b) By configuring the kubelet",
@@ -242,7 +242,7 @@ export const questions = [
   {
     question:
       "What does the kube-apiserver use for authentication when accessing etcd?",
-    question_id: 21,
+    question_id: 22,
     options: [
       "a) JSON web tokens (JWT)",
       "b) TLS certificates",
@@ -253,7 +253,7 @@ export const questions = [
   },
   {
     question: "How does the kube-scheduler decide where to place a pod?",
-    question_id: 22,
+    question_id: 23,
     options: [
       "a) Based on labels",
       "b) Using annotations",
@@ -265,7 +265,7 @@ export const questions = [
   {
     question:
       "In Kubernetes, which component aggregates and forwards metrics to the API server for monitoring?",
-    question_id: 23,
+    question_id: 24,
     options: [
       "a) kubelet",
       "b) kube-scheduler",
@@ -277,7 +277,7 @@ export const questions = [
   {
     question:
       "Which command is used to run the kube-scheduler with a custom configuration file?",
-    question_id: 24,
+    question_id: 25,
     options: [
       "a) kubelet --config <file>",
       "b) kube-apiserver --config <file>",
@@ -289,7 +289,7 @@ export const questions = [
   {
     question:
       "What is a primary function of the 'leader election' feature in Kubernetes?",
-    question_id: 25,
+    question_id: 26,
     options: [
       "a) To assign a node leader for network traffic",
       "b) To designate a master node",

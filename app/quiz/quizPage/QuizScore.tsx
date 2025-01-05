@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 import "../../../app/styles.css";
@@ -16,14 +16,12 @@ const QuizScore: React.FC<QuizScoreProps> = ({
   incorrectAnswers,
   unansweredQuestions,
 }) => {
-
   return (
     <Box>
       <Typography
         variant="h6"
         sx={{
-          mb: 2,
-          mt: 2,
+          p: 1,
           color: "#3B8FEF",
           fontWeight: "bold",
         }}
@@ -39,13 +37,34 @@ const QuizScore: React.FC<QuizScoreProps> = ({
       <Typography className="unansweredQuestionsTitle">
         Questions non répondues : {unansweredQuestions.length}
       </Typography>
-      <Box mt={2}>
+      <Typography
+        variant="h6"
+        sx={{
+          p: 1,
+          color: "#3B8FEF",
+          fontWeight: "bold",
+        }}
+      >
+        Correction
+      </Typography>
+      <Box className="scrollable-content">
         {incorrectAnswers.map((question: any, index) => (
-          <Box key={index} mb={2}>
-            <Typography variant="body1">
-              <strong>Question :</strong> {question.question}
+          <Box key={index}>
+            <Typography variant="body1" className="inCorrectAnswersTitle">
+              <strong>Question {question.question_id} :</strong>{" "}
+              {question.question}
             </Typography>
-            <Typography variant="body2">
+            <Typography
+              variant="body2"
+              sx={{
+                // mb: 2,
+                // mt: 2,
+                p: 2,
+                color: "#FCA4F0",
+                fontWeight: "bold",
+                backgroundColor: "#3B8FEF",
+              }}
+            >
               <strong>Bonne réponse :</strong> {question.answer}
             </Typography>
           </Box>

@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./styles.css";
 import LayoutClientComponent from "./layoutClientComponent";
-import ViewWithBorderRadius from "@/components/ViewWithBorderRadius/ViewWithBorderRadius";
 import Head from "next/head";
+import ViewWithBorderRadius from "@/components/ViewWithBorderRadius/ViewWithBorderRadius";
 
 export const metadata: Metadata = {
   title: "Devops for ever",

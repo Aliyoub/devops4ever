@@ -19,6 +19,8 @@ import quizSubSubjectNameReducer from './slices/quizSubSubjectName/quizSubSubjec
 import parentReducer from './slices/parent/parentSlice';
 import childReducer from './slices/child/childSlice';
 import grandChildReducer from './slices/grandChild/grandChildSlice';
+import quizOrReadingExpandedReducer from './slices/quizOrReadingExpanded/quizOrReadingExpandedSlice';
+import isGoodAnswerReducer from './slices/isGoodAnswer/isGoodAnswerSlice';
 // import slices => Ne pas supprimer !!!
 
 export const store = configureStore({
@@ -39,6 +41,8 @@ export const store = configureStore({
 	parent: parentReducer,
 	child: childReducer,
 	grandChild: grandChildReducer,
+	quizOrReadingExpanded: quizOrReadingExpandedReducer,
+	isGoodAnswer: isGoodAnswerReducer,
 // configureStore => Ne pas supprimer !!!
   },
 });

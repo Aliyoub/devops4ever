@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "../../quizPage/quizPage";
+import QuizPage from "../../quizPage/_quizPage";
 import { questions } from "./questionsNetworking";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { myColors } from "@/myConstants/colors/page";
@@ -147,7 +147,7 @@ spec:
               <p>Exemple d&apos;Ingress :</p>
               <pre>
                 <code>
-                {`apiVersion: networking.k8s.io/v1
+                  {`apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: example-ingress
@@ -260,7 +260,7 @@ spec:
         </div>
         <style jsx>{`
           pre {
-          width: 100%;
+            width: 100%;
             background-color: #f4f4f4;
             padding: 10px;
             border-radius: 5px;

@@ -20,22 +20,24 @@ const roboto = Roboto({
 });
 
 const CustomRadio = styled(Radio)({
-  "& .MuiSvgIcon-root": { fontSize: 15,color: "#fca4f0"},
+  "& .MuiSvgIcon-root": { fontSize: 15, color: "#fca4f0" },
   "&.Mui-checked": { color: "#FCA4F0" },
 });
 
 type QuizQuestionsProps = {
+  question_id: number;
   question: string;
   options: { [key: string]: string };
   currentSelection: number | null;
   onOptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onNext: () => void;
-  onPrevious: () => void;
+  onNext: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPrevious: (event: React.ChangeEvent<HTMLInputElement>) => void;
   disablePrevious: boolean;
   isLastQuestion: boolean;
 };
 
 const QuizQuestions: React.FC<QuizQuestionsProps> = ({
+  question_id,
   question,
   options,
   currentSelection,
@@ -53,7 +55,6 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
       //   overflowY: "auto",
       //   marginBottom: "16px",
       // }}
-
       // style={{
       //   width: "100%",
       //   height: "300px",
@@ -67,6 +68,9 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
       className="scrollable-content"
     >
       <Typography className={(roboto.className, "questionText")} variant="h6">
+        {"Question "}
+        {question_id}
+        {": "}
         {question}
       </Typography>
       <FormControl style={{ width: "100%" }} component="fieldset">

@@ -57,7 +57,6 @@
 
 .correctAnswers {
   font-size: 0.85rem;
-  /* fontWeight: 500; */
   color: #ffffff;
   border: 0.5px solid #fca4f0;
   background-color: #3b8fef;
@@ -66,13 +65,8 @@
   letter-spacing: 0.3;
   word-spacing: 0.005em;
   text-align-last: left;
-  /* wordSpacing: 1; */
   text-align: justify;
   font-weight: 510;
-}
-
-.correctAnswersTitle {
-  margin-bottom: 10px;
 }
 
 .correctAnswersTitle,
@@ -83,68 +77,35 @@
   border: 0.5px solid #fca4f0;
   background-color: #264bc0;
   padding: 5px;
-  /* line-height: 1.2px; */
   letter-spacing: 0.4px;
   word-spacing: 0.005em;
   font-weight: 510;
 }
 
-/* .unansweredQuestionsTitle {
-  font-size: 1.2rem;
-  /* fontWeight: 500; 
-  color: #fca4f0;
-  border: 0.5px solid #fca4f0;
-  background-color: #264bc0;
-  padding: 0.5rem;
-  line-height: 1.2;
-  letter-spacing: 0.4;
-  word-spacing: 0.005em;
-  text-align-last: left;
-  text-align: justify;
-  font-weight: 510;
-} */
-
 .quizContainer {
-  /* maxWidth: '480px'; */
   width: 100%;
-  /* padding: 10px; */
-  /* borderRadius: 10px; */
-  /* backgroundColor: #ffffff; */
-  /* boxShadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-  margin-bottom: 10px;
-  line-height: 1.2;
-  letter-spacing: 0.3;
-  word-spacing: 0.005em;
-  text-align-last: left;
+  font-size: 0.8rem;
+  line-height: 0.9rem;
   text-align: justify;
-  font-weight: 510;
+  text-align-last: left;
+  word-spacing: -0.09rem;
+  font-weight: 600;
 }
 
 .questionText {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #fca4f0;
   border: 0.5px solid #fca4f0;
   background-color: #264bc0;
   /* background-color: #663E94; */
   padding: 0.5rem;
-  line-height: 1.2rem;
-  word-spacing: 0.7px;
+  line-height: 0.9rem;
+  text-align: justify;
   text-align-last: left;
+  word-spacing: -0.09rem;
   font-weight: 600;
 }
-/* .questionText {
-  font-size: 1rem;
-  color: #fca4f0;
-  border: 0.5px solid #fca4f0;
-  background-color: #3b8fef;
-  padding: 0.5rem;
-  line-height: 1.2rem;
-  /* letter-spacing: 0.03px; *
-  word-spacing: 0.7px;
-  text-align-last: left;
-  /* text-align: justify; *
-  font-weight: 600;
-} */
+
 
 .previewButton {
   color: #3b8fef;
@@ -220,8 +181,8 @@
 }
 
 .MuiBox-root {
-  width: 100%;
-  /* margin: 0; */
+  /* width: 100%; */
+  margin: 0;
   padding: 0;
   /* margin-top: 30px; */
   /* background-color: #3b8fef; */
@@ -248,5 +209,28 @@
   /* height: 2px;  */
   /* padding: 0 7px; */
   margin: 0;
+  width: 100%;
   /* display: none; */
 }
+
+
+/* ================================= FUSE ANIMATIONS ================================= */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 500ms, transform 500ms;
+}
+

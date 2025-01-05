@@ -3,7 +3,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "../../quizPage/quizPage";
+import QuizPage from "../../quizPage/_quizPage";
 import { questions } from "./questionsWorkloadsScheduling";
 
 const Kubernetes_WorkloadsScheduling: React.FC = () => {
@@ -2173,7 +2173,7 @@ spec:
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
-            
+
             white-space: pre-wrap; /* Assures the YAML indentation is respected */
           }
           h1 {

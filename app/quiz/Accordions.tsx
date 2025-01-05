@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
@@ -24,10 +24,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { setGrandChild } from "@/store/slices/grandChild/grandChildSlice";
 import { setChild } from "@/store/slices/child/childSlice";
 import { setParent } from "@/store/slices/parent/parentSlice";
+
 // import Ansible from "./Ansible/Playbook/page";
 // Données hiérarchiques pour les accordéons
 import { dataForAccordionsStructure } from "./accordionsStructure";
 import ListOfKubernetesThemes from "./kubernetes/listOfKubernetesThemes";
+import { setQuizOrReadingExpanded } from "@/store/slices/quizOrReadingExpanded/quizOrReadingExpandedSlice";
+import SlideUpList from "./SlideUpList";
 
 // Type pour l'état actif
 type ActiveState = {
@@ -38,6 +41,13 @@ type ActiveState = {
 
 const Accordions: React.FC = () => {
   const dispatch = useDispatch();
+
+  const child = useSelector((state: RootState) => state.child.value);
+  const grandChild = useSelector((state: RootState) => state.grandChild.value);
+
+  const quizOrReadingExpanded = useSelector(
+    (state: RootState) => state.quizOrReadingExpanded.value
+  );
 
   const [activeState, setActiveState] = useState<ActiveState>({
     parent: null,
@@ -65,41 +75,21 @@ const Accordions: React.FC = () => {
     dispatch(setChild(childId));
     dispatch(setGrandChild(grandChildId));
 
-    console.log(
-      "parentId, childId, grandChildId :::",
-      parentId,
-      childId,
-      grandChildId
-    );
+    // console.log(
+    //   "parentId, childId, grandChildId :::",
+    //   parentId,
+    //   childId,
+    //   grandChildId
+    // );
   };
-  // const QuizAccordionSummary= (
+  // const handleGrandChildAccordionSummaryToggle = (
   //   parentId: string,
   //   childId: string,
   //   grandChildId: string
   // ) => {
-  //   if(activeState.grandChild === grandChildId && grandChildId==="Quiz")
-  //     return "none"
-  //   else return "block"
-  // }
-
-  // const LectureAccordionSummary= (
-  //   parentId: string,
-  //   childId: string,
-  //   grandChildId: string
-  // ) => {
-  //   if(activeState.grandChild === grandChildId && grandChildId==="Lecture")
-  //     return "none"
-  //   else return "block"
-  // }
-
-  const handleGrandChildAccordionSummaryToggle = (
-    parentId: string,
-    childId: string,
-    grandChildId: string
-  ) => {
-    if (activeState.grandChild === grandChildId) return "none";
-    else return "block";
-  };
+  //   if (activeState.grandChild === grandChildId) return "none";
+  //   else return "block";
+  // };
 
   // Gestion de l'ouverture/fermeture d'un Parent
   const handleParentToggle = (parentId: string) => {
@@ -140,10 +130,19 @@ const Accordions: React.FC = () => {
     !activeState.grandChild || activeState.child === childId;
 
   const isGrandChildExpanded = (grandChildId: string): boolean => {
-    if (toggleGrandChild === true && activeState.grandChild === grandChildId)
+    // console.log("expanded", "expanded");
+    if (toggleGrandChild === true && activeState.grandChild === grandChildId) {
       return true;
-    else return false;
+    } else {
+      return false;
+    }
   };
+
+  useEffect(() => {
+    isGrandChildExpanded(grandChild)
+      ? dispatch(setQuizOrReadingExpanded(true))
+      : dispatch(setQuizOrReadingExpanded(false));
+  });
 
   const accordionStyles = { p: 0, m: 0, width: "100%" };
 
@@ -202,109 +201,129 @@ const Accordions: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <Box
-      sx={{
-        width: "100%",
-        padding: "0",
-        backgroundColor: "#3b8fef",
-      }}
-    >
-      {dataForAccordionsStructure.map((parent) => (
-        <Accordion
-          key={parent.parent}
-          expanded={activeState.parent === parent.parent}
-          disabled={!isParentVisible(parent.parent)}
-          onChange={() => handleParentToggle(parent.parent)}
-          sx={[
-            {
-              display: !isParentVisible(parent.parent) ? "none" : "block",
-            },
-          ]}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
-            // className={"accordionParentsSummaryStyle"}
-            sx={{
-              backgroundColor: "#264BC0",
-              color: "#FCA4F0",
-              fontSize: "12px",
-              fontWeight: "bolder",
-              width: "100%",
-              margin: "0",
-              borderBottom: "0.7px solid #FCA4F0",
-              // minHeight: "32px",
-              // padding: "0 7px",
-            }}
+      <Box
+        sx={{
+          width: "100%",
+          padding: "0",
+          backgroundColor: "#3b8fef",
+        }}
+      >
+        {dataForAccordionsStructure.map((parent) => (
+          <Accordion
+            key={parent.parent}
+            expanded={activeState.parent === parent.parent}
+            disabled={!isParentVisible(parent.parent)}
+            onChange={() => handleParentToggle(parent.parent)}
+            sx={[
+              {
+                display: !isParentVisible(parent.parent) ? "none" : "block",
+              },
+            ]}
           >
-            <Typography component="div">{parent.parent.toLocaleUpperCase()}</Typography>
-          </AccordionSummary>
-          <AccordionDetails sx={accordionStyles}>
-            {parent.children.map((child) => (
-              <Accordion
-                key={child.child}
-                disabled={!isChildVisible(child.child)}
-                onChange={() => handleChildToggle(parent.parent, child.child)}
-                sx={[
-                  {
-                    display: !isChildVisible(child.child) ? "none" : "block",
-                  },
-                ]}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
-                  // className="accordionChildrenSummaryStyle"
-                  sx={{
-                    backgroundColor: "#3B8FEF",
-                    color: "#E0F7FA",
-                    fontSize: "12px",
-                    fontWeight: "bolder",
-                    width: "100%",
-                    margin: "0",
-                    borderBottom: "0.7px solid #FCA4F0",
-                  }}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
+              // className={"accordionParentsSummaryStyle"}
+              sx={{
+                backgroundColor: "#264BC0",
+                color: "#FCA4F0",
+                fontSize: "12px",
+                fontWeight: "bolder",
+                width: "100%",
+                margin: "0",
+                borderBottom: "0.7px solid #FCA4F0",
+                // minHeight: "32px",
+                // padding: "0 7px",
+              }}
+            >
+              <div style={{ lineHeight: 1 }}>
+                {parent.parent.toLocaleUpperCase()}
+                <br />
+
+                {isGrandChildExpanded(grandChild) === true ? (
+                  <SlideUpList items={[child]} />
+                ) : (
+                  ""
+                )}
+                {/* {isGrandChildExpanded(grandChild) === true ? `${child}` : ""} */}
+              </div>
+            </AccordionSummary>
+            <AccordionDetails sx={accordionStyles}>
+              {parent.children.map((child) => (
+                <Accordion
+                  key={child.child}
+                  disabled={!isChildVisible(child.child)}
+                  onChange={() => handleChildToggle(parent.parent, child.child)}
+                  sx={[
+                    {
+                      display: !isChildVisible(child.child) ? "none" : "block",
+                    },
+                    // {
+                    //   display:
+                    //     isGrandChildExpanded(grandChild) && parent.parent
+                    //       ? "none"
+                    //       : "block",
+                    // },
+                  ]}
                 >
-                  <Typography component="div">{child.child.toLocaleUpperCase()}</Typography>
-                </AccordionSummary>
-                <AccordionDetails sx={accordionStyles}>
-                  {child.grandChildren.map((grandChild) => (
-                    <Accordion
-                      key={grandChild}
-                      expanded={isGrandChildExpanded(grandChild)}
-                      onChange={() =>
-                        handleGrandChildToggle(
-                          parent.parent,
-                          child.child,
-                          grandChild
-                        )
-                      }
-                    >
-                      <AccordionSummary
-                        expandIcon={
-                          <ExpandMoreIcon className="expandIconStyle" />
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
+                    // className="accordionChildrenSummaryStyle"
+                    sx={{
+                      backgroundColor: "#3B8FEF",
+                      color: "#E0F7FA",
+                      fontSize: "12px",
+                      fontWeight: "bolder",
+                      width: "100%",
+                      margin: "0",
+                      borderBottom: "0.7px solid #FCA4F0",
+                      display: isGrandChildExpanded(grandChild) ? "none" : null,
+                    }}
+                  >
+                    <div>{child.child.toLocaleUpperCase()}</div>
+                    {/* <Typography component="div">
+                      {child.child.toLocaleUpperCase()}
+                    </Typography> */}
+                  </AccordionSummary>
+                  <AccordionDetails sx={accordionStyles}>
+                    {child.grandChildren.map((grandChild) => (
+                      <Accordion
+                        key={grandChild}
+                        expanded={isGrandChildExpanded(grandChild)}
+                        onChange={() =>
+                          handleGrandChildToggle(
+                            parent.parent,
+                            child.child,
+                            grandChild
+                          )
                         }
-                        className="accordionGrandChildrenStyle"
                       >
-                        <Typography component="div">{grandChild}</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails sx={accordionStyles}>
-                        {/* component="div" => pour empêcher le message d'erreur: <div> cannot be a descendant of <p>  */}
-                        <Typography component="div">
-                          {/* <Kubernetes_ClusterArchitecture />
-                          <Kubernetes_Services /> */}
-                          <ListOfKubernetesThemes />
-                          {/* <Ansible /> */}
-                          {/* // DO NOT DELETE !!! */}
-                        </Typography>
-                      </AccordionDetails>
-                    </Accordion>
-                  ))}
-                </AccordionDetails>
-              </Accordion>
-            ))}
-          </AccordionDetails>
-        </Accordion>
-      ))}
-    </Box>
+                        <AccordionSummary
+                          expandIcon={
+                            <ExpandMoreIcon className="expandIconStyle" />
+                          }
+                          className="accordionGrandChildrenStyle"
+                        >
+                          <div>{grandChild}</div>
+                          {/* <Typography component="div">{grandChild}</Typography> */}
+                        </AccordionSummary>
+                        <AccordionDetails sx={accordionStyles}>
+                          {/* component="div" => pour empêcher le message d'erreur: <div> cannot be a descendant of <p>  */}
+                          <div>
+                            {/* <Typography component="div"> */}
+                            <ListOfKubernetesThemes />
+                            {/* // DO NOT DELETE !!! */}
+                            {/* </Typography> */}
+                          </div>
+                        </AccordionDetails>
+                      </Accordion>
+                    ))}
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Box>
     </ThemeProvider>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../../store/store";
+// import { RootState, AppDispatch } from "../../../store/store";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
@@ -15,10 +15,11 @@ import {
   styled,
 } from "@mui/material";
 
-import { questions } from "../questionRoles";
+// import { questions } from "../questionRoles";
 
 import { Roboto } from "next/font/google";
-import "../../style.css";
+import "../../../styles.css";
+import { RootState } from "@/store/store";
 
 const roboto = Roboto({
   subsets: ["latin"], // Charge le sous-ensemble latin uniquement
@@ -246,7 +247,7 @@ export default function Services_quizPage() {
                 onChange={handleOptionChange}
               >
                 {Object.values(myQuestions[currentQuestion]["options"]).map(
-                  (option, index) => (
+                  (option: any, index) => (
                     // {myQuestions[currentQuestion].options.map((option, index) => (
                     <FormControlLabel
                       key={index}
@@ -320,13 +321,13 @@ export default function Services_quizPage() {
             }}
           >
             <Typography
-              // sx={{
-              //   display: "flex",
-              //   justifyContent: "center",
-              //   alignItems: "center",
-              //   flexDirection: "column",
-              //   width: "100%"
-              // }}
+            // sx={{
+            //   display: "flex",
+            //   justifyContent: "center",
+            //   alignItems: "center",
+            //   flexDirection: "column",
+            //   width: "100%"
+            // }}
             >
               <Typography
                 variant="h6"
@@ -341,13 +342,11 @@ export default function Services_quizPage() {
               >
                 Quiz Terminé !
               </Typography>
-              <Typography 
-              className="correctAnswersTitle"
-              >
+              <Typography className="correctAnswersTitle">
                 Réponses correctes : {score} / {myQuestions.length}
                 {/* Réponses correctes : {_score.correctAnswers} / {myQuestions.length} */}
               </Typography>
-              <Typography className="inCorrectAnswersTitle" >
+              <Typography className="inCorrectAnswersTitle">
                 Réponses incorrectes : {incorrectAnswersList.length} /{" "}
                 {myQuestions.length}
               </Typography>

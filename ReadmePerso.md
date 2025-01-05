@@ -15,6 +15,10 @@ git add .
 git commit -m "another commit"
 git push
 
+<!-- Copier un projet react sans node_modules -->
+rsync -av --progress /chemin/vers/projet-react/ /chemin/destination/ --exclude node_modules
+
+
 <!-- A spécifier sur Vercel -->
 https://github.com/Aliyoub/studyfast
 <!-- Vérification du déploiement -->

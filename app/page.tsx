@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 // import Head from "next/head";
 // import Image from "next/image";
 import { Inter, Roboto, Montserrat } from "next/font/google";
 // import Header from "../components/header";
-import ViewWithBorderRadius from "@/components/ViewWithBorderRadius/ViewWithBorderRadius";
+// import ViewWithBorderRadius from "@/components/ViewWithBorderRadius/ViewWithBorderRadius";
 import BottomNavigation from "@/components/bottom-navigation/bottom-navigation";
 
 const montserrat = Montserrat({
@@ -25,4 +25,4 @@ function Home() {
   );
 }
 
-export default Home
+export default Home;

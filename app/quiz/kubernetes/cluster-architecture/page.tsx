@@ -1,12 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "../../quizPage/quizPage";
-import { questions } from "./questionsClusterArchitecture";
+import QuizPage from "../../testquiz/quizPage";
+// import QuizPage from "../../quizPage/quizPage";
+// import { questions } from "./questionsClusterArchitecture";
 
 const Kubernetes_ClusterArchitecture: React.FC = () => {
+  const [quizQuestions, setQuizQuestions] = useState<[]>([]);
+
+  useEffect(() => {
+    fetch("/api/quiz/cluster-architecture")
+      .then((response) => response.json())
+      .then((data) => {
+        setQuizQuestions(data);
+      });
+  }, []);
+
   const parent = useSelector((state: RootState) => state.parent.value);
   const child = useSelector((state: RootState) => state.child.value);
   const grandChild = useSelector((state: RootState) => state.grandChild.value);
@@ -17,7 +28,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
     child === "Cluster Architecture" &&
     grandChild === "Quiz"
   )
-    return <QuizPage quizQuestions={questions} />;
+    return <QuizPage quizQuestions={quizQuestions} />;
   else if (
     parent === "Kubernetes" &&
     child === "Cluster Architecture" &&

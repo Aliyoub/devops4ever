@@ -7,6 +7,7 @@ const Home = () => {
         // color: "#EEE",
         // backgroundColor: "#264BC0",
         // background: "linear-gradient(to top, #264BC0, #188DEC)",
+        marginTop: 20,
         width: "100%",
         height: "100%",
         padding: 1,
@@ -14,7 +15,7 @@ const Home = () => {
       }}
     >
       <h2>Ecouter</h2>
-       {/* <button className="button-next" >ok</button> */}
+      {/* <button className="button-next" >ok</button> */}
       <ul style={{ textAlign: "justify" }}>
         {/* <ul style={{ margin: 30, textAlign: "justify", listStyleType: "disc" }}> */}
         <li>

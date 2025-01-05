@@ -8,7 +8,7 @@ import { Inter, Roboto, Montserrat } from "next/font/google";
 import "./globals.css";
 import "./styles.css";
 import Header from "../components/header";
-import ViewWithBorderRadius from "../components//ViewWithBorderRadius/ViewWithBorderRadius";
+// import ViewWithBorderRadius from "../components//ViewWithBorderRadius/ViewWithBorderRadius";
 import BottomNavigation from "../components/bottom-navigation/bottom-control";
 import BottomControl from "../components/bottom-navigation/bottom-control";
 // import BottomNavigation from "../components/bottom-navigation/bottom-navigation2";
@@ -28,7 +28,6 @@ interface LayoutProps {
 }
 
 const LayoutClientComponent = ({ children }: LayoutProps) => {
-
   // Next.js ne charge pas automatiquement le fichier /public/sw.js.
   //  Pour cela, il doit être enregistré dans l'application, et cela se fait ainsi:
   // useEffect(() => {

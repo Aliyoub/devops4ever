@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/store";
 
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
 import InfoIcon from "@mui/icons-material/Info";
 import DeveloperModeIcon from "@mui/icons-material/DeveloperMode";
@@ -108,26 +109,6 @@ const BottomNavigation = () => {
           Accueil
         </span>
       </div>
-      <div
-        style={{
-          color: `${pathname === "/contenus" ? "#8B01F6" : "#fff"}`,
-          fontSize: 11,
-        }}
-        className="nav-item"
-      >
-        <InfoIcon style={{ width: 15 }} />
-        <span
-          style={{
-            color: `${pathname === "/contenus" ? "#8B01F6" : "#fff"}`,
-            fontSize: 11,
-          }}
-          onClick={() => {
-            // dispatch(controlState("contenus"));
-          }}
-        >
-          Infos
-        </span>
-      </div>
 
       <div
         style={{
@@ -152,6 +133,29 @@ const BottomNavigation = () => {
           Quiz
         </span>
       </div>
+
+      <div
+        style={{
+          color: `${pathname === "/contenus" ? "#8B01F6" : "#fff"}`,
+          fontSize: 11,
+        }}
+        className="nav-item"
+      >
+        <SearchIcon style={{ width: 17 }} />
+        <span
+          style={{
+            color: `${pathname === "/search" ? "#8B01F6" : "#fff"}`,
+            fontSize: 11,
+          }}
+          onClick={() => {
+            router.push("/search");
+            // exitFullscreen();
+          }}
+        >
+          recherche
+        </span>
+      </div>
+
       <div
         style={{
           color: `${pathname === "/settings" ? "#8B01F6" : "#fff"}`,

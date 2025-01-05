@@ -1,166 +1,101 @@
-// const { match } = require("assert");
-// const { log } = require("console");
-// const { request } = require("http");
-// const { url } = require("inspector");
-// const { keys, map } = require("next-pwa/cache");
+/**
+ * Copyright 2018 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-// const { default: next } = require("next")
-// const { config } = require("process")
-// const { cache } = require("react")
+// If the loader is already loaded, just stop.
+if (!self.define) {
+  let registry = {};
 
+  // Used for `eval` and `importScripts` where we can't get script URL by other means.
+  // In both cases, it's safe to use a global var because those functions are synchronous.
+  let nextDefineUri;
 
-// Points importants :
-// Emplacement du fichier sw.js : Avec next-pwa, le fichier sw.js doit résider dans le répertoire public.
-// next.config.js : Ce fichier est crucial pour configurer le plugin next-pwa. Assurez-vous qu'il est correctement configuré.
-// Mise en cache hors ligne : Pour une véritable expérience PWA, 
-// vous devrez configurer la mise en cache hors ligne dans votre fichier sw.js en utilisant des stratégies 
-// telles que CacheFirst, NetworkFirst, StaleWhileRevalidate, etc. 
-// Consultez la documentation de Workbox pour plus de détails.
-
-// Exemple de mise en cache hors ligne avec Workbox :
-// importScripts('workbox-sw.js');
-
-// workbox.routing.registerRoute(
-//   new RegExp('/*'),
-//   new workbox.strategies.StaleWhileRevalidate() // Ou une autre stratégie
-// );
-
-
-// ===========================================================================================
-// Que fait cette ligne ?
-// Elle définit un nom pour le cache. Le Service Worker utilise ce nom pour identifier le cache associé à cette version de votre application.
-// Pourquoi est-ce important ?
-// Lorsque vous mettez à jour votre application, vous pouvez modifier ce nom pour invalider les anciennes ressources et forcer le rechargement des nouvelles.
-const CACHE_NAME = "nextjs-cache-v2";
-// ===========================================================================================
-// Cache des fichiers critiques générés par Next.js
-
-// Que fait cette ligne ?
-// Elle liste les ressources critiques (comme l'icône, le fichier manifest.json, et la page d'accueil /) qui seront mises en cache dès que le Service Worker sera installé.
-// Pourquoi est-ce important ?
-// Ces fichiers garantissent que l'application dispose de ses ressources de base même hors ligne.
-const urlsToCache = [
-  "/", // Page d'accueil
-  "/favicon.ico",
-  "/manifest.json",
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png",
-];
-// ===========================================================================================
-// Ajouter dynamiquement les ressources de Next.js (JS/CSS)
-
-// self.addEventListener('install', callback) :
-
-// Attache un gestionnaire d'événement pour l'étape d'installation du Service Worker.
-// Cet événement est déclenché lorsque le Service Worker est enregistré pour la première fois ou mis à jour.
-// caches.open(CACHE_NAME) :
-
-// Ouvre un espace de stockage nommé CACHE_NAME dans le cache du navigateur.
-// cache.addAll(urlsToCache) :
-
-// Ajoute toutes les URLs définies dans urlsToCache au cache.
-// event.waitUntil() :
-
-// Empêche le Service Worker de terminer l'installation avant que toutes les promesses à l'intérieur ne soient résolues.
-// Pourquoi est-ce important ?
-
-// Cette section s'assure que les fichiers critiques sont immédiatement mis en cache après l'installation.
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache).catch((error) => {
-        console.error("Erreur lors de l'ajout des ressources au cache:", error);
-      });
-    })
-  );
-});
-
-// ===========================================================================================
-// Supprimer les anciens caches
-
-// self.addEventListener('activate', callback) :
-
-// Attache un gestionnaire d'événement pour l'étape d'activation du Service Worker.
-// Cet événement est déclenché lorsque le Service Worker est prêt à prendre le contrôle.
-// caches.keys() :
-
-// Récupère une liste de tous les noms de caches existants dans le navigateur.
-// cacheNames.map() :
-
-// Parcourt tous les caches existants.
-// Condition if (cache !== CACHE_NAME) :
-
-// Compare chaque cache existant avec le cache actif (CACHE_NAME).
-// Si un cache ne correspond pas, il est supprimé.
-// caches.delete(cache) :
-
-// Supprime le cache obsolète.
-// Pourquoi est-ce important ?
-
-// Cela garantit que les utilisateurs utilisent toujours les versions les plus récentes de votre application et que les anciennes ressources ne consomment pas inutilement de l'espace.
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log("Suppression de l'ancien cache:", cache);
-            return caches.delete(cache);
+  const singleRequire = (uri, parentUri) => {
+    uri = new URL(uri + ".js", parentUri).href;
+    return registry[uri] || (
+      
+        new Promise(resolve => {
+          if ("document" in self) {
+            const script = document.createElement("script");
+            script.src = uri;
+            script.onload = resolve;
+            document.head.appendChild(script);
+          } else {
+            nextDefineUri = uri;
+            importScripts(uri);
+            resolve();
           }
         })
-      );
-    })
-  );
-});
-
-// ===========================================================================================
-// Gestion des requêtes (Next.js dynamique + fichiers statiques)
-
-
-// self.addEventListener('fetch', callback) :
-
-// Intercepte toutes les requêtes réseau effectuées par l'application.
-// Gestion des fichiers Next.js (_next/static/) :
-
-// Le Service Worker identifie les ressources statiques générées par Next.js.
-// Il utilise une stratégie Cache First :
-// Chercher dans le cache avec cache.match(event.request).
-// Si la ressource n'est pas dans le cache, effectuer une requête réseau avec fetch(event.request).
-// Ajouter la réponse réseau au cache avec cache.put().
-// Gestion des autres requêtes :
-
-// Le Service Worker utilise une stratégie Cache, Then Network :
-// Retourner la réponse depuis le cache si elle existe (caches.match()).
-// Sinon, effectuer une requête réseau.
-// Pourquoi est-ce important ?
-// Les fichiers statiques de Next.js sont rarement modifiés, donc une stratégie Cache First est appropriée.
-// Les pages dynamiques ou API nécessitent des données actualisées, donc une stratégie Cache, Then Network garantit une expérience utilisateur fluide.
-self.addEventListener("fetch", (event) => {
-  const requestUrl = new URL(event.request.url);
-
-  // Gestion des fichiers statiques de Next.js (dans .next/static/)
-  if (requestUrl.pathname.startsWith("/_next/static/")) {
-    event.respondWith(
-      caches.open(CACHE_NAME).then((cache) => {
-        return cache.match(event.request).then((response) => {
-          if (response) {
-            return response; // Retourner depuis le cache
-          }
-
-          return fetch(event.request).then((networkResponse) => {
-            cache.put(event.request, networkResponse.clone()); // Mettre à jour le cache
-            return networkResponse;
-          });
-        });
+      
+      .then(() => {
+        let promise = registry[uri];
+        if (!promise) {
+          throw new Error(`Module ${uri} didn’t register its module`);
+        }
+        return promise;
       })
     );
-    return;
-  }
+  };
 
-  // Gestion des autres requêtes
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
-});
+  self.define = (depsNames, factory) => {
+    const uri = nextDefineUri || ("document" in self ? document.currentScript.src : "") || location.href;
+    if (registry[uri]) {
+      // Module is already loading or loaded.
+      return;
+    }
+    let exports = {};
+    const require = depUri => singleRequire(depUri, uri);
+    const specialDeps = {
+      module: { uri },
+      exports,
+      require
+    };
+    registry[uri] = Promise.all(depsNames.map(
+      depName => specialDeps[depName] || require(depName)
+    )).then(deps => {
+      factory(...deps);
+      return exports;
+    });
+  };
+}
+define(['./workbox-e43f5367'], (function (workbox) { 'use strict';
+
+  importScripts();
+  self.skipWaiting();
+  workbox.clientsClaim();
+  workbox.registerRoute("/", new workbox.NetworkFirst({
+    "cacheName": "start-url",
+    plugins: [{
+      cacheWillUpdate: async ({
+        request,
+        response,
+        event,
+        state
+      }) => {
+        if (response && response.type === 'opaqueredirect') {
+          return new Response(response.body, {
+            status: 200,
+            statusText: 'OK',
+            headers: response.headers
+          });
+        }
+        return response;
+      }
+    }]
+  }), 'GET');
+  workbox.registerRoute(/.*/i, new workbox.NetworkOnly({
+    "cacheName": "dev",
+    plugins: []
+  }), 'GET');
+
+}));
+//# sourceMappingURL=sw.js.map

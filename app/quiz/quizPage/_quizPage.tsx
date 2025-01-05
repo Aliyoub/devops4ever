@@ -2,16 +2,17 @@
 
 import React, { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
-import QuizQuestions from "../../quizPage/QuizQuestions";
-import QuizScore from "../../quizPage/QuizScore";
+import { RootState } from "../../../store/store";
+import QuizQuestions from "./QuizQuestions";
+import QuizScore from "./QuizScore";
 // import { questions } from "./questionServices";
 
 type QuizPageProps = {
   quizQuestions: any[];
 };
 
-export default function QuizPage({ quizQuestions }: QuizPageProps) {
+const QuizPage = ({ quizQuestions }: QuizPageProps) => {
+  // export default function QuizPage({ quizQuestions }: QuizPageProps) {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex = useSelector(
     (state: RootState) => state.quizStartIndex.value
@@ -21,6 +22,49 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
     () => quizQuestions.slice(quizStartIndex, quizStartIndex + quizSize),
     [quizStartIndex, quizSize]
   );
+
+  // ======================================================================================
+  // État pour suivre l'index de la question courante
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // État pour suivre les réponses de l'utilisateur
+  const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
+
+  // Variables pour suivre les statistiques
+  const correctAnswers = Object.values(userAnswers).filter(
+    (answer, index) =>
+      theSliceQuestions[index] &&
+      answer === theSliceQuestions[index].correctAnswer
+  ).length;
+
+  const unCorrectAnswers = Object.values(userAnswers).filter(
+    (answer, index) =>
+      theSliceQuestions[index] &&
+      answer !== theSliceQuestions[index].correctAnswer &&
+      answer !== ""
+  ).length;
+
+  const unAnswered = theSliceQuestions.length - Object.keys(userAnswers).length;
+
+  // Fonction pour gérer les sélections de réponse
+  const handleAnswerSelection = (answer: string) => {
+    setUserAnswers({ ...userAnswers, [currentIndex]: answer });
+  };
+
+  // Fonction pour gérer le bouton "Suivant"
+  const handleNext = () => {
+    if (currentIndex < theSliceQuestions.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  // Fonction pour gérer le bouton "Preview"
+  const handlePreview = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+  // ======================================================================================
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState(
@@ -35,19 +79,21 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
   >([]);
 
   const handleOptionChange = (event: any) => {
+    event.preventDefault();
     const updatedOptions = [...selectedOptions];
     updatedOptions[currentQuestion] = parseInt(event.target.value, 10);
     setSelectedOptions(updatedOptions);
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = (event: any) => {
+    event.preventDefault();
     const isCorrect =
       theSliceQuestions[currentQuestion].options[
         selectedOptions[currentQuestion]
       ] === theSliceQuestions[currentQuestion].answer;
-      // Object.keys(theSliceQuestions[currentQuestion].options)[
-      //   selectedOptions[currentQuestion]
-      // ] === theSliceQuestions[currentQuestion].answer;
+    // Object.keys(theSliceQuestions[currentQuestion].options)[
+    //   selectedOptions[currentQuestion]
+    // ] === theSliceQuestions[currentQuestion].answer;
 
     if (isCorrect) {
       setScore(score + 1);
@@ -70,9 +116,13 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
     // setCurrentQuestion((prev) => prev + 1);
     setCurrentQuestion(currentQuestion + 1);
     // }
+    console.log("score", score);
+    console.log("unansweredQuestionsList", unansweredQuestionsList);
+    console.log("incorrectAnswersList", incorrectAnswersList);
   };
 
-  const handlePreviousQuestion = () => {
+  const handlePreviousQuestion = (event: any) => {
+    event.preventDefault();
     if (currentQuestion > 0) {
       setCurrentQuestion((prev) => prev - 1);
       const previousQuestionIndex = currentQuestion - 1;
@@ -108,16 +158,28 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
     <div>
       {currentQuestion < theSliceQuestions.length ? (
         <QuizQuestions
+          question_id={theSliceQuestions[currentQuestion].question_id}
           question={theSliceQuestions[currentQuestion].question}
           options={theSliceQuestions[currentQuestion].options}
           currentSelection={selectedOptions[currentQuestion]}
           onOptionChange={handleOptionChange}
-          onNext={handleNextQuestion}
-          onPrevious={handlePreviousQuestion}
+          onNext={handleNext}
+          onPrevious={handlePreview}
           disablePrevious={currentQuestion === 0}
           isLastQuestion={currentQuestion === theSliceQuestions.length - 1}
         />
       ) : (
+        // <QuizQuestions
+        //   question_id={theSliceQuestions[currentQuestion].question_id}
+        //   question={theSliceQuestions[currentQuestion].question}
+        //   options={theSliceQuestions[currentQuestion].options}
+        //   currentSelection={selectedOptions[currentQuestion]}
+        //   onOptionChange={handleOptionChange}
+        //   onNext={handleNextQuestion}
+        //   onPrevious={handlePreviousQuestion}
+        //   disablePrevious={currentQuestion === 0}
+        //   isLastQuestion={currentQuestion === theSliceQuestions.length - 1}
+        // />
         <QuizScore
           score={score}
           totalQuestions={theSliceQuestions.length}
@@ -127,4 +189,5 @@ export default function QuizPage({ quizQuestions }: QuizPageProps) {
       )}
     </div>
   );
-}
+};
+export default QuizPage;
