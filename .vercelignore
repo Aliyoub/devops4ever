@@ -30,4 +30,5 @@ import { app } from "firebase-admin"
 /app/crypto/
 /app/artifices/
 /app/quiz/kubernetes/Services/
+/app/quiz/modele_QuizPage/
 *readme.md
