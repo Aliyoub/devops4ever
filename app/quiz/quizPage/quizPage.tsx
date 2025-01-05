@@ -35,8 +35,7 @@ const QuizPage = ({ quizQuestions }: QuizPageProps) => {
     object[]
   >([]);
 
-  // const handleOptionChange = (event: any) => {
-  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOptionChange = (event: any) => {
     event.preventDefault();
     const updatedOptions = [...selectedOptions];
     updatedOptions[currentQuestion] = parseInt(event.target.value, 10);
