@@ -29,4 +29,5 @@ import { app } from "firebase-admin"
 /app/yaml/
 /app/crypto/
 /app/artifices/
+/app/quiz/kubernetes/Services/
 *readme.md
