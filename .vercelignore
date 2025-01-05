@@ -27,4 +27,5 @@ import { app } from "firebase-admin"
 /app/quiz/page copy.tsx
 /app/quiz/save/
 /app/yaml/
+/app/artifices/
 *readme.md
