@@ -1,39 +1,31 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import Fuse from "fuse.js";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../../app/styles.css"; // Assurez-vous d'avoir un fichier CSS pour les animations
 
 interface SearchComponentProps {
   data: { parent: string }[];
-  // data: { parent: string; children: string }[];
 }
 
 const SearchComponent = ({ data }: SearchComponentProps) => {
-  // État pour stocker les résultats de la recherche
   const [query, setQuery] = useState<string>("");
-  const [results, setResults] = useState<
-    { parent: string }[]
-    // { parent: string; children: string }[]
-  >([]);
+  const [results, setResults] = useState<{ parent: string }[]>([]);
 
-  // Configuration de Fuse.js
   const fuse = new Fuse(data, {
-    keys: ["parent"], // Clés à rechercher dans l'objet
-    // keys: ["parent", "children"], // Clés à rechercher dans l'objet
-    threshold: 0.3, // Tolérance d'imprécision dans la recherche
-    includeScore: true, // Inclure le score de pertinence
+    keys: ["parent"],
+    threshold: 0.3,
+    includeScore: true,
   });
 
-  // Fonction pour gérer la recherche
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     setQuery(searchQuery);
 
-    if (searchQuery.trim() !== "") {
+    if (searchQuery.trim()) {
       const searchResults = fuse.search(searchQuery);
       setResults(searchResults.map((result) => result.item));
     } else {
-      setResults([]); // Réinitialiser si la recherche est vide
+      setResults([]);
     }
   };
 
@@ -53,13 +45,12 @@ const SearchComponent = ({ data }: SearchComponentProps) => {
               <CSSTransition key={index} timeout={500} classNames="fade">
                 <li style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
                   <strong>{item.parent}</strong>
-                  {/* <p>{item.description}</p> */}
                 </li>
               </CSSTransition>
             ))
           : query && (
               <CSSTransition key="no-results" timeout={500} classNames="fade">
-                <p>Aucun résultat trouvé</p>
+                <li>Aucun résultat trouvé</li>
               </CSSTransition>
             )}
       </TransitionGroup>
