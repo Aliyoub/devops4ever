@@ -101,7 +101,22 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
         }}
       >
         {/* Affichage de la question */}
-        <Typography className={(roboto.className, "questionText")} variant="h6">
+        <Typography
+          sx={{
+            fontSize: "0.8rem",
+            color: "#fca4f0",
+            border: "0.5px solid #fca4f0",
+            backgroundColor: "#264bc0", // Maintenu, la ligne commentée est supprimée
+            padding: "0.5rem",
+            lineHeight: "0.9rem",
+            textAlign: "justify",
+            textAlignLast: "left",
+            wordSpacing: "-0.09rem",
+            fontWeight: 600,
+          }}
+          className={(roboto.className, "questionText")}
+          variant="h6"
+        >
           {"Question "}
           {question.question_id}
           {": "}
