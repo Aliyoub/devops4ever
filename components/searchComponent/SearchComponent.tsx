@@ -39,20 +39,26 @@ const SearchComponent = ({ data }: SearchComponentProps) => {
         style={{ padding: "8px", width: "100%", marginBottom: "10px" }}
       />
 
-      <TransitionGroup component="ul">
-        {results.length > 0
-          ? results.map((item, index) => (
+      <TransitionGroup component="div">
+        {results.length > 0 ? (
+          <ul>
+            {results.map((item, index) => (
               <CSSTransition key={index} timeout={500} classNames="fade">
                 <li style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
                   <strong>{item.parent}</strong>
                 </li>
               </CSSTransition>
-            ))
-          : query && (
-              <CSSTransition key="no-results" timeout={500} classNames="fade">
+            ))}
+          </ul>
+        ) : (
+          query && (
+            <CSSTransition key="no-results" timeout={500} classNames="fade">
+              <ul>
                 <li>Aucun résultat trouvé</li>
-              </CSSTransition>
-            )}
+              </ul>
+            </CSSTransition>
+          )
+        )}
       </TransitionGroup>
     </div>
   );

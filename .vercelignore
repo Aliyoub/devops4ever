@@ -32,5 +32,4 @@ import { app } from "firebase-admin"
 /app/quiz/kubernetes/Services/
 /app/quiz/modele_QuizPage/
 /app/quiz/quizPage/
-/components/searchComponent/
 *readme.md
