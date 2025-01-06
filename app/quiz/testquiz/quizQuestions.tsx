@@ -184,7 +184,7 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
           >
             Annuler
           </Button>
-          {!hideValidate &&
+          {hideValidate &&
             (isGoodAnswer === true ? (
               <motion.div
                 initial={{ scale: 0 }}
