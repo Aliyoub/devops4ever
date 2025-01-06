@@ -101,14 +101,12 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
         }}
       >
         {/* Affichage de la question */}
-        {/* <Typography className={(roboto.className, "questionText")} variant="h6"> */}
         <div className={(roboto.className, "questionText")}>
           {"Question "}
           {question.question_id}
           {": "}
           {question.question}
         </div>
-        {/* </Typography> */}
 
         {/* Options sous forme de boutons radio */}
         <FormControl style={{ width: "100%" }} component="fieldset">
@@ -186,7 +184,7 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
           >
             Annuler
           </Button>
-          {hideValidate &&
+          {!hideValidate &&
             (isGoodAnswer === true ? (
               <motion.div
                 initial={{ scale: 0 }}
