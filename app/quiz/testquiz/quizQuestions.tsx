@@ -103,7 +103,7 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
         {/* Affichage de la question */}
         <Typography
           sx={{
-            fontSize: "0.8rem",
+            fontSize: "0.9rem",
             color: "#fca4f0",
             border: "0.5px solid #fca4f0",
             backgroundColor: "#264bc0", // Maintenu, la ligne commentée est supprimée
