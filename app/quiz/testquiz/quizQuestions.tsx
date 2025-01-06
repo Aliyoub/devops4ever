@@ -101,27 +101,14 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
         }}
       >
         {/* Affichage de la question */}
-        <Typography
-          sx={{
-            fontSize: "0.9rem",
-            color: "#fca4f0",
-            border: "0.5px solid #fca4f0",
-            backgroundColor: "#264bc0", // Maintenu, la ligne commentée est supprimée
-            padding: "0.5rem",
-            lineHeight: "0.9rem",
-            textAlign: "justify",
-            textAlignLast: "left",
-            wordSpacing: "-0.09rem",
-            fontWeight: 600,
-          }}
-          className={(roboto.className, "questionText")}
-          variant="h6"
-        >
+        {/* <Typography className={(roboto.className, "questionText")} variant="h6"> */}
+        <div className={(roboto.className, "questionText")}>
           {"Question "}
           {question.question_id}
           {": "}
           {question.question}
-        </Typography>
+        </div>
+        {/* </Typography> */}
 
         {/* Options sous forme de boutons radio */}
         <FormControl style={{ width: "100%" }} component="fieldset">
@@ -136,12 +123,12 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
                 control={<CustomRadio />}
                 // control={<Radio />}
                 label={
-                  <Typography
+                  <div
                     className={(roboto.className, "quizContainer")}
-                    sx={{ color: "rgb(224, 247, 250)", fontSize: "1rem" }}
+                    // sx={{ color: "rgb(224, 247, 250)", fontSize: "1rem" }}
                   >
                     {option}
-                  </Typography>
+                  </div>
                 }
                 // label={option}
                 style={{
