@@ -184,6 +184,7 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
           >
             Annuler
           </Button>
+          {/* Si la propriété hidden du bouton valider est à true => donc le bouton valider est caché */}
           {hideValidate &&
             (isGoodAnswer === true ? (
               <motion.div
@@ -208,6 +209,7 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
                 ❌ Mauvaise réponse !
               </motion.div>
             ))}
+          {/* Si la propriété hidden du bouton valider est à false => donc le bouton valider est visible */}
           {!hideValidate && (
             <Button
               variant="outlined"
