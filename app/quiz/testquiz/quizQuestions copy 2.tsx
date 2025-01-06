@@ -208,24 +208,21 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
                 ❌ Mauvaise réponse !
               </motion.div>
             ))}
-          {!hideValidate && (
-            <Button
-              variant="outlined"
-              onClick={onValidate}
-              disabled={disableValidate}
-              hidden={hideValidate}
-              sx={{
-                margin: 0.3,
-                height: "1.8rem",
-                fontSize: "0.7rem",
-                fontWeight: 600,
-                letterSpacing: "0.1rem",
-              }}
-            >
-              valider
-            </Button>
-          )}
-
+          <Button
+            variant="outlined"
+            onClick={onValidate}
+            disabled={disableValidate}
+            hidden={hideValidate}
+            sx={{
+              margin: 0.3,
+              height: "1.8rem",
+              fontSize: "0.7rem",
+              fontWeight: 600,
+              letterSpacing: "0.1rem",
+            }}
+          >
+            valider
+          </Button>
           <Button
             variant="contained"
             onClick={onNext}
