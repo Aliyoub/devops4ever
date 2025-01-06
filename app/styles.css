@@ -90,7 +90,7 @@
   text-align-last: left;
   word-spacing: -0.09rem;
   font-weight: 600;
-  color: "rgb(224, 247, 250)";
+  color: rgb(224, 247, 250);
   font-size: "1rem"
 }
 
@@ -101,7 +101,7 @@
   background-color: #264bc0;
   /* background-color: #663E94; */
   padding: 0.5rem;
-  line-height: 0.9rem;
+  line-height: 1rem;
   text-align: justify;
   text-align-last: left;
   word-spacing: -0.09rem;
