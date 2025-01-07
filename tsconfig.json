@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/parametres/page.js", "components/chart/chart.js", "components/gamify/gamify.js", "app/api/gg-text-to-speech/route.tsx", "app/api/text-to-speech"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/parametres/page.js", "components/chart/chart.js", "components/gamify/gamify.js", "app/api/gg-text-to-speech/route.tsx", "app/api/text-to-speech", "app/quiz/quizPage/quizPage.tsx"],
   "exclude": ["node_modules"]
 }
