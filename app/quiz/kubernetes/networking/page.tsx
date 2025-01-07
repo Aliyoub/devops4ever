@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
 // import QuizPage from "../../quizPage/_quizPage";
-import QuizPage from "../../testquiz/quizPage";
+import QuizPage from "../../quizPage/quizPage";
 
 import { questions } from "./questionsNetworking";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";

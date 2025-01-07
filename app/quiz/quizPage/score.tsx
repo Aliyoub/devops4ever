@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -21,21 +21,24 @@ interface ScoreProps {
 
 const Score: React.FC<ScoreProps> = ({ userAnswers, questions }) => {
   // Calcul des réponses correctes
-  const correctAnswers = questions.filter(
+  const correctAnswers = questions?.filter(
     (question, index) => userAnswers[index] === question.answer
   );
 
   // Calcul des réponses incorrectes
-  const incorrectAnswers = questions.filter(
+  const incorrectAnswers = questions?.filter(
     (question, index) =>
       userAnswers[index] && userAnswers[index] !== question.answer
   );
 
   // Calcul des questions non répondues
-  const unansweredQuestions = questions.filter(
+  const unansweredQuestions = questions?.filter(
     (question, index) => userAnswers[index] === undefined
   );
-
+  useEffect(() => {
+    console.log("questions", questions);
+    console.log("userAnswers", userAnswers);
+  }, [correctAnswers, incorrectAnswers, unansweredQuestions]);
   return (
     <Box
       sx={{
@@ -65,13 +68,13 @@ const Score: React.FC<ScoreProps> = ({ userAnswers, questions }) => {
           Statistiques
         </Typography>
         <Typography sx={{ color: "#3B8FEF", fontWeight: "bold" }}>
-          Réponses correctes : {correctAnswers.length}
+          Réponses correctes : {correctAnswers?.length}
         </Typography>
         <Typography sx={{ color: "#FCA4F0", fontWeight: "bold" }}>
-          Réponses incorrectes : {incorrectAnswers.length}
+          Réponses incorrectes : {incorrectAnswers?.length}
         </Typography>
         <Typography sx={{ color: "#264BC0", fontWeight: "bold" }}>
-          Questions non répondues : {unansweredQuestions.length}
+          Questions non répondues : {unansweredQuestions?.length}
         </Typography>
       </Box>
 

@@ -56,8 +56,10 @@ function ControlledAccordion() {
   const quizStartIndexInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const parsedValue: number = parseInt(event.target.value, 10);
-    dispatch(setQuizStartIndex(parsedValue));
+    const numericValue: number = Number(event.target.value);
+    // const numericValue: number = Number(event.target.value);
+
+    dispatch(setQuizStartIndex(numericValue));
   };
   // ================================================================================
 
@@ -66,16 +68,10 @@ function ControlledAccordion() {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
 
   const quizSizeInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const parsedValue: number = parseInt(event.target.value, 10);
-    dispatch(setQuizSize(parsedValue));
-  };
+    const numericValue: number = Number(event.target.value);
 
-  useEffect(() => {
-    console.log("quizSize", quizSize);
-    console.log("quizStartIndex", quizStartIndex);
-    dispatch(setQuizSize(quizSize));
-    dispatch(setQuizStartIndex(quizStartIndex));
-  }, [quizSize, quizStartIndex]);
+    dispatch(setQuizSize(numericValue));
+  };
 
   return (
     <div style={{ marginTop: 20, marginBottom: 0.5 }}>
@@ -107,10 +103,10 @@ function ControlledAccordion() {
               label="Entrez l'index du début des questions"
               variant="outlined"
               placeholder="ex: 5, pour commencer à la question 5..."
-              inputProps={{ min: 1, max: 100 }} // Ajout de contraintes
+              inputProps={{ min: 0, max: 100 }} // Ajout de contraintes
               fullWidth // S'adapte à la largeur du conteneur
-              // defaultValue={quizStartIndex}
-              value={quizStartIndex}
+              // value={quizStartIndex}
+              value={quizStartIndex || undefined}
               onChange={quizStartIndexInputChange}
               sx={{
                 marginTop: 1,
@@ -127,9 +123,9 @@ function ControlledAccordion() {
               label="Entrez le nombre de questions à traiter"
               variant="outlined"
               placeholder="ex: 20, pour traiter 20 questions ..."
-              inputProps={{ min: 1, max: 100 }} // Ajout de contraintes
+              inputProps={{ min: 0, max: 100 }} // Ajout de contraintes
               fullWidth // S'adapte à la largeur du conteneur
-              value={quizSize}
+              value={quizSize || ""}
               onChange={quizSizeInputChange}
               sx={{
                 marginTop: 2,

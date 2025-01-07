@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import Score from "./score";
-import QuizQuestions from "./quizQuestions";
+import QuizQuestions from "./QuizQuestions";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
@@ -115,9 +115,9 @@ const QuizPage = ({ quizQuestions }: QuizPageProps) => {
           onPreview={handlePreview}
           onValidate={handleValidate}
           hideValidate={isValidateButtonHidden} // cacher ou non le bouton valider
+          isGoodAnswer={isGoodAnswer}
           formControlLabelDisabled={isFormControlLabelDisabled}
           disableValidate={!userAnswers[currentIndex]} // désactiver ou non le bouton valider
-          isGoodAnswer={isGoodAnswer}
           // disableNext={currentIndex === theSliceQuestions.length - 1}
           disableNext={isNextButtonDisabled}
           disablePreview={currentIndex === 0}
