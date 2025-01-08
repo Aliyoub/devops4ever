@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "../../quizPage/quizPage";
+import QuizPage from "../../quizPage/QuizPage";
 
 import { questions } from "./questionsNetworking";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
