@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import Quizpage from "../../QuizPage";
+import Quizpage from "../../quiz-page/QuizPage";
 // import { questions } from "./questionsClusterArchitecture";
 
 const Kubernetes_ClusterArchitecture: React.FC = () => {

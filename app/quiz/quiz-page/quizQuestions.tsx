@@ -49,7 +49,7 @@ interface QuizQuestionsProps {
   isLastQuestion: boolean;
 }
 
-const QuizQuestions: React.FC<QuizQuestionsProps> = ({
+const Quizquestions: React.FC<QuizQuestionsProps> = ({
   question,
   userAnswer,
   onAnswerSelection,
@@ -252,4 +252,4 @@ const QuizQuestions: React.FC<QuizQuestionsProps> = ({
   );
 };
 
-export default QuizQuestions;
+export default Quizquestions;

@@ -3,7 +3,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "../../quizpage";
+import Quizpage from "../../quiz-page/QuizPage";
 
 import { questions } from "./questionsSecurity";
 
@@ -14,7 +14,7 @@ const Kubernetes_Security: React.FC = () => {
 
   //   KUBERNETES Security
   if (parent === "Kubernetes" && child === "Security" && grandChild === "Quiz")
-    return <QuizPage quizQuestions={questions} />;
+    return <Quizpage quizQuestions={questions} />;
   else if (
     parent === "Kubernetes" &&
     child === "Security" &&

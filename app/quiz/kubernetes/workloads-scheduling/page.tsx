@@ -3,7 +3,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "../../quizpage";
+import Quizpage from "../../quiz-page/QuizPage";
 
 import { questions } from "./questionsWorkloadsScheduling";
 
@@ -18,7 +18,7 @@ const Kubernetes_WorkloadsScheduling: React.FC = () => {
     child === "Workloads and Scheduling" &&
     grandChild === "Quiz"
   )
-    return <QuizPage quizQuestions={questions} />;
+    return <Quizpage quizQuestions={questions} />;
   else if (
     parent === "Kubernetes" &&
     child === "Workloads and Scheduling" &&

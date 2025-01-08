@@ -3,7 +3,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "../../quizpage";
+import Quizpage from "../../quiz-page/QuizPage";
+
 import { questions } from "./questionsServices";
 
 const Kubernetes_Services: React.FC = () => {
@@ -13,7 +14,7 @@ const Kubernetes_Services: React.FC = () => {
 
   //   KUBERNETES SERVICES
   if (parent === "Kubernetes" && child === "Services" && grandChild === "Quiz")
-    return <QuizPage quizQuestions={questions} />;
+    return <Quizpage quizQuestions={questions} />;
   else if (
     parent === "Kubernetes" &&
     child === "Services" &&

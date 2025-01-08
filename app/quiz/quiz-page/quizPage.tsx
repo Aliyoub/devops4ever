@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import Score from "./score";
-import QuizQuestions from "./QuizQuestions";
+import Quizquestions from "./quizQuestions";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
@@ -11,7 +11,7 @@ type QuizPageProps = {
 };
 
 // Composant principal du quiz
-const QuizPage = ({ quizQuestions }: QuizPageProps) => {
+const Quizpage = ({ quizQuestions }: QuizPageProps) => {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex =
     useSelector((state: RootState) => state.quizStartIndex.value) - 1;
@@ -106,7 +106,7 @@ const QuizPage = ({ quizQuestions }: QuizPageProps) => {
     <Box sx={{ maxWidth: 600, margin: "auto", textAlign: "center" }}>
       {currentIndex < theSliceQuestions.length ? (
         /* Interface questionnaire */
-        <QuizQuestions
+        <Quizquestions
           question={theSliceQuestions[currentIndex]}
           userAnswer={userAnswers[currentIndex]}
           onAnswerSelection={handleAnswerSelection}
@@ -131,4 +131,4 @@ const QuizPage = ({ quizQuestions }: QuizPageProps) => {
 };
 
 // Exportation du composant
-export default QuizPage;
+export default Quizpage;
