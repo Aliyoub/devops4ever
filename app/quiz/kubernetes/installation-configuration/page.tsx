@@ -4,6 +4,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
 import QuizPage from "../../quizPage/QuizPage";
+// import QuizPage from "../../quizPage/QuizPage";
 
 import { questions } from "./questionsInstallationConfiguration";
 
