@@ -6,9 +6,9 @@ import Quizquestions from "./quizQuestions";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
-type quizpageprops = {
+interface quizpageprops {
   quizQuestions: any[];
-};
+}
 
 // Composant principal du quiz
 // const Quizpage = ({ quizQuestions }: QuizPageProps) => {
