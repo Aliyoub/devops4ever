@@ -3,7 +3,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import Quizpage from "../../quiz-page/Quizpage";
+import Quizpage from "../../quiz-page/page";
 
 import { questions } from "./questionsSecurity";
 
