@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+
 import {
   RadioGroup,
   FormControlLabel,
@@ -78,175 +78,143 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
   // };
   return (
     <Box
-    // sx={{
-    //   // width: "100vw",
-    //   // height: "100vh",
-    //   width: "100%",
-    //   maxHeight: "70vh",
-    //   overflowY: "auto",
-    //   // marginBottom: "16px",
-    //   margin: 0,
-    // }}
-    // className="scrollable-content"
+      // sx={{ width: "100%" }}
+      // className="scrollable-content"
+      sx={{
+        width: "100vw",
+        height: "40vh",
+        // width: "100%",
+        // maxHeight: "70vh",
+        overflowY: "auto",
+        // marginBottom: "106px",
+      }}
     >
+      {/* Affichage de la question */}
+      <div className={(roboto.className, "questionText")}>
+        {"Question "}
+        {question.question_id}
+        {": "}
+        {question.question}
+      </div>
+
+      {/* Options sous forme de boutons radio */}
+      <FormControl style={{ width: "100%" }} component="fieldset">
+        <RadioGroup
+          value={userAnswer || ""}
+          onChange={(event) => onAnswerSelection(event.target.value)}
+        >
+          {question.options.map((option) => (
+            <FormControlLabel
+              key={option}
+              value={option}
+              control={<CustomRadio />}
+              // control={<Radio />}
+              label={
+                <div
+                  className={(roboto.className, "quizContainer")}
+                  // sx={{ color: "rgb(224, 247, 250)", fontSize: "1rem" }}
+                >
+                  {option}
+                </div>
+              }
+              // label={option}
+              style={{
+                backgroundColor: "#3B8FEF",
+                borderBottom: "0.5px solid #FCA4F0",
+                padding: 0,
+                margin: 0,
+                width: "100%",
+                height: "1.7rem",
+              }}
+              disabled={formControlLabelDisabled}
+            />
+          ))}
+        </RadioGroup>
+      </FormControl>
+
+      {/* Boutons de navigation */}
       <Box
-        // sx={{ width: "100%" }}
-        // className="scrollable-content"
         sx={{
-          width: "100vw",
-          height: "40vh",
-          // width: "100%",
-          // maxHeight: "70vh",
-          overflowY: "auto",
-          // marginBottom: "106px",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
-        {/* Affichage de la question */}
-        <div className={(roboto.className, "questionText")}>
-          {"Question "}
-          {question.question_id}
-          {": "}
-          {question.question}
-        </div>
-
-        {/* Options sous forme de boutons radio */}
-        <FormControl style={{ width: "100%" }} component="fieldset">
-          <RadioGroup
-            value={userAnswer || ""}
-            onChange={(event) => onAnswerSelection(event.target.value)}
-          >
-            {question.options.map((option) => (
-              <FormControlLabel
-                key={option}
-                value={option}
-                control={<CustomRadio />}
-                // control={<Radio />}
-                label={
-                  <div
-                    className={(roboto.className, "quizContainer")}
-                    // sx={{ color: "rgb(224, 247, 250)", fontSize: "1rem" }}
-                  >
-                    {option}
-                  </div>
-                }
-                // label={option}
-                style={{
-                  backgroundColor: "#3B8FEF",
-                  borderBottom: "0.5px solid #FCA4F0",
-                  padding: 0,
-                  margin: 0,
-                  width: "100%",
-                  height: "1.7rem",
-                }}
-                disabled={formControlLabelDisabled}
-              />
-            ))}
-          </RadioGroup>
-        </FormControl>
-
-        {/* Boutons de navigation */}
-        <Box
+        <Button
+          variant="outlined"
+          onClick={onPreview}
+          // disabled={false}
           sx={{
-            // paddingTop: "120px",
-            // width: "100vw",
-            display: "flex",
-            justifyContent: "space-between",
+            margin: 0.3,
+            height: "1.8rem",
+            fontSize: "0.7rem",
+            fontWeight: 600,
+            letterSpacing: "0.1rem",
+          }}
+          className={roboto.className}
+        >
+          Quitter
+        </Button>
+        {/* Si la propriété hidden du bouton valider est à true => donc le bouton valider est caché */}
+        {hideValidate &&
+          (isGoodAnswer === true ? (
+            <>
+              <CorrectAnswerAnimation />
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1.2 }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  marginTop: "7px",
+                  color: "green",
+                  fontSize: "0.9rem",
+                }}
+              >
+                ✅ Bravo !
+              </motion.div>
+            </>
+          ) : (
+            <motion.div
+              initial={{ x: 0 }}
+              animate={{ x: [0, -10, 10, -10, 10, 0] }}
+              transition={{ duration: 0.5 }}
+              style={{ marginTop: "7px", color: "red", fontSize: "0.9rem" }}
+            >
+              ❌ Mauvaise réponse !
+            </motion.div>
+          ))}
+        {/* Si la propriété hidden du bouton valider est à false => donc le bouton valider est visible */}
+        {!hideValidate && (
+          <Button
+            variant="outlined"
+            onClick={onValidate}
+            disabled={disableValidate}
+            hidden={hideValidate}
+            sx={{
+              margin: 0.3,
+              height: "1.8rem",
+              fontSize: "0.7rem",
+              fontWeight: 600,
+              letterSpacing: "0.1rem",
+            }}
+          >
+            valider
+          </Button>
+        )}
+
+        <Button
+          variant="contained"
+          onClick={onNext}
+          disabled={disableNext}
+          sx={{
+            margin: 0.3,
+            height: "1.8rem",
+            fontSize: "0.7rem",
+            fontWeight: 600,
+            letterSpacing: "0.1rem",
           }}
         >
-          {/* <Button
-            variant="outlined"
-            onClick={onPreview}
-            disabled={disablePreview}
-            sx={{ margin: 0.3, height: "1.8rem" }}
-          >
-            Preview
-          </Button>
-          <Button
-            //   className={!isLastQuestion ? "nextButton" : ""}
-            variant="contained"
-            onClick={onNext}
-            //   disabled={disableNext}
-            sx={{ margin: 0.3, height: "1.8rem" }}
-          >
-            {isLastQuestion ? "Voir le score" : "Suivant"}
-          </Button> */}
-          <Button
-            variant="outlined"
-            onClick={onPreview}
-            // disabled={false}
-            sx={{
-              margin: 0.3,
-              height: "1.8rem",
-              fontSize: "0.7rem",
-              fontWeight: 600,
-              letterSpacing: "0.1rem",
-            }}
-            className={roboto.className}
-          >
-            Annuler
-          </Button>
-          {/* Si la propriété hidden du bouton valider est à true => donc le bouton valider est caché */}
-          {hideValidate &&
-            (isGoodAnswer === true ? (
-              <>
-                <CorrectAnswerAnimation />
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1.2 }}
-                  transition={{ duration: 0.5 }}
-                  style={{
-                    marginTop: "7px",
-                    color: "green",
-                    fontSize: "0.9rem",
-                  }}
-                >
-                  ✅ Bravo !
-                </motion.div>
-              </>
-            ) : (
-              <motion.div
-                initial={{ x: 0 }}
-                animate={{ x: [0, -10, 10, -10, 10, 0] }}
-                transition={{ duration: 0.5 }}
-                style={{ marginTop: "7px", color: "red", fontSize: "0.9rem" }}
-              >
-                ❌ Mauvaise réponse !
-              </motion.div>
-            ))}
-          {/* Si la propriété hidden du bouton valider est à false => donc le bouton valider est visible */}
-          {!hideValidate && (
-            <Button
-              variant="outlined"
-              onClick={onValidate}
-              disabled={disableValidate}
-              hidden={hideValidate}
-              sx={{
-                margin: 0.3,
-                height: "1.8rem",
-                fontSize: "0.7rem",
-                fontWeight: 600,
-                letterSpacing: "0.1rem",
-              }}
-            >
-              valider
-            </Button>
-          )}
-
-          <Button
-            variant="contained"
-            onClick={onNext}
-            disabled={disableNext}
-            sx={{
-              margin: 0.3,
-              height: "1.8rem",
-              fontSize: "0.7rem",
-              fontWeight: 600,
-              letterSpacing: "0.1rem",
-            }}
-          >
-            {isLastQuestion ? "Voir le score" : "Suivant"}
-          </Button>
-        </Box>
+          {isLastQuestion ? "Voir le score" : "Suivant"}
+        </Button>
       </Box>
     </Box>
   );
