@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../../store/store";
-import QuizPage from "../../quizpage";
+import Quizpage from "../../QuizPage";
 // import { questions } from "./questionsClusterArchitecture";
 
 const Kubernetes_ClusterArchitecture: React.FC = () => {
@@ -27,7 +27,7 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
     child === "Cluster Architecture" &&
     grandChild === "Quiz"
   )
-    return <QuizPage quizQuestions={quizQuestions} />;
+    return <Quizpage quizQuestions={quizQuestions} />;
   else if (
     parent === "Kubernetes" &&
     child === "Cluster Architecture" &&

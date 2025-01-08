@@ -12,7 +12,7 @@ interface QuizPageProps {
 
 // Composant principal du quiz
 // const QuizPage = ({ quizQuestions }: QuizPageProps) => {
-const QuizPage: React.FC<QuizPageProps> = ({ quizQuestions }) => {
+const Quizpage: React.FC<QuizPageProps> = ({ quizQuestions }) => {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex =
     useSelector((state: RootState) => state.quizStartIndex.value) - 1;
@@ -132,4 +132,4 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizQuestions }) => {
 };
 
 // Exportation du composant
-export default QuizPage;
+export default Quizpage;
