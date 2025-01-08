@@ -6,13 +6,13 @@ import Quizquestions from "./quizQuestions";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
-interface quizpageprops {
+interface QuizPageProps {
   quizQuestions: any[];
 }
 
 // Composant principal du quiz
 // const Quizpage = ({ quizQuestions }: QuizPageProps) => {
-export default function Quizpage({ quizQuestions }: quizpageprops) {
+export default function Quizpage({ quizQuestions }: QuizPageProps) {
   const quizSize = useSelector((state: RootState) => state.quizSize.value);
   const quizStartIndex =
     useSelector((state: RootState) => state.quizStartIndex.value) - 1;
