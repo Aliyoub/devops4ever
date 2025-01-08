@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import Score from "./score";
-import QuizQuestions from "./QuizQuestions";
+import QuizQuestions from "./quizQuestions";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
