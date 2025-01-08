@@ -31,5 +31,5 @@ import { app } from "firebase-admin"
 /app/artifices/
 /app/quiz/kubernetes/Services/
 /app/quiz/modele_QuizPage/
-/app/quiz/quizPage/
+
 *readme.md
