@@ -104,8 +104,8 @@ export default function Quizpage({ quizQuestions }: QuizPageProps) {
 
   // Rendu du composant
   return (
-    <Box sx={{ width: "100%", margin: "auto", textAlign: "center" }}>
-      {/* <Box sx={{ maxWidth: 600, margin: "auto", textAlign: "center" }}> */}
+    // <Box sx={{ width: "100%", margin: "auto", textAlign: "center" }}>
+    <Box sx={{ maxWidth: 600, margin: "auto", textAlign: "center" }}>
       {currentIndex < theSliceQuestions.length ? (
         /* Interface questionnaire */
         <Quizquestions
