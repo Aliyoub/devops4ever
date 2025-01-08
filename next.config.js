@@ -28,7 +28,29 @@ const nextConfig = {
       },
     ];
   },
-  // ...
+  mode: 'jit',
+  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+
+  webpack: (config, { isServer }) => {
+    // Ajouter un alias "@" vers le répertoire courant
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': __dirname,
+    };
+
+    // Exemple : désactiver fs côté client pour éviter les erreurs si des libs utilisent fs
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+    return config;
+  },
 };
 
 // 4. Combiner la config
