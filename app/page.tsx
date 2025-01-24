@@ -10,6 +10,10 @@ const montserrat = Montserrat({
   weight: "400",
   subsets: ["latin"],
 });
+const roboto = Roboto({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 const montserrat_bold = Montserrat({
   weight: "700",
@@ -18,7 +22,7 @@ const montserrat_bold = Montserrat({
 
 function Home() {
   return (
-    <main className={montserrat.className}>
+    <main className={roboto.className}>
       {/* <ViewWithBorderRadius /> */}
       <BottomNavigation />
     </main>

@@ -17,6 +17,21 @@ const Kubernetes_ClusterArchitecture: React.FC = () => {
       });
   }, []);
 
+  // useEffect(() => {
+  //   fetch("/api/quiz/cluster-architecture", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       question_id: 1,
+  //       userAnswer: "c) kube-controller-manager",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => console.log("apidata!!!", data));
+  // }, []);
+
   const parent = useSelector((state: RootState) => state.parent.value);
   const child = useSelector((state: RootState) => state.child.value);
   const grandChild = useSelector((state: RootState) => state.grandChild.value);

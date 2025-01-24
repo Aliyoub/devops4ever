@@ -2,7 +2,7 @@
     "name": "Devops4Ever",
     "short_name": "Devops4Ever",
     "description": "Devops4Ever",
-    "start_url": "/",
+    "start_url": "/settings",
     "display": "standalone",
     "background_color": "#663E94",
     "theme_color": "#663E94",

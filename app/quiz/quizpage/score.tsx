@@ -8,6 +8,7 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
+import "../../../app/score.css";
 
 interface ScoreProps {
   userAnswers: Record<number, string>;
@@ -20,68 +21,55 @@ interface ScoreProps {
 }
 
 const Score: React.FC<ScoreProps> = ({ userAnswers, questions }) => {
-  // Calcul des réponses correctes
   const correctAnswers = questions?.filter(
     (question, index) => userAnswers[index] === question.answer
   );
 
-  // Calcul des réponses incorrectes
   const incorrectAnswers = questions?.filter(
     (question, index) =>
       userAnswers[index] && userAnswers[index] !== question.answer
   );
 
-  // Calcul des questions non répondues
   const unansweredQuestions = questions?.filter(
     (question, index) => userAnswers[index] === undefined
   );
+
   useEffect(() => {
     console.log("questions", questions);
     console.log("userAnswers", userAnswers);
   }, [correctAnswers, incorrectAnswers, unansweredQuestions]);
+
   return (
-    <Box
-      sx={{
-        maxWidth: 800,
-        margin: "auto",
-        padding: 3,
-        border: "2px solid #3B8FEF",
-        borderRadius: 4,
-        backgroundColor: "#FFFFFF",
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-        overflowY: "auto",
-        maxHeight: "600px",
-      }}
-    >
+    <Box className="score-container">
       <Typography
         variant="h4"
         gutterBottom
         textAlign="center"
-        sx={{ color: "#264BC0", fontWeight: "bold" }}
+        className="quiz-title"
       >
         Résultats du Quiz
       </Typography>
 
       {/* Statistiques */}
-      <Box sx={{ marginBottom: 3 }}>
-        <Typography variant="h6" sx={{ color: "#264BC0" }}>
+      <Box className="quiz-stats">
+        <Typography variant="h6" className="stat-title">
           Statistiques
         </Typography>
-        <Typography sx={{ color: "#3B8FEF", fontWeight: "bold" }}>
+        <Typography className="correct-answers">
           Réponses correctes : {correctAnswers?.length}
         </Typography>
-        <Typography sx={{ color: "#FCA4F0", fontWeight: "bold" }}>
+        <Typography className="incorrect-answers">
           Réponses incorrectes : {incorrectAnswers?.length}
         </Typography>
-        <Typography sx={{ color: "#264BC0", fontWeight: "bold" }}>
+        <Typography className="unanswered-questions">
           Questions non répondues : {unansweredQuestions?.length}
         </Typography>
       </Box>
 
       {/* Réponses incorrectes */}
       {incorrectAnswers.length > 0 && (
-        <Box sx={{ marginBottom: 3 }}>
-          <Typography variant="h6" sx={{ color: "#FCA4F0" }}>
+        <Box className="incorrect-section">
+          <Typography variant="h6" className="incorrect-title">
             Questions avec réponses incorrectes
           </Typography>
           <List>
@@ -91,8 +79,7 @@ const Score: React.FC<ScoreProps> = ({ userAnswers, questions }) => {
                   <ListItemText
                     primary={`Question : ${question.question}`}
                     secondary={`Votre réponse : ${userAnswers[index]} | Réponse correcte : ${question.answer}`}
-                    primaryTypographyProps={{ sx: { color: "#264BC0" } }}
-                    secondaryTypographyProps={{ sx: { color: "#3B8FEF" } }}
+                    className="incorrect-item"
                   />
                 </ListItem>
                 <Divider />
@@ -105,7 +92,7 @@ const Score: React.FC<ScoreProps> = ({ userAnswers, questions }) => {
       {/* Questions non répondues */}
       {unansweredQuestions.length > 0 && (
         <Box>
-          <Typography variant="h6" sx={{ color: "#264BC0" }}>
+          <Typography variant="h6" className="unanswered-title">
             Questions non répondues
           </Typography>
           <List>
@@ -115,8 +102,7 @@ const Score: React.FC<ScoreProps> = ({ userAnswers, questions }) => {
                   <ListItemText
                     primary={`Question : ${question.question}`}
                     secondary={`Réponse correcte : ${question.answer}`}
-                    primaryTypographyProps={{ sx: { color: "#264BC0" } }}
-                    secondaryTypographyProps={{ sx: { color: "#3B8FEF" } }}
+                    className="unanswered-item"
                   />
                 </ListItem>
                 <Divider />

@@ -1,0 +1,238 @@
+/* Style de la barre de défilement */
+/* ::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3B8FEF;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #264BC0;
+} */
+
+.scrollable-content {
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 300px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* Personnalisation de la scrollbar */
+.scrollable-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: #3b8fef;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: #fca4f0;
+  border-radius: 5px;
+  opacity: 0.9 ;
+}
+
+/* .scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */
+
+/* /Style de la barre de défilement */
+
+.givenAnswers {
+  font-size: 0.85rem;
+  color: #ffffff;
+  border: 0.5px solid #fca4f0;
+  background-color: #3b8fef;
+  padding: 0.5rem;
+  line-height: 1.2;
+  letter-spacing: 0.3;
+  word-spacing: 0.005em;
+  text-align-last: left;
+  text-align: justify;
+  font-weight: 510;
+}
+
+.correctAnswers {
+  font-size: 0.85rem;
+  color: #ffffff;
+  border: 0.5px solid #fca4f0;
+  background-color: #3b8fef;
+  padding: 0.5rem;
+  line-height: 1.4;
+  letter-spacing: 0.3;
+  word-spacing: 0.005em;
+  text-align-last: left;
+  text-align: justify;
+  font-weight: 510;
+}
+
+.correctAnswersTitle,
+.inCorrectAnswersTitle,
+.unansweredQuestionsTitle {
+  font-size: 1rem;
+  color: #fca4f0;
+  border: 0.5px solid #fca4f0;
+  background-color: #264bc0;
+  padding: 5px;
+  letter-spacing: 0.4px;
+  word-spacing: 0.005em;
+  font-weight: 510;
+}
+
+.quizContainer {
+  width: 100%;
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+  text-align: justify;
+  text-align-last: left;
+  word-spacing: -0.09rem;
+  font-weight: 600;
+  color: rgb(224, 247, 250);
+  font-size: "1rem"
+}
+
+.questionText {
+  font-size: 0.9rem;
+  color: #fca4f0;
+  border: 0.5px solid #fca4f0;
+  background-color: #264bc0;
+  /* background-color: #663E94; */
+  padding: 0.5rem;
+  line-height: 1.2rem;
+  text-align: justify;
+  text-align-last: left;
+  word-spacing: -0.09rem;
+  font-weight: 600;
+}
+
+
+.previewButton {
+  color: #3b8fef;
+  border-color: #3b8fef;
+  font-weight: bold;
+  margin-left: 7px;
+  margin-bottom: 7px;
+}
+.previewButton:hover {
+  background-color: #fca4f0;
+  border-color: #3b8fef;
+}
+
+.nextButton {
+  background-color: #3b8fef;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 7px;
+  margin-bottom: 7px;
+}
+.nextButton:hover {
+  background-color: #3b8fef;
+}
+
+.accordionParentsSummaryStyle {
+  background-color: #264bc0;
+  /* background-color: #663E94; */
+  color: #fca4f0;
+  font-size: 12px;
+  font-weight: bolder;
+  width: 100%;
+  /* padding: 10px; */
+  margin: 0;
+  border-bottom: 0.7px solid #fca4f0;
+  min-height: 32px;
+  padding: 0 7px;
+}
+
+.accordionChildrenSummaryStyle {
+  background-color: #8057a6;
+  color: #e0f7fa;
+  font-size: 12px;
+  font-weight: bolder;
+  width: 100%;
+  /* padding: 10px; */
+  margin: 0;
+  border-bottom: 0.7px solid #fca4f0;
+  min-height: 32px;
+  padding: 0 7px;
+}
+.accordionChildrenSummaryStyle .expandIconStyle {
+  color: #e0f7fa;
+}
+
+.accordionGrandChildrenStyle {
+  /* background-color: #825bae; */
+  /* background-color: #9970B8; */
+  color: #663e94;
+  font-size: 12px;
+  font-weight: bolder;
+  width: 100%;
+  /* padding: 10px; */
+  margin: 0;
+  border-bottom: 0.7px solid #fca4f0;
+  min-height: 32px;
+  padding: 0 7px;
+}
+.expandIconStyle {
+  color: #fca4f0;
+  padding: 0;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.MuiBox-root {
+  /* width: 100%; */
+  margin: 0;
+  padding: 0;
+  /* margin-top: 30px; */
+  /* background-color: #3b8fef; */
+}
+
+.accordionGrandChildrenStyle .expandIconStyle {
+  color: #663e94;
+  padding: 0;
+}
+
+.MuiAccordion-root.Mui-expanded {
+  /* height: 22px;  */
+  /* padding: 0 7px; */
+  margin: 0;
+}
+.MuiAccordionSummary-root,
+.MuiAccordionSummary-root.Mui-expanded {
+  height: 2.5rem;
+  padding: 0 7px;
+  margin: 0;
+}
+
+.MuiAccordionDetails-root {
+  /* height: 2px;  */
+  /* padding: 0 7px; */
+  margin: 0;
+  width: 100%;
+  /* display: none; */
+}
+
+
+/* ================================= FUSE ANIMATIONS ================================= */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 500ms, transform 500ms;
+}
+

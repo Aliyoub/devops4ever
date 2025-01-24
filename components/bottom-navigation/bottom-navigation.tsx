@@ -144,11 +144,12 @@ const BottomNavigation = () => {
         <SearchIcon style={{ width: 17 }} />
         <span
           style={{
-            color: `${pathname === "/search" ? "#8B01F6" : "#fff"}`,
+            color: `${pathname === "/badges" ? "#8B01F6" : "#fff"}`,
             fontSize: 11,
           }}
           onClick={() => {
-            router.push("/search");
+            router.push("/badges");
+            // router.push("/search");
             // exitFullscreen();
           }}
         >

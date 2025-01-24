@@ -1,5 +1,5 @@
 "use client";
-
+import React, { useRef, useEffect } from "react";
 import {
   RadioGroup,
   FormControlLabel,
@@ -11,7 +11,9 @@ import {
   FormControl,
 } from "@mui/material";
 import { Roboto } from "next/font/google";
-import "../../../app/styles.css";
+// import "../../../app/styles.css";
+// import "../../../app/quizQuestionsInterface.css";
+import "../../../public/quizQuestionsInterface.css";
 import { motion } from "framer-motion";
 import Confetti from "react-confetti";
 import CorrectAnswerAnimation from "@/components/correctAnswerAnimation/CorrectAnswerAnimation";
@@ -38,14 +40,14 @@ interface QuizQuestionsProps {
   userAnswer: string | undefined;
   onAnswerSelection: (answer: string) => void;
   onNext: () => void;
-  onPreview: () => void;
+  onQuit: () => void;
   disableNext: boolean;
   disablePreview: boolean;
   disableValidate: boolean;
   hideValidate: boolean;
   formControlLabelDisabled: boolean;
   onValidate: () => void;
-  isGoodAnswer: boolean;
+  // isGoodAnswer: boolean;
   isLastQuestion: boolean;
 }
 
@@ -54,14 +56,14 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
   userAnswer,
   onAnswerSelection,
   onNext,
-  onPreview,
+  onQuit,
   disableNext,
   disablePreview,
   disableValidate,
   hideValidate,
   formControlLabelDisabled,
   onValidate,
-  isGoodAnswer,
+  // isGoodAnswer,
   isLastQuestion,
 
   // options,
@@ -70,25 +72,18 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
   // onPrevious,
   // disablePrevious,
 }) => {
-  // const [isValidateButtonHidden, setIsValidateButtonHidden] = useState(false);
-  // const handleValidate = () => {
-  //   // Pour faire disparaître le bouton validate,
-  //   // et ainsi afficher le message disant c'est une réponse correcte ou non
-  //   setIsValidateButtonHidden(true);
+  // const handleCorrectAnswer = () => {
+  //   const audio = new Audio("/public/sounds/correct-answer.mp3");
+  //   audio.play();
   // };
+
+  // const handleIncorrectAnswer = () => {
+  //   const audio = new Audio("/public/sounds/incorrect-answer.mp3");
+  //   audio.play();
+  // };
+
   return (
-    <Box
-      // sx={{ width: "100%" }}
-      // className="scrollable-content"
-      sx={{
-        width: "100vw",
-        height: "40vh",
-        // width: "100%",
-        // maxHeight: "70vh",
-        overflowY: "auto",
-        // marginBottom: "106px",
-      }}
-    >
+    <Box className="radioButtonsInterfaceMainBloc">
       {/* Affichage de la question */}
       <div className={(roboto.className, "questionText")}>
         {"Question "}
@@ -98,7 +93,7 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
       </div>
 
       {/* Options sous forme de boutons radio */}
-      <FormControl style={{ width: "100%" }} component="fieldset">
+      <FormControl className="formControl" component="fieldset">
         <RadioGroup
           value={userAnswer || ""}
           onChange={(event) => onAnswerSelection(event.target.value)}
@@ -108,24 +103,12 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
               key={option}
               value={option}
               control={<CustomRadio />}
-              // control={<Radio />}
               label={
-                <div
-                  className={(roboto.className, "quizContainer")}
-                  // sx={{ color: "rgb(224, 247, 250)", fontSize: "1rem" }}
-                >
+                <div className={(roboto.className, "quizContainer")}>
                   {option}
                 </div>
               }
-              // label={option}
-              style={{
-                backgroundColor: "#3B8FEF",
-                borderBottom: "0.5px solid #FCA4F0",
-                padding: 0,
-                margin: 0,
-                width: "100%",
-                height: "1.7rem",
-              }}
+              className="formControlLabel"
               disabled={formControlLabelDisabled}
             />
           ))}
@@ -133,41 +116,24 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
       </FormControl>
 
       {/* Boutons de navigation */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
+      <Box className="navigation-bloc">
         <Button
           variant="outlined"
-          onClick={onPreview}
-          // disabled={false}
-          sx={{
-            margin: 0.3,
-            height: "1.8rem",
-            fontSize: "0.7rem",
-            fontWeight: 600,
-            letterSpacing: "0.1rem",
-          }}
-          className={roboto.className}
+          onClick={onQuit}
+          className={(roboto.className, "quitButton")}
         >
           Quitter
         </Button>
         {/* Si la propriété hidden du bouton valider est à true => donc le bouton valider est caché */}
         {hideValidate &&
-          (isGoodAnswer === true ? (
+          (question.answer === userAnswer ? (
             <>
               <CorrectAnswerAnimation />
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1.2 }}
                 transition={{ duration: 0.5 }}
-                style={{
-                  marginTop: "7px",
-                  color: "green",
-                  fontSize: "0.9rem",
-                }}
+                className="goodAnswerMessage"
               >
                 ✅ Bravo !
               </motion.div>
@@ -177,7 +143,7 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
               initial={{ x: 0 }}
               animate={{ x: [0, -10, 10, -10, 10, 0] }}
               transition={{ duration: 0.5 }}
-              style={{ marginTop: "7px", color: "red", fontSize: "0.9rem" }}
+              className="badAnswerMessage"
             >
               ❌ Mauvaise réponse !
             </motion.div>
@@ -189,13 +155,7 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
             onClick={onValidate}
             disabled={disableValidate}
             hidden={hideValidate}
-            sx={{
-              margin: 0.3,
-              height: "1.8rem",
-              fontSize: "0.7rem",
-              fontWeight: 600,
-              letterSpacing: "0.1rem",
-            }}
+            className={(roboto.className, "validateButton")}
           >
             valider
           </Button>
@@ -205,13 +165,7 @@ const Quizquestions: React.FC<QuizQuestionsProps> = ({
           variant="contained"
           onClick={onNext}
           disabled={disableNext}
-          sx={{
-            margin: 0.3,
-            height: "1.8rem",
-            fontSize: "0.7rem",
-            fontWeight: 600,
-            letterSpacing: "0.1rem",
-          }}
+          className={(roboto.className, "nextButton")}
         >
           {isLastQuestion ? "Voir le score" : "Suivant"}
         </Button>

@@ -16,9 +16,7 @@ import {
   Box,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import { display, margin, padding, styled } from "@mui/system";
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // import Services_quizPage from "./kubernetes/Services/services_quizPage";
 import { setGrandChild } from "@/store/slices/grandChild/grandChildSlice";
@@ -31,6 +29,10 @@ import { dataForAccordionsStructure } from "./accordionsStructure";
 import ListOfKubernetesThemes from "./kubernetes/listOfKubernetesThemes";
 import { setQuizOrReadingExpanded } from "@/store/slices/quizOrReadingExpanded/quizOrReadingExpandedSlice";
 import SlideUpList from "./SlideUpList";
+import QuizWithProgressBar from "../progressbar/page";
+import QuizWithTimer from "../timer/page";
+import "../../public/accordionStyle.css";
+// import "../..//accordionStyle.css";
 
 // Type pour l'état actif
 type ActiveState = {
@@ -74,22 +76,7 @@ const Accordions: React.FC = () => {
     dispatch(setParent(parentId));
     dispatch(setChild(childId));
     dispatch(setGrandChild(grandChildId));
-
-    // console.log(
-    //   "parentId, childId, grandChildId :::",
-    //   parentId,
-    //   childId,
-    //   grandChildId
-    // );
   };
-  // const handleGrandChildAccordionSummaryToggle = (
-  //   parentId: string,
-  //   childId: string,
-  //   grandChildId: string
-  // ) => {
-  //   if (activeState.grandChild === grandChildId) return "none";
-  //   else return "block";
-  // };
 
   // Gestion de l'ouverture/fermeture d'un Parent
   const handleParentToggle = (parentId: string) => {
@@ -201,13 +188,7 @@ const Accordions: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          width: "100%",
-          padding: "0",
-          backgroundColor: "#3b8fef",
-        }}
-      >
+      <Box>
         {dataForAccordionsStructure.map((parent) => (
           <Accordion
             key={parent.parent}
@@ -222,22 +203,16 @@ const Accordions: React.FC = () => {
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
-              sx={{
-                backgroundColor: "#264BC0",
-                color: "#FCA4F0",
-                fontSize: "12px",
-                fontWeight: "bolder",
-                width: "100%",
-                margin: "0",
-                borderBottom: "0.7px solid #FCA4F0",
-              }}
+              className="parent-accordion-summary"
             >
-              <div style={{ lineHeight: 1 }}>
+              <div className="lineHeight">
                 {parent.parent.toLocaleUpperCase()}
                 <br />
 
                 {isGrandChildExpanded(grandChild) === true ? (
-                  <SlideUpList items={[child]} />
+                  <div>
+                    <SlideUpList items={[child]} />
+                  </div>
                 ) : (
                   ""
                 )}
@@ -258,15 +233,16 @@ const Accordions: React.FC = () => {
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon className="expandIconStyle" />}
                     sx={{
-                      backgroundColor: "#3B8FEF",
-                      color: "#E0F7FA",
-                      fontSize: "12px",
-                      fontWeight: "bolder",
-                      width: "100%",
-                      margin: "0",
-                      borderBottom: "0.7px solid #FCA4F0",
+                      // backgroundColor: "#3B8FEF",
+                      // color: "#E0F7FA",
+                      // fontSize: "12px",
+                      // fontWeight: "bolder",
+                      // width: "100%",
+                      // margin: "0",
+                      // borderBottom: "0.7px solid #FCA4F0",
                       display: isGrandChildExpanded(grandChild) ? "none" : null,
                     }}
+                    className="child-accordion-summary"
                   >
                     <div>{child.child.toLocaleUpperCase()}</div>
                   </AccordionSummary>
@@ -287,9 +263,20 @@ const Accordions: React.FC = () => {
                           expandIcon={
                             <ExpandMoreIcon className="expandIconStyle" />
                           }
-                          className="accordionGrandChildrenStyle"
+                          className="grand-child-accordion-summary"
                         >
-                          <div>{grandChild}</div>
+                          <div className="grand-child-and-progressbar-and-timer-container">
+                            <div>{grandChild}</div>
+                            {grandChild === "Quiz" &&
+                            isGrandChildExpanded(grandChild) ? (
+                              <div className="progressbar-and-timer-container">
+                                <QuizWithProgressBar />
+                                <QuizWithTimer />
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </div>
                         </AccordionSummary>
                         <AccordionDetails sx={accordionStyles}>
                           <div>

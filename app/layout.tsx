@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import "./styles.css";
+import "../public/styles.css";
 import LayoutClientComponent from "./layoutClientComponent";
 import Head from "next/head";
 import ViewWithBorderRadius from "@/components/ViewWithBorderRadius/ViewWithBorderRadius";

@@ -1,0 +1,54 @@
+/* Conteneur principal de l'accordéon */
+.accordion-container {
+  width: 100%;
+  padding: 0;
+  background-color: #3b8fef;
+}
+.parent-accordion-summary {
+  background-color: #264BC0;
+  color: #FCA4F0;
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: 0.7px solid #FCA4F0;
+  margin: 0px;
+  width: 100%
+}
+.child-accordion-summary{
+  background-color: #3B8FEF;
+  color: #E0F7FA;
+  font-size: 12px;
+  font-weight: bolder;
+  width: 100%;
+  margin: 0;
+  border-bottom: 0.7px solid #FCA4F0;
+}
+
+.lineHeight{line-height: 1rem}
+
+.expandIconStyle {
+  color: #FCA4F0;
+  font-size: 20px;
+}
+
+.grand-child-accordion-summary {
+  color: #663e94;
+  font-size: 12px;
+  font-weight: bolder;
+  width: 100%;
+  margin: 0;
+  border-bottom: 0.7px solid #fca4f0;
+  min-height: 32px;
+  padding: 0 7px;
+}
+.progressbar-and-timer-container{
+  display: flex;
+}
+.grand-child-and-progressbar-and-timer-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+  margin: 0;
+  width: 100%;
+
+}

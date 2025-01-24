@@ -1,0 +1,80 @@
+/* Conteneur principal */
+.score-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 24px;
+  border: 2px solid #3B8FEF;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+/* Titre du quiz */
+.quiz-title {
+  color: #264BC0;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Statistiques générales */
+.quiz-stats {
+  margin-bottom: 20px;
+}
+
+.stat-title {
+  color: #264BC0;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.correct-answers {
+  color: #3B8FEF;
+  font-weight: bold;
+}
+
+.incorrect-answers {
+  color: #FCA4F0;
+  font-weight: bold;
+}
+
+.unanswered-questions {
+  color: #264BC0;
+  font-weight: bold;
+}
+
+/* Section des réponses incorrectes */
+.incorrect-section {
+  margin-bottom: 20px;
+}
+
+.incorrect-title {
+  color: #FCA4F0;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.incorrect-item {
+  color: #3B8FEF;
+  margin-bottom: 5px;
+}
+
+/* Section des questions non répondues */
+.unanswered-title {
+  color: #264BC0;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.unanswered-item {
+  color: #3B8FEF;
+  margin-bottom: 5px;
+}
+
+/* Diviseurs */
+.MuiDivider-root {
+  margin: 10px 0;
+  background-color: #ccc;
+}

@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "../store/store";
 import { Inter, Roboto, Montserrat } from "next/font/google";
 import "./globals.css";
-import "./styles.css";
+import "../public/styles.css";
 import Header from "../components/header";
 // import ViewWithBorderRadius from "../components//ViewWithBorderRadius/ViewWithBorderRadius";
 import BottomNavigation from "../components/bottom-navigation/bottom-control";
