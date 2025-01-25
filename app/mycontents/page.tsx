@@ -16,10 +16,21 @@ import {
   MenuItem,
 } from "@mui/material";
 
+interface Voice {
+  name: string;
+  // Ajoutez d'autres propriétés si nécessaire.
+}
+interface SpeechSynthesisVoice {
+  // name: string;
+  // Ajoutez d'autres propriétés si nécessaire.
+}
+
 export default function FetchLimitedContent() {
   const [content, setContent] = useState("");
   const [voices, setVoices] = useState([]);
-  const [selectedVoice, setSelectedVoice] = useState(null);
+  // const [selectedVoice, setSelectedVoice] = useState(null);
+  // const [selectedVoice, setSelectedVoice] = useState<Voice | null>(null);
+  const [selectedVoice, setSelectedVoice] = useState<Voice | null>(null);
   const [pitch, setPitch] = useState(1); // Tonalité
   const [volume, setVolume] = useState(0.5); // Volume
   const [rate, setRate] = useState(0.8); // Vitesse initiale
@@ -39,7 +50,7 @@ export default function FetchLimitedContent() {
     fetchData();
 
     const loadVoices = () => {
-      let availableVoices = [];
+      let availableVoices: any = [];
       availableVoices = window.speechSynthesis.getVoices();
       console.log("Voices disponibles :", availableVoices);
       const areVoicesAvailable = availableVoices.length > 0;
@@ -65,10 +76,23 @@ export default function FetchLimitedContent() {
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(content);
+    // =============
+    // const voices = window.speechSynthesis.getVoices();
+    const utterance: any = new SpeechSynthesisUtterance(content);
     if (selectedVoice) {
-      utterance.voice = selectedVoice; // Appliquer la voix sélectionnée
+      utterance.voice = selectedVoice;
+    } else {
+      console.warn(
+        "The selected voice is not valid or not found in available voices."
+      );
     }
+
+    // =============
+
+    // const utterance = new SpeechSynthesisUtterance(content);
+    // if (selectedVoice) {
+    //   utterance.voice = selectedVoice; // Appliquer la voix sélectionnée
+    // }
 
     utterance.rate = rate; // Appliquer la vitesse
     utterance.volume = volume;
@@ -85,6 +109,7 @@ export default function FetchLimitedContent() {
     setIsSpeaking(false);
   };
 
+  // On désactive handlePause() pour l'instant car engendre des erreurs
   const handlePause = () => {
     if (isSpeaking) {
       window.speechSynthesis.pause();
@@ -111,13 +136,14 @@ export default function FetchLimitedContent() {
         <Select
           labelId="voice-select-label"
           value={selectedVoice ? selectedVoice.name : ""}
-          onChange={(e) =>
+          onChange={(e: any) =>
             setSelectedVoice(
-              voices.find((voice) => voice.name === e.target.value)
+              selectedVoice
+              // voices.find((voice: any) => voice.name === e.target.value)
             )
           }
         >
-          {voices.map((voice) => (
+          {voices.map((voice: any) => (
             <MenuItem key={voice.name} value={voice.name}>
               {voice.name} ({voice.lang})
             </MenuItem>
@@ -130,7 +156,7 @@ export default function FetchLimitedContent() {
         </InputLabel>
         <Slider
           value={volume}
-          onChange={(e, newValue) => setVolume(newValue)}
+          onChange={(e: any, newValue: any) => setVolume(newValue)}
           min={0}
           max={1}
           step={0.1}
