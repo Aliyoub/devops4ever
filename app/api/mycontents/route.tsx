@@ -1,3 +1,4 @@
+import { error } from "console";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -8,13 +9,16 @@ export async function GET() {
 
     if (!response.ok) {
       return NextResponse.json(
-        { status: response.status },
-        { error: "Impossible de récupérer le fichier" }
+        { error: "Impossible de récupérer le fichier" },
+        { status: response.status }
       );
     }
 
     if (!response.body) {
-      return NextResponse.json({ error: err.message }, { status: 500 });
+      return NextResponse.json(
+        { error: "No response body available" },
+        { status: 500 }
+      );
       //   return res.status(500).json({ error: "No response body available" });
     }
 
@@ -43,7 +47,11 @@ export async function GET() {
     const limitedContent = Buffer.concat(chunks).toString("utf-8");
     // res.status(200).json({ content: limitedContent });
     return NextResponse.json({ content: limitedContent });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    //   } catch (error) {
+    //     res.status(500).json({ error: error.message });
+    //   }
+    // }
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
