@@ -11,14 +11,19 @@ const runtimeCaching = [
     
     // Cible uniquement les fichiers minifiés du répertoire .next
     urlPattern: /^https?:\/\/localhost:3000\/_next\/.*\.(?:min\.js|min\.css)$/,
-
+    // urlPattern: /^https?:\/\/localhost:3000\/sounds\/incorrect-answer.mp3$/,
+    urlPattern: /^\/sounds\/incorrect-answer.mp3$/,
+    // urlPattern: /^\/api\/quiz\/cluster-architecture$/,
+    // urlPattern: /^https?:\/\/localhost:3000\/api\/quiz\/cluster-architecture$/,
     // urlPattern: /^https?:\/\/localhost:3000\/quiz$/,
     // urlPattern: /^https?:\/\/localhost:3000\/api\/github-md$/,
-    
+  
+
     // StaleWhileRevalidate => on sert instantanément le contenu en cache et 
     // on fait une requête réseau en parallèle pour obtenir une version plus à jour, 
     // qui sera stockée pour les prochains accès.
     handler: 'StaleWhileRevalidate', // On veut servir la version en cache, puis raffraîchir
+    handler: 'CacheFirst', // On veut servir la version en cache, puis raffraîchir
     options: {
       cacheName: 'component-render-cache',
       expiration: {
@@ -32,8 +37,8 @@ const withPWA = nextPwa({
   dest: 'public',
   register: true,
   skipWaiting: true,
-  buildExcludes: [/chunks\/.*$/, /.*\.map$/],  // Exclut les fichiers non minifiés
-  swcMinify: true,  // Minification activée avec SWC
+  // buildExcludes: [/chunks\/.*$/, /.*\.map$/],  // Exclut les fichiers non minifiés
+  // swcMinify: true,  // Minification activée avec SWC
   runtimeCaching, // nos règles de cache
   disable: process.env.NODE_ENV === 'development',
 });
