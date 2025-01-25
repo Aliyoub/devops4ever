@@ -2,19 +2,19 @@
 import React, { useRef, useEffect } from "react";
 
 const QuizComponent = () => {
-  const correctSoundRef = useRef(null);
-  const incorrectSoundRef = useRef(null);
+  const correctSoundRef: any = useRef(null);
+  const incorrectSoundRef: any = useRef(null);
 
-  const handleAnswer = (isCorrect) => {
+  const handleAnswer = (isCorrect: any) => {
     if (isCorrect) {
       correctSoundRef.current.play();
     } else {
       incorrectSoundRef.current.play();
     }
   };
-  useEffect(() => {
-    handleAnswer();
-  });
+  // useEffect(() => {
+  //   handleAnswer();
+  // });
   return (
     <div>
       {/* Vos questions de quiz */}
