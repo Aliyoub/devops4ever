@@ -92,9 +92,6 @@ export default function Quizpage({ quizQuestions }: QuizPageProps) {
   // ::::::::::::::: /Pour avoir la route de l'api concernée  :::::::::::::::
 
   const handleValidate = () => {
-    const goodAnswerAudio = new Audio("/sounds/correct-answer.mp3");
-    const badAnswerAudio = new Audio("/sounds/incorrect-answer.mp3");
-
     fetch(`/api/quiz/${apiRoute(child)}`, {
       method: "POST",
       headers: {
@@ -108,11 +105,13 @@ export default function Quizpage({ quizQuestions }: QuizPageProps) {
       .then((res) => res.json())
       .then((data) => {
         if (data.correct === true) {
+          const goodAnswerAudio = new Audio("/sounds/correct-answer.mp3");
           console.log("correct data", data.userGoodAnswers);
           true;
           // Message : Bonne reponse
           goodAnswerAudio.play();
         } else if (data.correct === false) {
+          const badAnswerAudio = new Audio("/sounds/incorrect-answer.mp3");
           console.log("uncorrect data", data.userBadAnswers);
           // Message : Mauvaise reponse
           false;
